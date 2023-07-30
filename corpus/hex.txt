@@ -1,0 +1,22 @@
+==================
+hex numbers
+==================
+
+
+$FF
+$FF
+ffh
+FFh
+Ffh
+fFh
+
+
+---
+
+(source_file
+  (hex)
+  (hex)
+  (hex)
+  (hex)
+  (hex)
+  (hex))

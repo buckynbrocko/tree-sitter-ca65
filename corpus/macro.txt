@@ -1,0 +1,54 @@
+================================================================================
+macro
+================================================================================
+
+
+.macro outer arg0, arg1, arg2
+  .macro inner arg0, arg1, arg2
+    adc 4
+    sty
+    jmp ($BEEF, x)
+  .endmacro
+  adc 4
+  sty
+  jmp ($BEEF, x)
+.endmacro
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (macro
+    (identifier)
+    (parameter_list
+      (identifier)
+      (identifier)
+      (identifier))
+    (block
+      (macro
+        (identifier)
+        (parameter_list
+          (identifier)
+          (identifier)
+          (identifier))
+        (block
+          (instruction
+            (mnemonic)
+            (absolute_address
+              (decimal)))
+          (instruction
+            (mnemonic))
+          (instruction
+            (mnemonic)
+            (indirect_x
+              (hex)))))
+      (instruction
+        (mnemonic)
+        (absolute_address
+          (decimal)))
+      (instruction
+        (mnemonic))
+      (instruction
+        (mnemonic)
+        (indirect_x
+          (hex))))))

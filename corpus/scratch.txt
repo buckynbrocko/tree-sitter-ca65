@@ -1,0 +1,22 @@
+================================================================================
+scratch tests
+================================================================================
+
+
+.asize
+.cpu
+.isize
+.paramcount
+.time
+.version
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (pseudo_variable)
+  (pseudo_variable)
+  (pseudo_variable)
+  (pseudo_variable)
+  (pseudo_variable)
+  (pseudo_variable))

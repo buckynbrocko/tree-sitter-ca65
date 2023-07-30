@@ -1,0 +1,31 @@
+================================================================================
+decimals
+================================================================================
+
+
+1
+12
+123
+adc #123
+adc #123
+adc # 123
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (decimal)
+  (decimal)
+  (decimal)
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (decimal)))
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (decimal)))
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (decimal))))
