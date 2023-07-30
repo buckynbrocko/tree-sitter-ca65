@@ -493,7 +493,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "[a-fA-F0-9]+h"
+          "value": "[a-fA-F0-9]+[hH]"
         }
       ]
     },

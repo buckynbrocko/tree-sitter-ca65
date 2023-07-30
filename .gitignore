@@ -2,6 +2,9 @@
 .DS_Store
 **/.DS_Store
 **/**/.DS_Store
+build/*
+package-lock.json
+target
 
 # Logs
 logs
@@ -133,3 +136,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+build/Makefile
+build/Makefile
+build/config.gypi
+build/tree_sitter_ca65_binding.target.mk

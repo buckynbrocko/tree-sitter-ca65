@@ -88,13 +88,11 @@ const pseudo_functions_exceptional = [
 const pseudo_functions = {
     nominal: pseudo_functions_nominal,
     exceptional: pseudo_functions_exceptional,
-    all: [...nominal, ...exceptional],
 }
-
-// const pseudo_functions = [
-//     ...pseudo_functions_nominal,
-//     ...pseudo_functions_exceptional,
-// ]
+pseudo_functions.all = [
+    ...pseudo_functions.nominal,
+    ...pseudo_functions.exceptional,
+]
 
 const mnemonics = [
     "adc",

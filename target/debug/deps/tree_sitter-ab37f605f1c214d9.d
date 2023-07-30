@@ -1,9 +1,0 @@
-/Users/buckyallen/Documents (Local)/Local Repos/cc65-vscode-ext/tree-sitter-ca65/target/debug/deps/tree_sitter-ab37f605f1c214d9.rmeta: /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/lib.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/ffi.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/util.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/./bindings.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/../include/tree_sitter/parser.h
-
-/Users/buckyallen/Documents (Local)/Local Repos/cc65-vscode-ext/tree-sitter-ca65/target/debug/deps/tree_sitter-ab37f605f1c214d9.d: /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/lib.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/ffi.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/util.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/./bindings.rs /Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/../include/tree_sitter/parser.h
-
-/Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/lib.rs:
-/Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/ffi.rs:
-/Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/util.rs:
-/Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/./bindings.rs:
-/Users/buckyallen/.cargo/registry/src/github.com-1ecc6299db9ec823/tree-sitter-0.20.10/binding_rust/../include/tree_sitter/parser.h:
