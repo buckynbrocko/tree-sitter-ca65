@@ -1,4 +1,4 @@
-.PHONY: init pre-commit troubleshoot generate-grammar test-grammar build-wasm
+.PHONY: init pre-commit troubleshoot generate test build-wasm
 
 init:
 	npm install
@@ -9,10 +9,10 @@ pre-commit:
 troubleshoot:
 	echo "TODO"
 
-generate-grammar:
+generate:
 	npx tree-sitter generate
 
-test-grammar:
+test:
 	npx tree-sitter test
 
 build-wasm:
