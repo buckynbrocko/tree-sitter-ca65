@@ -14,41 +14,51 @@ macro
   jmp ($BEEF, x)
 .endmacro
 
+outer 1, 2, 3
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (macro
-    (identifier)
-    (parameter_list
+  (control_command
+    (macro_declaration
       (identifier)
-      (identifier)
-      (identifier))
-    (block
-      (macro
+      (macro_parameters
         (identifier)
-        (parameter_list
-          (identifier)
-          (identifier)
-          (identifier))
-        (block
-          (instruction
-            (mnemonic)
-            (absolute_address
-              (decimal)))
-          (instruction
-            (mnemonic))
-          (instruction
-            (mnemonic)
-            (indirect_x
-              (hex)))))
-      (instruction
-        (mnemonic)
-        (absolute_address
-          (decimal)))
-      (instruction
-        (mnemonic))
-      (instruction
-        (mnemonic)
-        (indirect_x
-          (hex))))))
+        (identifier)
+        (identifier))
+      (block
+        (control_command
+          (macro_declaration
+            (identifier)
+            (macro_parameters
+              (identifier)
+              (identifier)
+              (identifier))
+            (block
+              (instruction
+                (mnemonic)
+                (absolute_address
+                  (decimal_literal)))
+              (instruction
+                (mnemonic))
+              (instruction
+                (mnemonic)
+                (indirect_x
+                  (hex_literal)
+                  (x))))))
+        (instruction
+          (mnemonic)
+          (absolute_address
+            (decimal_literal)))
+        (instruction
+          (mnemonic))
+        (instruction
+          (mnemonic)
+          (indirect_x
+            (hex_literal)
+            (x))))))
+            (macro_invocation
+              (identifier)
+              (decimal_literal)
+              (decimal_literal)
+              (decimal_literal)))

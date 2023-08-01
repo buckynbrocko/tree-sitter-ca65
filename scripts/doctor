@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+report-existence () {
+    if type $1 &> /dev/null; then
+        echo "\`$1\` installed"
+    else
+        echo "\`$1\` not installed"
+    fi
+}
+
+report-existence node
+report-existence npm
+report-existence emcc #emscripten

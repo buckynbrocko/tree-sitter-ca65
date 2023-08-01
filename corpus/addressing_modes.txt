@@ -1,0 +1,50 @@
+================================================================================
+addressing modes
+================================================================================
+
+
+adc 42 ; absolute
+adc #42 ; immediate
+adc 42, x ; indexed x
+adc 42, y ; indexed y
+adc (42, x) ; indirect x
+adc (42), y ; indirect y
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (instruction
+    (mnemonic)
+    (absolute_address
+      (decimal_literal)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (decimal_literal)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (indexed_x
+      (decimal_literal)
+      (x)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (indexed_y
+      (decimal_literal)
+      (y)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (indirect_x
+      (decimal_literal)
+      (x)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (indirect_y
+      (decimal_literal)
+      (y)))
+  (comment))

@@ -3,9 +3,9 @@ decimals
 ================================================================================
 
 
-1
-12
-123
+.out 1
+.out 12
+.out 123
 adc #123
 adc #123
 adc # 123
@@ -14,18 +14,21 @@ adc # 123
 --------------------------------------------------------------------------------
 
 (source_file
-  (decimal)
-  (decimal)
-  (decimal)
+  (control_command
+    (decimal_literal))
+  (control_command
+    (decimal_literal))
+  (control_command
+    (decimal_literal))
   (instruction
     (mnemonic)
     (immediate_mode
-      (decimal)))
+      (decimal_literal)))
   (instruction
     (mnemonic)
     (immediate_mode
-      (decimal)))
+      (decimal_literal)))
   (instruction
     (mnemonic)
     (immediate_mode
-      (decimal))))
+      (decimal_literal))))

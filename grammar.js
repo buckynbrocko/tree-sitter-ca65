@@ -7,7 +7,7 @@ const operators = {
         ">", ".hibyte",
         "^", ".bankbyte",
     ],
-    binary: [
+    binary_literal: [
         "*",
         "/",
         ".mod",
@@ -213,36 +213,134 @@ mnemonics.all = [
 ]
 
 
+
 const controlCommands = {
-    nominal: []
-}
-
-const ifKeywords = [
-    ".if",
-    ".ifblank",
-    ".ifconst",
-    ".ifdef",
-    ".ifnblank",
-    ".ifndef",
-    ".ifnref",
-    ".ifref",
-    ".ifp02",
-    ".ifp4510",
-    ".ifp816",
-    ".ifpc02",
-    ".ifpdtv",
-    ".ifsc02",
+    nominal: [
+        ".a16",
+        ".a8",
+        ".addr",
+        ".align",
+        ".asciiz",
+        ".autoimport",
+        ".bankbytes",
+        ".bss",
+        ".case",
+        ".charmap",
+        ".code",
+        ".constructor",
+        ".data",
+        ".dbyt",
+        ".debuginfo",
+        ".define",
+        ".delmac", ".delmacro",
+        ".destructor",
+        ".dword",
+        ".end",
+        ".error",
+        ".exitmac", ".exitmacro",
+        ".export",
+        ".exportzp",
+        ".faraddr",
+        ".fatal",
+        ".fileopt", ".fopt",
+        ".forceimport",
+        ".global",
+        ".globalzp",
+        ".hibytes",
+        ".i16",
+        ".i8",
+        ".import",
+        ".importzp",
+        ".incbin",
+        ".include",
+        ".interruptor",
+        ".linecont",
+        ".list",
+        ".listbytes",
+        ".literal",
+        ".lobytes",
+        ".local",
+        ".localchar",
+        ".macpack",
+        ".org",
+        ".out",
+        ".p02",
+        ".p4510",
+        ".p816",
+        ".pagelen", ".pagelength",
+        ".pc02",
+        ".pdtv",
+        ".popcharmap",
+        ".popcpu",
+        ".popseg",
+        ".psc02",
+        ".pushcharmap",
+        ".pushcpu",
+        ".pushseg",
+        ".referto", ".refto",
+        ".reloc",
+        ".res",
+        ".rodata",
+        ".segment",
+        ".set",
+        ".setcpu",
+        ".smart",
+        ".tag",
+        ".undef", ".undefine",
+        ".warning",
+        ".word",
+        ".zeropage",
+    ],
+    exceptional: [
+        ".assert",
+        ".condes",
+        ".enum", ".endenum",
+        ".feature",
+        ".else",
+        ".elseif",
+        ".endif",
+        ".mac", ".macro", ".endmac", ".endmacro",
+        ".proc", ".endproc",
+        ".repeat", ".endrep", ".endrepeat",
+        ".scope", ".endscope",
+        ".struct", ".endstruct",
+        ".union", ".endunion",
+    ],
+    ifKeywords: [
+        ".if",
+        ".ifblank",
+        ".ifconst",
+        ".ifdef",
+        ".ifnblank",
+        ".ifndef",
+        ".ifnref",
+        ".ifref",
+        ".ifp02",
+        ".ifp4510",
+        ".ifp816",
+        ".ifpc02",
+        ".ifpdtv",
+        ".ifsc02",
+    ],
+    storageAllocators: [
+        "byt", ".byte",
+        ".res",
+        ".dbyte",
+        ".word",
+        ".addr",
+        ".faraddr",
+        ".dword",
+    ]
+};
+controlCommands.exceptional = [
+    ...controlCommands.exceptional,
+    ...controlCommands.ifKeywords,
+    ...controlCommands.storageAllocators,
 ]
 
-const storageAllocators = [
-    ".byte",
-    ".res",
-    ".dbyte",
-    ".word",
-    ".addr",
-    ".faraddr",
-    ".dword",
-]
+
+
+
 
 module.exports = grammar({
     name: "ca65",
@@ -251,9 +349,10 @@ module.exports = grammar({
         $.comment,
         $._spacing,
     ],
-    word: $ => $.word_,
+    word: $ => $._word,
     conflicts: $ => [
         [$._nominal_pseudo_function_call, $._ident, $._blank],
+        // [$.macro_invocation, $._expression]
     ],
     inline: $ => [
         $._parenned_expression,
@@ -269,49 +368,39 @@ module.exports = grammar({
         "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
     ]],
     rules: {
-        // reserved: $ => caseInsensitive(reserved),
-        source_file: $ => optional($._lines),
+        source_file: $ => repeat($._line),
+
         comment: _ => /;.*?/,
         _spacing: _ => / |\t/,
+
         _code_unit: $ => choice($._statement, $._expression),
-        unnamed_label: _ => ":",
-        _line: $ => seq(optional($._label), choice($._code_unit, "\n")),
-        // _lines: $ => seq($._line, repeat(seq("\n", $._line))),
-        _lines: $ => delimitted($._line, "\n"),
+        _line: $ => seq(optional($._label), optional($._code_unit), "\n"),
         block: $ => repeat1($._line),
-        _single_line_statement: $ => choice(
+
+        _statement: $ => choice(
             $.control_command,
             $.instruction,
+            $.assignment_statement,
+            $.macro_invocation,
         ),
-        _statement: $ => choice(
-            $._single_line_statement,
-            $._block_statement,
-        ),
-        _block_statement: $ => choice(
-            $.macro,
-            $.enum,
-            $.if_statement,
-        ),
-        assignment: $ => seq($._symbol, "=", $._expression),
-        _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
-        label_assignment: $ => seq($._symbol, ":=", $._expression),
-        label_declaration: $ => prec.left(2, seq($._symbol, ":")),
-        cheap_label_declaration: $ => seq("@", $.label_declaration),
+
+        assignment_statement: $ => seq(field("left", $._symbol), "=", field("right", $._expression)),
+
+
+        //---------------------------
+        // Expressions
+        //---------------------------
+
         _expression: $ => choice(
             // seq("(", $._expression, ")"),
-            $.string_literal,
+            $._literal,
             $.pseudo_variable,
-            $._number,
-            $._symbol,
             $.pseudo_function_call,
-            $.unnamed_label_plus,
-            $.unnamed_label_minus,
-            $.scoped_access,
-            $.global_scope_access,
+            $._symbol,
+            // $.unnamed_label_plus,
+            // $.unnamed_label_minus,
             // $._unary_expression
         ),
-        scoped_access: $ => seq($._symbol, repeat1(seq("::", $._symbol))),
-        global_scope_access: $ => seq("#::", $._symbol, repeat(seq("::", $._symbol))),
         _unary_expression: $ => choice(
             seq(
                 field("operator", choice(...operators.unary)),
@@ -321,22 +410,44 @@ module.exports = grammar({
         _one_or_two_expressions: $ => seq($._expression, optional(seq(",", $._expression))),
         _one_or_more_expressions: $ => delimitted($._expression, ","),
 
-        // instruction: $ => seq($.mnemonic, optional($._addressing_mode)),
+        //---------------------------
+        // Mnemonics & Instructions
+        //---------------------------
+
+        mnemonic: _ => caseInsensitive(mnemonics.common),
         instruction: $ => prec.right(3, seq($.mnemonic, optional($._addressing_mode))),
 
-        // #########################
-        // # Primitives
-        // #########################
-        hex: _ => choice(
+        //---------------------------
+        // Labels
+        //---------------------------
+
+        _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
+        label_assignment: $ => seq($._single_symbol, ":=", $._expression),
+        label_declaration: $ => prec.left(2, seq($._single_symbol, ":")),
+        cheap_label_declaration: $ => seq("@", $.label_declaration),
+
+        unnamed_label: _ => ":",
+        unnamed_label_plus: $ => /:\++/,
+        unnamed_label_minus: $ => /:-+/,
+
+        //---------------------------
+        // Literals
+        //---------------------------
+
+        _literal: $ => choice(
+            $._number_literal,
+            $.string_literal,
+        ),
+        hex_literal: _ => choice(
             /\$[a-fA-F0-9]+/,
             /[a-fA-F0-9]+[hH]/
         ),
-        decimal: _ => /[0-9_]+/,
-        binary: _ => /%[0-1_]+/,
-        _number: $ => choice(
-            $.hex,
-            $.binary,
-            $.decimal,
+        decimal_literal: _ => /[0-9_]+/,
+        binary_literal: _ => /%[0-1_]+/,
+        _number_literal: $ => choice(
+            $.hex_literal,
+            $.binary_literal,
+            $.decimal_literal,
         ),
         string_literal: _ => token.immediate(seq(
             '"',
@@ -344,18 +455,18 @@ module.exports = grammar({
             '"'
         )),
 
+
+        //---------------------------
+        // Pseudo Functions/Variables
+        //---------------------------
+
         pseudo_variable: _ => caseInsensitive(pseudo_variables),
 
-        // #########################
-        // # Pseudo Functions
-        // #########################
-        // _pseudo_function: $ => choice($.ident, $.blank, $.pseudo_function_call),
         pseudo_function: _ => caseInsensitive(pseudo_functions.nominal),
         _nominal_pseudo_function_call: $ => prec.right(seq(
             $.pseudo_function,
             optional(choice(
                 $._expression,
-                // $._parenned_expression,
                 seq("(", $._one_or_more_expressions, ")"),
             ))
         )),
@@ -364,10 +475,10 @@ module.exports = grammar({
             $._blank,
             $._nominal_pseudo_function_call
         ),
+
         blank_keyword: $ => caseInsensitive(".blank"),
         _blank: $ => seq(
             alias($.blank_keyword, $.pseudo_function,),
-            // $.blank_keyword,
             "(",
             choice(
                 $._expression,
@@ -375,18 +486,23 @@ module.exports = grammar({
             ),
             ")"
         ),
+
         ident_keyword: $ => caseInsensitive(".ident"),
         _ident: $ => seq(
             alias($.ident_keyword, $.pseudo_function),
-            // $.ident_keyword,
             $._parenned_expression
         ),
 
-        // #########################
-        // # Control Commands
-        // #########################
-        control_command_2: $ => seq(
-            caseInsensitive(controlCommands.nominal),
+        //---------------------------
+        // Control Commands
+        //---------------------------
+
+        control_command: $ => choice(
+            $._nominal_control_command,
+            $._exceptional_control_command,
+        ),
+        _nominal_control_command: $ => prec.right(seq(
+            field("command", caseInsensitive(controlCommands.nominal)),
             optional(choice(
                 "+", "-",
                 toCaseInsensitive("on"),
@@ -394,96 +510,35 @@ module.exports = grammar({
                 $._one_or_more_expressions
             )
             )
-        ),
-        control_command: $ => choice(
-            field("command", choice(".a16", ".a8",
-                ".bankbytes", // TODO much later
-                ".bss", ".code", ".data",
-                $.define,
-                // ".else", ".elseif",
-                ".end",
-                ".endrep",
-                // ".enum", ".endenum", ".error",
-                ".exitmac", //
-                ".exitmacro", //
-                ".export", // TODO
-                ".exportzp", // TODO
-                // ".faraddr", ".fatal", ".feature", ".fileopt", ".fopt", ".forceimport", ".global", ".globalzp", ".hibytes",
-                ".i16", // as is
-                ".i8", // as is
-                // ".if", ".ifblank", ".ifconst", ".ifdef", ".ifnblank", ".ifndef", ".ifnref", ".ifp02", ".ifp4510", ".ifp816", ".ifpc02", ".ifpdtv", ".ifpsc02", ".ifref", ".endif",
-                ".import", // as is
-                ".importzp", // as is
-                // ".incbin", ".interruptor", ".linecont", ".list", ".listbytes", ".literal", ".lobytes",
-                ".local",
-                ".localchar",
-                ".macpack",
-                ".mac",
-                ".org",
-                ".out",
-                ".p02",
-                ".p4510",
-                ".p816",
-                ".pagelen",
-                ".pagelength",
-                ".pc02",
-                ".pdtv",
-                ".popcharmap",
-                ".popcpu",
-                ".popseg",
-                // ".proc", ".endproc",
-                ".psc02",
-                ".pushcharmap",
-                ".pushcpu",
-                ".pushseg",
-                ".referto",
-                ".refto",
-                ".reloc",
-                ".repeat", ".endrepeat",
-                ".res",
-                ".rodata",
-                // ".scope", ".endscope",
-                ".segment",
-                ".set",
-                ".setcpu",
-                ".smart",
-                ".struct", ".endstruct",
-                ".tag",
-                ".undef",
-                ".undefine",
-                ".union", ".endunion",
-                ".warning",
-                ".word",
-                ".zeropage")),
-            seq(field("command", /\.(case|debuginfo|autoimport|linecont)/), /\+|-/),
-            seq(field("command", /\.(list)/), /on|off|\+|-/),
-            seq(field("command", /\.(include|delmac|delmacro|error|fatal|listbytes)/), $._expression),
-            seq(field("command", /\.(charmap|fileopt|fopt|global|globalzp)/), $._expression, ",", $._expression),
-            seq(field("command", /\.(align|charmap|constructor|destructor|interruptor)/), $._one_or_two_expressions),
-            seq(field("command", /\.(addr|byt|byte|dbyt|asciiz|dword|faraddr|forceimport|hibytes|literal|lobytes)/), $._one_or_more_expressions),
-            seq(field("command", /\.(incbin)/), $._expression, optional(seq(",", $._expression)), optional(seq(",", $._expression))),
-            seq(field("command", ".assert"), $._expression, ",", /warning|error|ldwarning|lderror/, optional(seq(",", $._expression))),
-            seq(field("command", ".condes"), $._expression, ",", /constructor|destructor|[0-6]/, optional(seq(',', $._expression))),
-            seq(field("command", ".feature"), $._feature, repeat(seq(",", $._feature))),
-            // $.macro
-
-        ),
-        _block_control_command: $ => choice(
-            $.enum,
+        )),
+        _exceptional_control_command: $ => choice(
+            $.enum_declaration,
+            $.macro_declaration,
+            $.proc_declaration,
+            $.scope_declaration,
+            $.assert_statement,
+            $.condes_statement,
             $.if_statement,
-            $.macro,
-            $.proc,
-            $.scope
+            $.feature_statement,
+            $.repeat_statement,
         ),
-        define: $ => seq(".define", $._symbol, $._expression),
-        enum: $ => seq(
+
+        assert_statement: $ => seq(field("command", ".assert"), $._expression, ",", /warning|error|ldwarning|lderror/, optional(seq(",", $._expression))),
+
+        condes_statement: $ => seq(field("command", ".condes"), $._expression, ",", /constructor|destructor|[0-6]/, optional(seq(',', $._expression))),
+
+        enum_declaration: $ => seq(
             ".enum",
-            optional(field("name", $._symbol)), "\n",
-            repeat(seq(optional(seq($._symbol, optional(seq("=", $._expression)))), "\n")),
+            optional(field("name", $._single_symbol)), "\n",
+            repeat(seq(optional(seq($._single_symbol, optional(seq("=", $._expression)))), "\n")),
             // field("body", optional($.block)),
-            ".endenum",),
+            ".endenum",
+        ),
+
+        feature_statement: $ => seq(field("command", ".feature"), $._feature, repeat(seq(",", $._feature))),
         _feature: $ => seq($._expression, optional(/-|\+/)),
-        if_keyword: $ => caseInsensitive(ifKeywords),
+
+        if_keyword: $ => caseInsensitive(controlCommands.ifKeywords),
         if_statement: $ => seq(
             $.if_keyword,
             optional(field("condition", $._expression)),
@@ -495,39 +550,68 @@ module.exports = grammar({
         ),
         else: $ => seq(".else", "\n", optional($.block)),
         elseif: $ => seq(".elseif", $._expression, "\n", optional($.block)),
-        macro: $ => seq(
+
+        macro_parameters: $ => seq($._single_symbol, repeat(seq(",", $._single_symbol))),
+        macro_declaration: $ => seq(
             ".macro",
-            field("name", $._symbol),
-            field("parameters", optional($.parameter_list)), "\n",
+            field("name", $._single_symbol),
+            field("parameters", optional($.macro_parameters)), "\n",
             field("body", optional($.block)),
             ".endmacro"),
-        parameter_list: $ => seq($._symbol, repeat(seq(",", $._symbol))),
-        proc: $ => seq(
-            ".proc", $._symbol, "\n",
+        macro_argument: $ => prec.right(choice(
+            $._expression,
+            seq("{", $._expression, "}"),
+        )),
+        macro_arguments: $ => prec.right(choice(
+            $.macro_argument,
+            ",",
+            seq($.macro_argument, ","),
+        )),
+        macro_invocation: $ => seq(
+            $._symbol,
+            $._expression,
+            repeat(seq(",", $._expression))
+            // repeat($.macro_arguments),
+        ),
+
+        proc_declaration: $ => seq(
+            ".proc", $._single_symbol, "\n",
             field("body", optional($.block)),
             ".endproc"
         ),
-        repeat: $ => seq(".repeat", $._one_or_two_expressions, "\n", $.block, ".endrepeat"),
-        scope: $ => seq(
-            ".scope", field("name", $._symbol), "\n",
+
+        repeat_statement: $ => seq(".repeat", $._one_or_two_expressions, "\n", $.block, ".endrepeat"),
+
+        scope_declaration: $ => seq(
+            ".scope", field("name", $._single_symbol), "\n",
             field("body", optional($.block)),
             ".endscope"
         ),
-        struct: $ => seq(
-            ".struct", optional($._symbol), "\n",
+
+        struct_declaration: $ => seq(
+            ".struct", optional($._single_symbol), "\n",
+            optional(field("body", $.struct_block)),
+            ".endstruct"
         ),
-        _storage_allocator: $ => caseInsensitive(storageAllocators),
         struct_member: $ => seq(
-            choice(
-                seq($._symbol,)
+            seq(
+                optional(field("member_name", $._single_symbol)),
+                $.storage_allocator,
+                optional(field("multiplier", $._number_literal))
             ),
             "\n"
         ),
+        _struct_line: $ => seq(optional($._label), optional(choice($._code_unit, $.struct_member)), "\n"),
+        struct_block: $ => repeat1($._struct_line),
+
+        storage_allocator: $ => field("size", caseInsensitive(controlCommands.storageAllocators)),
 
 
-        // #########################
-        // # Addressing
-        // #########################
+
+        //---------------------------
+        // Addressing
+        //---------------------------
+
         _addressing_mode: $ => choice(
             $.absolute_address,
             $.immediate_mode,
@@ -538,25 +622,48 @@ module.exports = grammar({
         ),
         absolute_address: $ => $._expression,
         immediate_mode: $ => seq("#", $._expression),
-        indexed_x: $ => seq($._expression, ",", "x"),
-        indexed_y: $ => seq($._expression, ",", "y"),
-        indirect_x: $ => seq("(", $._expression, ",", "x", ")"),
-        indirect_y: $ => seq("(", $._expression, ")", ",", "y"),
-        unnamed_label_plus: $ => /:\++/,
-        unnamed_label_minus: $ => /:-+/,
+        indexed_x: $ => seq($._expression, ",", $.x),
+        indexed_y: $ => seq($._expression, ",", $.y),
+        indirect_x: $ => seq("(", $._expression, ",", $.x, ")"),
+        indirect_y: $ => seq("(", $._expression, ")", ",", $.y),
 
-        // #########################
-        // # (de)priority Hell
-        // #########################
-        mnemonic: _ => caseInsensitive(mnemonics.common),
-        word_: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_]*/,
+
+        // ---------------------------
+        // (de)priority Hell / Symbols
+        // ---------------------------
+
         identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-        _symbol: $ => choice(
+
+        _single_symbol: $ => choice(
             $.identifier,
-            // $.reserved,
+            // $._reserved,
             prec(2, $._ident)
         ),
-        // reserved: $ => /a|A|f|F|s|S|x|X|y|Y/,
+        _symbol: $ => choice(
+            $._single_symbol,
+            $.scoped_access,
+            $.global_scope_access,
+        ),
+
+        scoped_access: $ => seq($._single_symbol, repeat1(seq("::", $._single_symbol))),
+        global_scope_access: $ => seq("#::", $._single_symbol, repeat(seq("::", $._single_symbol))),
+
+        _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_]*/,
+
+        _reserved: $ => choice(
+            $.a,
+            $.f,
+            $.sp,
+            $.x,
+            $.y,
+            $.z,
+        ),
+        a: _ => caseInsensitive("a"),
+        f: _ => caseInsensitive("f"),
+        sp: _ => choice(caseInsensitive("s"), caseInsensitive("sp")),
+        x: _ => caseInsensitive("x"),
+        y: _ => caseInsensitive("y"),
+        z: _ => caseInsensitive("z"),
     },
 })
 

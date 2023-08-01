@@ -1,22 +1,28 @@
-==================
+================================================================================
 hex numbers
-==================
+================================================================================
 
 
-$FF
-$FF
-ffh
-FFh
-Ffh
-fFh
+.out $FF
+.out $FF
+.out ffh
+.out FFh
+.out Ffh
+.out fFh
 
 
----
+--------------------------------------------------------------------------------
 
 (source_file
-  (hex)
-  (hex)
-  (hex)
-  (hex)
-  (hex)
-  (hex))
+  (control_command
+    (hex_literal))
+  (control_command
+    (hex_literal))
+  (control_command
+    (hex_literal))
+  (control_command
+    (hex_literal))
+  (control_command
+    (hex_literal))
+  (control_command
+    (hex_literal)))

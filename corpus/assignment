@@ -1,0 +1,30 @@
+================================================================================
+assignment statement
+================================================================================
+
+
+foo = 3
+foo = bar
+foo::bar = 3
+foo::bar = baz
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (decimal_literal))
+  (assignment_statement
+    (identifier)
+    (identifier))
+  (assignment_statement
+    (scoped_access
+      (identifier)
+      (identifier))
+    (decimal_literal))
+  (assignment_statement
+    (scoped_access
+      (identifier)
+      (identifier))
+    (identifier)))
