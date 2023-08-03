@@ -3,13 +3,13 @@
 init:
 	npm install
 
-pre-commit:
+pre-commit: generate test build-wasm
 	echo "TODO"
 
 doctor:
 	scripts/doctor
 
-generate:
+generate: grammar.js
 	npx tree-sitter generate
 
 test:
@@ -18,7 +18,7 @@ test:
 test-filter:
 	npx tree-sitter test --filter $(filter)
 
-build-wasm:
+build-wasm: grammar.js
 	npx tree-sitter build-wasm
 
 dev-null:
