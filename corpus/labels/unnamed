@@ -1,0 +1,92 @@
+================================================================================
+Unnamed Labels
+================================================================================
+
+:   lda (ptr1),y        ; #1
+    cmp (ptr2),y
+    bne :+              ; -> #2
+    tax
+    beq :+++            ; -> #4
+    iny
+    bne :-              ; -> #1
+    inc ptr1+1
+    inc ptr2+1
+    bne :-              ; -> #1
+
+:   bcs :+              ; #2 -> #3
+    ldx #$FF
+    rts
+
+:   ldx #$01            ; #3
+:   rts                 ; #4
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unnamed_label)
+  (instruction
+    (mnemonic)
+    (indirect_y
+      (identifier)
+      (y)))
+  (comment)
+  (instruction
+    (mnemonic)
+    (indirect_y
+      (identifier)
+      (y)))
+  (instruction
+    (mnemonic)
+    (unnamed_label_plus))
+  (comment)
+  (instruction
+    (mnemonic))
+  (instruction
+    (mnemonic)
+    (unnamed_label_plus))
+  (comment)
+  (instruction
+    (mnemonic))
+  (instruction
+    (mnemonic)
+    (unnamed_label_minus))
+  (comment)
+  (instruction
+    (mnemonic)
+    (absolute_address
+      (binary_expression
+        (identifier)
+        (binary_operator)
+        (decimal_literal))))
+  (instruction
+    (mnemonic)
+    (absolute_address
+      (binary_expression
+        (identifier)
+        (binary_operator)
+        (decimal_literal))))
+  (instruction
+    (mnemonic)
+    (unnamed_label_minus))
+  (comment)
+  (unnamed_label)
+  (instruction
+    (mnemonic)
+    (unnamed_label_plus))
+  (comment)
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (hex_literal)))
+  (instruction
+    (mnemonic))
+  (unnamed_label)
+  (instruction
+    (mnemonic)
+    (immediate_mode
+      (hex_literal)))
+  (comment)
+  (unnamed_label)
+  (instruction
+    (mnemonic))
+  (comment))

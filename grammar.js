@@ -330,6 +330,25 @@ const controlCommands = {
         ".addr",
         ".faraddr",
         ".dword",
+    ],
+    features: [
+        "at_in_identifiers",
+        "bracket_as_indirect",
+        "c_comments",
+        "dollar_in_identifiers",
+        "dollar_is_pc",
+        "force_range",
+        "labels_without_colons",
+        "leading_dot_in_identifiers",
+        "long_jsr_jmp_rts",
+        "loose_char_term",
+        "loose_string_term",
+        "missing_char_term",
+        "org_per_seg",
+        "pc_assignment",
+        "string_escapes",
+        "ubiquitous_idents",
+        "underline_in_numbers",
     ]
 };
 controlCommands.exceptional = [
@@ -402,10 +421,9 @@ module.exports = grammar({
             $.pseudo_variable,
             $.pseudo_function_call,
             $._symbol,
-            // $.unnamed_label_plus,
-            // $.unnamed_label_minus,
             $.unary_expression,
             $.binary_expression,
+            $.cheap_label,
         ),
         unary_expression: $ => prec(2, choice(
             seq(
@@ -452,7 +470,8 @@ module.exports = grammar({
         _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
         label_assignment: $ => seq($._single_symbol, ":=", $._expression),
         label_declaration: $ => prec.left(2, seq($._single_symbol, ":")),
-        cheap_label_declaration: $ => seq("@", $.label_declaration),
+        cheap_label: $ => seq(choice("@", "?"), $._single_symbol),
+        cheap_label_declaration: $ => prec.left(2, seq($.cheap_label, ":")),
 
         unnamed_label: _ => ":",
         unnamed_label_plus: $ => /:\++/,
@@ -532,26 +551,26 @@ module.exports = grammar({
         _nominal_control_command: $ => prec.right(seq(
             field("command", caseInsensitive(controlCommands.nominal)),
             optional(choice(
+                // alias("+", $.plus),
+                // alias("-", $.minus),
                 "+", "-",
-                toCaseInsensitive("on"),
-                toCaseInsensitive("off"),
                 $._one_or_more_expressions
             )
             )
         )),
         _exceptional_control_command: $ => choice(
+            $.assert_command,
+            $.feature_command,
+            $.repeat_command,
             $.enum_declaration,
             $.macro_declaration,
             $.proc_declaration,
             $.scope_declaration,
-            $.assert_statement,
             $.condes_statement,
             $.if_statement,
-            $.feature_statement,
-            $.repeat_statement,
         ),
 
-        assert_statement: $ => seq(field("command", ".assert"), $._expression, ",", /warning|error|ldwarning|lderror/, optional(seq(",", $._expression))),
+        assert_command: $ => seq(field("command", ".assert"), $._expression, ",", /warning|error|ldwarning|lderror/, optional(seq(",", $._expression))),
 
         condes_statement: $ => seq(field("command", ".condes"), $._expression, ",", /constructor|destructor|[0-6]/, optional(seq(',', $._expression))),
 
@@ -563,8 +582,27 @@ module.exports = grammar({
             ".endenum",
         ),
 
-        feature_statement: $ => seq(field("command", ".feature"), $._feature, repeat(seq(",", $._feature))),
-        _feature: $ => seq($._expression, optional(/-|\+/)),
+        feature_command: $ => seq(field("command", caseInsensitive(".feature")), $._feature, repeat(seq(",", $._feature))),
+        _feature: $ => choice(
+            $.enable_feature,
+            $.disable_feature,
+        ),
+        enable_feature: $ => seq(
+            field("name", $._feature_name),
+            optional(choice(
+                "+",
+                caseInsensitive("on"),
+            ))
+        ),
+        disable_feature: $ => seq(
+            field("name", $._feature_name),
+            choice(
+                "-",
+                caseInsensitive("off"),
+            )
+        ),
+        _feature_name: $ => caseInsensitive(controlCommands.features),
+
 
         if_keyword: $ => caseInsensitive(controlCommands.ifKeywords),
         if_statement: $ => seq(
@@ -608,7 +646,7 @@ module.exports = grammar({
             ".endproc"
         ),
 
-        repeat_statement: $ => seq(".repeat", $._one_or_two_expressions, "\n", $.block, ".endrepeat"),
+        repeat_command: $ => seq(".repeat", $._one_or_two_expressions, "\n", $.block, ".endrepeat"),
 
         scope_declaration: $ => seq(
             ".scope", field("name", $._single_symbol), "\n",
@@ -647,6 +685,8 @@ module.exports = grammar({
             $.indexed_y,
             $.indirect_x,
             $.indirect_y,
+            $.unnamed_label_plus,
+            $.unnamed_label_minus,
         ),
         absolute_address: $ => $._expression,
         immediate_mode: $ => seq("#", $._expression),

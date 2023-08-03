@@ -22,4 +22,4 @@ build-wasm: grammar.js
 	npx tree-sitter build-wasm
 
 dev-null:
-	ca65 .ignore/devnull.asm -o /dev/null
+	ca65 .ignore/dev-null.asm -o /dev/null
