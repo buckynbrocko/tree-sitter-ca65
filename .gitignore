@@ -5,6 +5,8 @@
 build/*
 package-lock.json
 target
+.ignore
+
 
 # Logs
 logs

@@ -1,4 +1,4 @@
-.PHONY: init pre-commit doctor generate test test-filter build-wasm
+.PHONY: init pre-commit doctor generate test test-filter build-wasm dev-null
 
 init:
 	npm install
@@ -20,3 +20,6 @@ test-filter:
 
 build-wasm:
 	npx tree-sitter build-wasm
+
+dev-null:
+	ca65 .ignore/devnull.asm -o /dev/null

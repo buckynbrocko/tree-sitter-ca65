@@ -1,0 +1,14 @@
+==================
+addrsize pseudo-function
+==================
+
+tree-sitter-expression-block-start
+.addrsize(foo)
+tree-sitter-expression-block-end
+
+---
+
+(source_file
+    (pseudo_function_call
+        (pseudo_function)
+        (identifier)))

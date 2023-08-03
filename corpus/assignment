@@ -7,6 +7,8 @@ foo = 3
 foo = bar
 foo::bar = 3
 foo::bar = baz
+foo::bar = baz::qux
+three = 1 + 2
 
 
 --------------------------------------------------------------------------------
@@ -27,4 +29,17 @@ foo::bar = baz
     (scoped_access
       (identifier)
       (identifier))
-    (identifier)))
+    (identifier))
+  (assignment_statement
+    (scoped_access
+      (identifier)
+      (identifier))
+    (scoped_access
+      (identifier)
+      (identifier)))
+  (assignment_statement
+    (identifier)
+    (binary_expression
+      (decimal_literal)
+      (binary_operator)
+      (decimal_literal))))

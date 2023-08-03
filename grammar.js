@@ -7,7 +7,7 @@ const operators = {
         ">", ".hibyte",
         "^", ".bankbyte",
     ],
-    binary_literal: [
+    binary: [
         "*",
         "/",
         ".mod",
@@ -352,28 +352,32 @@ module.exports = grammar({
     word: $ => $._word,
     conflicts: $ => [
         [$._nominal_pseudo_function_call, $._ident, $._blank],
-        // [$.macro_invocation, $._expression]
+        // [$.macro_invocation, $._expression],
+        [$.assignment_statement, $._expression],
+        [$.unary_operator, $.pseudo_function],
+        [$.unary_expression, $.binary_expression],
     ],
     inline: $ => [
         $._parenned_expression,
         $._one_or_more_expressions,
     ],
     precedences: _ => [[
-        "boolean_not", /* ! .not */
-        "boolean_or", // || .or
-        "boolean_and_xor", // && .and .xor
-        "comparison_ops", // = <> < > <= >=
-        "addsub", // + - | .bitor
-        "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
         "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
+        "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
+        "addsub", // + - | .bitor
+        "comparison_ops", // = <> < > <= >=
+        "boolean_and_xor", // && .and .xor
+        "boolean_or", // || .or
+        "boolean_not", /* ! .not */
     ]],
     rules: {
         source_file: $ => repeat($._line),
 
-        comment: _ => /;.*?/,
+        comment: $ => /;.*?/,
         _spacing: _ => / |\t/,
 
-        _code_unit: $ => choice($._statement, $._expression),
+        // _code_unit: $ => choice($._statement, $._expression),
+        _code_unit: $ => choice($._statement),
         _line: $ => seq(optional($._label), optional($._code_unit), "\n"),
         block: $ => repeat1($._line),
 
@@ -382,6 +386,7 @@ module.exports = grammar({
             $.instruction,
             $.assignment_statement,
             $.macro_invocation,
+            $._expression_block,
         ),
 
         assignment_statement: $ => seq(field("left", $._symbol), "=", field("right", $._expression)),
@@ -399,16 +404,39 @@ module.exports = grammar({
             $._symbol,
             // $.unnamed_label_plus,
             // $.unnamed_label_minus,
-            // $._unary_expression
+            $.unary_expression,
+            $.binary_expression,
         ),
-        _unary_expression: $ => choice(
+        unary_expression: $ => prec(2, choice(
             seq(
-                field("operator", choice(...operators.unary)),
-                field("operand", $._expression))
+                field("operator", $.unary_operator),
+                field("operand", $._expression)
+            )
+        )),
+        unary_operator: $ => choice(
+            prec("unary_ops", choice("+", "-", "~", "<", ">", "^", caseInsensitive([".bitnot", ".lobyte", ".hibyte", ".bankbyte"]))),
+            prec("boolean_not", choice("!", caseInsensitive(".not"))),
         ),
         _parenned_expression: $ => seq("(", $._expression, ")"),
         _one_or_two_expressions: $ => seq($._expression, optional(seq(",", $._expression))),
         _one_or_more_expressions: $ => delimitted($._expression, ","),
+        binary_expression: $ => prec.left(seq(
+            field("left", $._expression),
+            field("operator", $.binary_operator),
+            field("right", $._expression),
+        )),
+        binary_operator: $ => choice(
+            prec("muldiv", choice("*", "/", "&", "^", "<<", ">>", caseInsensitive([".mod", ".bitand", ".bitxor", ".shl", ".shr"]))),
+            prec("addsub", choice("+", "-", "|", caseInsensitive(".bitor"))),
+            prec("comparison_ops", caseInsensitive(["=", "<>", "<", ">", "<=", ">="])),
+            prec("boolean_and_xor", choice("&&", caseInsensitive([".and", ".xor"]))),
+            prec("boolean_or", caseInsensitive("or")),
+        ),
+        _expression_block: $ => seq(
+            "tree-sitter-expression-block-start", "\n",
+            repeat(seq(optional($._expression), "\n")),
+            "tree-sitter-expression-block-end",
+        ),
 
         //---------------------------
         // Mnemonics & Instructions
