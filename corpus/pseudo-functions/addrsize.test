@@ -1,0 +1,38 @@
+================================================================================
+addrsize pseudo-function
+================================================================================
+
+tree-sitter-expression-block-start
+
+.addrsize(foo)
+.ident("variable")
+.addrsize( .ident("variable") )
+.addrsize( .ident( .string( $FF ) ) )
+
+tree-sitter-expression-block-end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (nominal_pseudo_function_call
+    name: (pseudo_function)
+    arguments: (expression_list
+      (identifier)))
+  (ident_call
+    name: (pseudo_function)
+    argument: (string_literal))
+  (nominal_pseudo_function_call
+    name: (pseudo_function)
+    arguments: (expression_list
+      (ident_call
+        name: (pseudo_function)
+        argument: (string_literal))))
+  (nominal_pseudo_function_call
+    name: (pseudo_function)
+    arguments: (expression_list
+      (ident_call
+        name: (pseudo_function)
+        argument: (nominal_pseudo_function_call
+          name: (pseudo_function)
+          arguments: (expression_list
+            (hex_literal)))))))

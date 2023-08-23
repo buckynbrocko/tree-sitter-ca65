@@ -1,13 +1,17 @@
 .PHONY: init pre-commit doctor generate test test-filter build-wasm dev-null
 
+main: generate test
+
 init:
 	npm install
+	mkdir -p .ignore
 
 pre-commit: generate test build-wasm
-	echo "TODO"
+	@echo "TODO"
 
 doctor:
-	scripts/doctor
+	@echo "TODO"
+	# scripts/doctor
 
 generate: grammar.js
 	npx tree-sitter generate

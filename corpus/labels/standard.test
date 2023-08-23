@@ -14,25 +14,25 @@ NewStandardLabel:
 
 (source_file
   (label_declaration
-    (identifier))
+    name: (identifier))
   (comment)
   (label_declaration
-    (identifier))
+    name: (identifier))
   (instruction
-    (mnemonic)
-    (immediate_mode
+    mnemonic: (mnemonic)
+    address: (immediate_mode
       (hex_literal)))
   (label_declaration
-    (identifier))
+    name: (identifier))
   (instruction
-    (mnemonic))
+    mnemonic: (mnemonic))
   (comment)
   (cheap_label_declaration
-    (cheap_label
+    name: (cheap_label
       (identifier)))
   (label_declaration
-    (identifier))
+    name: (identifier))
   (cheap_label_declaration
-    (cheap_label
+    name: (cheap_label
       (identifier)))
   (comment))

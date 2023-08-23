@@ -12,25 +12,19 @@ Feature Control-Command
 --------------------------------------------------------------------------------
 
 (source_file
-  (control_command
-    (feature_command
-      (enable_feature)))
-  (control_command
-    (feature_command
-      (enable_feature)))
-  (control_command
-    (feature_command
-      (disable_feature)))
-  (control_command
-    (feature_command
-      (enable_feature)))
-  (control_command
-    (feature_command
-      (disable_feature)))
-  (control_command
-    (feature_command
-      (enable_feature)
-      (disable_feature)
-      (disable_feature)
-      (enable_feature)
-      (enable_feature))))
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (disable_feature))
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (disable_feature))
+  (feature_command
+    (enable_feature)
+    (disable_feature)
+    (disable_feature)
+    (enable_feature)
+    (enable_feature)))

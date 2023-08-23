@@ -1,14 +1,23 @@
 ==================
-addrsize pseudo-function
+Identifiers
 ==================
 
 tree-sitter-expression-block-start
-.addrsize(foo)
+
+foo
+bar
+foo@
+foo$
+.foo
+
 tree-sitter-expression-block-end
 
 ---
 
 (source_file
-    (pseudo_function_call
-        (pseudo_function)
-        (identifier)))
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+)

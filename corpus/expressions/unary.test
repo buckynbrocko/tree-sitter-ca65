@@ -14,17 +14,17 @@ tree-sitter-expression-block-end
 
 (source_file
   (unary_expression
-    (unary_operator)
-    (decimal_literal))
+    operator: (unary_operator)
+    operand: (decimal_literal))
   (unary_expression
-    (unary_operator)
-    (decimal_literal))
+    operator: (unary_operator)
+    operand: (decimal_literal))
   (unary_expression
-    (unary_operator)
-    (decimal_literal))
+    operator: (unary_operator)
+    operand: (decimal_literal))
   (unary_expression
-    (unary_operator)
-    (decimal_literal))
+    operator: (unary_operator)
+    operand: (decimal_literal))
   (unary_expression
-    (unary_operator)
-    (decimal_literal)))
+    operator: (unary_operator)
+    operand: (decimal_literal)))

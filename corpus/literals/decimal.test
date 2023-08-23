@@ -1,0 +1,40 @@
+================================================================================
+Decimal Number Literals
+================================================================================
+
+
+.out 1
+.out 12
+.out 123
+adc #123
+adc #123
+adc # 123
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list 
+      (decimal_literal)))
+  (nominal_control_command
+  name: (command)
+    arguments: (expression_list 
+      (decimal_literal)))
+  (nominal_control_command
+  name: (command)
+    arguments: (expression_list 
+      (decimal_literal)))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (immediate_mode
+      (decimal_literal)))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (immediate_mode
+      (decimal_literal)))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (immediate_mode
+      (decimal_literal))))

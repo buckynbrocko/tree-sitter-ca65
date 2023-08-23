@@ -13,20 +13,21 @@ tree-sitter-expression-block-end
 
 (source_file
   (binary_expression
-    (decimal_literal)
-    (binary_operator)
-    (decimal_literal))
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
   (binary_expression
-    (decimal_literal)
-    (binary_operator)
-    (decimal_literal))
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
   (binary_expression
-    (decimal_literal)
-    (binary_operator)
-    (decimal_literal))
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
   (binary_expression
-    (decimal_literal)
-    (binary_operator)
-    (unary_expression
-      (unary_operator)
-      (decimal_literal))))
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (unary_expression
+      operator: (unary_operator)
+      operand: (decimal_literal)))
+)

@@ -1,0 +1,34 @@
+================================================================================
+Hex Number Literals
+================================================================================
+
+tree-sitter-expression-block-start
+
+$FF
+$FF
+ffh
+FFh
+Ffh
+fFh
+
+; Underscores
+
+$DEAD_BEEF
+$C_0_F_F_E_E
+
+tree-sitter-expression-block-end
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (hex_literal)
+  (hex_literal)
+  (hex_literal)
+  (hex_literal)
+  (hex_literal)
+  (hex_literal)
+  (comment)
+  (hex_literal)
+  (hex_literal)
+)

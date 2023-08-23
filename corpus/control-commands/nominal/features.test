@@ -1,16 +1,26 @@
 ================================================================================
-Features Control-commands
+Features Control-Commands
 ================================================================================
 
 .autoimport +
 .autoimport -
 .case +
 .case -
+.linecont +
+.linecont -
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (control_command)
-  (control_command)
-  (control_command)
-  (control_command))
+  (feature_toggle_command
+    (plus))
+  (feature_toggle_command
+    (minus))
+  (feature_toggle_command
+    (plus))
+  (feature_toggle_command
+    (minus))
+  (feature_toggle_command
+    (plus))
+  (feature_toggle_command
+    (minus)))
