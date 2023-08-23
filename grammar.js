@@ -3,46 +3,8 @@ const pseudo_variables = require("./src/components/pseudo_variables");
 const pseudo_functions = require("./src/components/pseudo_functions");
 const control_commands = require("./src/components/control_commands");
 
-module.exports = grammar({
-    name: "ca65",
-    conflicts: $ => [
-        [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
-        [$.macro_invocation, $._expression],
-        [$.assignment_statement, $._expression],
-        [$.unary_operator, $.pseudo_function],
-        [$.unary_expression, $.binary_expression],
-        // [$.pseudo_function, $.identifier],
-    ],
-    externals: _ => [],
-    extras: $ => [
-        // $.line_continue,
-        $.c_comment,
-        $.comment,
-        $._spacing,
-    ],
-    inline: $ => [
-        $.pseudo_function_call,
-        // $._parenned_expression,
-        // $.expression_list,
-    ],
-    precedences: _ => [
-        [
-            "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
-            "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
-            "addsub", // + - | .bitor
-            "comparison_ops", // = <> < > <= >=
-            "boolean_and_xor", // && .and .xor
-            "boolean_or", // || .or
-            "boolean_not", /* ! .not */
-        ],
-        [
-            "pseudo-function",
-            "identifier",
-        ],
-    ],
-    supertypes: $ => [$.control_command],
-    word: $ => $._word,
-    rules: {
+const rules = {
+    meta: {
         source_file: $ => repeat($._line),
         _spacing: _ => / |\t/,
         _newline: _ => /\r?\n/,
@@ -53,11 +15,8 @@ module.exports = grammar({
         ),
         _line: $ => seq(optional($._label), optional($._code_unit), "\n"),
         block: $ => repeat1($._line),
-
-        //---------------------------
-        // Comments
-        //---------------------------
-
+    },
+    comments: {
         comment: _ => token.immediate(seq(
             ";",
             field("contents", /.*?/)
@@ -69,12 +28,8 @@ module.exports = grammar({
             field("left", "*/"),
             /\r?\n/
         )),
-
-
-        //---------------------------
-        // Statements
-        //---------------------------
-
+    },
+    statements: {
         _statement: $ => choice(
             $.control_command,
             $.instruction,
@@ -83,13 +38,9 @@ module.exports = grammar({
             $._expression_block,
         ),
 
-        assignment_statement: $ => seq(field("left", $._symbol), "=", field("right", $._expression)),
-
-
-        //---------------------------
-        // Expressions
-        //---------------------------
-
+        assignment_statement: $ => seq(field("left", $._symbol), "=", field("right", $._expression))
+    },
+    expressions: {
         _expression: $ => choice(
             // seq("(", $._expression, ")"),
             $._literal,
@@ -132,21 +83,15 @@ module.exports = grammar({
             repeat(seq(optional($._expression), "\n")),
             "tree-sitter-expression-block-end",
         ),
-
-        //---------------------------
-        // Mnemonics & Instructions
-        //---------------------------
-
+    },
+    instructions: {
         mnemonic: _ => caseInsensitive(mnemonics.common),
         instruction: $ => prec.right(3, seq(
             field("mnemonic", $.mnemonic),
             optional(field("address", $._addressing_mode)))
         ),
-
-        //---------------------------
-        // Labels
-        //---------------------------
-
+    },
+    labels: {
         _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
         label_assignment: $ => seq(
             field("left", $._single_symbol),
@@ -167,11 +112,8 @@ module.exports = grammar({
         unnamed_label: _ => ":",
         unnamed_label_plus: $ => /:\++/,
         unnamed_label_minus: $ => /:-+/,
-
-        //---------------------------
-        // Literals
-        //---------------------------
-
+    },
+    literals: {
         _literal: $ => choice(
             $._number_literal,
             $.string_literal,
@@ -203,12 +145,8 @@ module.exports = grammar({
             field("contents", repeat(/[^"]/)), // TODO: escaping
             '"'
         )),
-
-
-        //---------------------------
-        // Pseudo Functions/Variables
-        //---------------------------
-
+    },
+    pseudos: {
         pseudo_variable: _ => caseInsensitive(pseudo_variables),
 
         pseudo_function: _ => caseInsensitive(pseudo_functions.nominal),
@@ -241,11 +179,8 @@ module.exports = grammar({
             // $.ident_keyword,
             field("argument", seq("(", $._expression, ")"))
         ),
-
-        //---------------------------
-        // Control Commands
-        //---------------------------
-
+    },
+    commands: {
         control_command: $ => choice(
             $.nominal_control_command,
             $._exceptional_control_command,
@@ -406,13 +341,8 @@ module.exports = grammar({
         struct_block: $ => repeat1($._struct_line),
 
         storage_allocator: $ => field("size", caseInsensitive(control_commands.storageAllocators)),
-
-
-
-        //---------------------------
-        // Addressing
-        //---------------------------
-
+    },
+    addressing: {
         _addressing_mode: $ => choice(
             $.absolute_address,
             $.immediate_mode,
@@ -435,14 +365,8 @@ module.exports = grammar({
             seq("(", $._expression, ")", ",", $.y),
             seq("[", $._expression, "]", ",", $.y),
         ),
-
-
-        // ---------------------------
-        // (de)priority Hell / Symbols
-        // ---------------------------
-
-        // identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-        // identifier: _ => prec.left("identifier", /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/),
+    },
+    symbols: {
         identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
 
         _single_symbol: $ => choice(
@@ -476,11 +400,66 @@ module.exports = grammar({
         y: _ => caseInsensitive("y"),
         z: _ => caseInsensitive("z"),
     },
+};
+
+
+
+
+const _grammar = grammar({
+    name: "ca65",
+    conflicts: $ => [
+        [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
+        [$.macro_invocation, $._expression],
+        [$.assignment_statement, $._expression],
+        [$.unary_operator, $.pseudo_function],
+        [$.unary_expression, $.binary_expression],
+        // [$.pseudo_function, $.identifier],
+    ],
+    externals: _ => [],
+    extras: $ => [
+        // $.line_continue,
+        $.c_comment,
+        $.comment,
+        $._spacing,
+    ],
+    inline: $ => [
+        $.pseudo_function_call,
+        // $._parenned_expression,
+        // $.expression_list,
+    ],
+    precedences: _ => [
+        [
+            "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
+            "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
+            "addsub", // + - | .bitor
+            "comparison_ops", // = <> < > <= >=
+            "boolean_and_xor", // && .and .xor
+            "boolean_or", // || .or
+            "boolean_not", /* ! .not */
+        ],
+    ],
+    supertypes: $ => [$.control_command],
+    word: $ => $._word,
+    rules: {
+        ...rules.meta,
+        ...rules.comments,
+        ...rules.statements,
+        ...rules.expressions,
+        ...rules.instructions,
+        ...rules.labels,
+        ...rules.literals,
+        ...rules.pseudos,
+        ...rules.commands,
+        ...rules.addressing,
+        ...rules.symbols,
+    },
 })
+
 
 function delimitted(rule, delimiter) {
     return seq(rule, repeat(seq(delimiter, rule)));
 }
+
 
 function toCaseInsensitive(a) {
     var ca = a.charCodeAt(0);
@@ -488,6 +467,7 @@ function toCaseInsensitive(a) {
     if (ca >= 65 && ca <= 90) return `[${a.toLowerCase()}${a}]`;
     return a;
 }
+
 
 function caseInsensitive(rule) {
     switch (typeof rule) {
@@ -541,3 +521,5 @@ const reserved = [ // these were surprisingly hard to find
     "z",
     "sp",
 ]
+
+module.exports = _grammar;

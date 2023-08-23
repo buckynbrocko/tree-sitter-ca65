@@ -3487,16 +3487,6 @@
         "type": "STRING",
         "value": "boolean_not"
       }
-    ],
-    [
-      {
-        "type": "STRING",
-        "value": "pseudo-function"
-      },
-      {
-        "type": "STRING",
-        "value": "identifier"
-      }
     ]
   ],
   "externals": [],

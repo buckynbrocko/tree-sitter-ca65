@@ -144,4 +144,4 @@ controlCommands.exceptional = [
     ...controlCommands.storageAllocators,
 ]
 
-module.exports = controlCommands
+module.exports = controlCommands;
