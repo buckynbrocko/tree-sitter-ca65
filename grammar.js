@@ -1,3 +1,484 @@
+const mnemonics = require("./src/components/mnemonics");
+const pseudo_variables = require("./src/components/pseudo_variables");
+const pseudo_functions = require("./src/components/pseudo_functions");
+const control_commands = require("./src/components/control_commands");
+
+const rules = {
+    meta: {
+        source_file: $ => repeat($._line),
+        _spacing: _ => / |\t/,
+        _newline: _ => /\r?\n/,
+        line_continue: _ => /\\\r?\n/,
+        _code_unit: $ => choice(
+            $._statement,
+            $._expression,
+        ),
+        _line: $ => seq(optional($._label), optional($._code_unit), "\n"),
+        block: $ => repeat1($._line),
+    },
+    comments: {
+        comment: _ => token.immediate(seq(
+            ";",
+            field("contents", /.*?/)
+        )),
+        // c_comment: _ => /\/\*[^(\*\/)]*?\*\/\r?\n/,
+        c_comment: _ => token.immediate(seq(
+            field("left", "/*"),
+            field("contents", /[^(\*\/)]*?/),
+            field("left", "*/"),
+            /\r?\n/
+        )),
+    },
+    statements: {
+        _statement: $ => choice(
+            $.control_command,
+            $.instruction,
+            $.assignment_statement,
+            $.macro_invocation,
+            $._expression_block,
+        ),
+
+        assignment_statement: $ => seq(field("left", $._symbol), "=", field("right", $._expression))
+    },
+    expressions: {
+        _expression: $ => choice(
+            // seq("(", $._expression, ")"),
+            $._literal,
+            $.pseudo_variable,
+            $.pseudo_function_call,
+            $._symbol,
+            $.unary_expression,
+            $.binary_expression,
+            $.cheap_label,
+        ),
+        _parenned_expression: $ => seq("(", $._expression, ")"),
+        _one_or_two_expressions: $ => seq($._expression, optional(seq(",", $._expression))),
+        expression_list: $ => delimitted($._expression, ","),
+        expressions: $ => repeat1($._expression),
+        unary_expression: $ => prec(2, choice(
+            seq(
+                field("operator", $.unary_operator),
+                field("operand", $._expression)
+            )
+        )),
+        unary_operator: $ => choice(
+            prec("unary_ops", choice("+", "-", "~", "<", ">", "^", caseInsensitive([".bitnot", ".lobyte", ".hibyte", ".bankbyte"]))),
+            prec("boolean_not", choice("!", caseInsensitive(".not"))),
+        ),
+
+        binary_expression: $ => prec.left(seq(
+            field("left", $._expression),
+            field("operator", $.binary_operator),
+            field("right", $._expression),
+        )),
+        binary_operator: $ => choice(
+            prec("muldiv", choice("*", "/", "&", "^", "<<", ">>", caseInsensitive([".mod", ".bitand", ".bitxor", ".shl", ".shr"]))),
+            prec("addsub", choice("+", "-", "|", caseInsensitive(".bitor"))),
+            prec("comparison_ops", caseInsensitive(["=", "<>", "<", ">", "<=", ">="])),
+            prec("boolean_and_xor", choice("&&", caseInsensitive([".and", ".xor"]))),
+            prec("boolean_or", caseInsensitive(".or")),
+        ),
+        _expression_block: $ => seq( // (For debugging purposes)
+            "tree-sitter-expression-block-start", "\n",
+            repeat(seq(optional($._expression), "\n")),
+            "tree-sitter-expression-block-end",
+        ),
+    },
+    instructions: {
+        mnemonic: _ => caseInsensitive(mnemonics.common),
+        instruction: $ => prec.right(3, seq(
+            field("mnemonic", $.mnemonic),
+            optional(field("address", $._addressing_mode)))
+        ),
+    },
+    labels: {
+        _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
+        label_assignment: $ => seq(
+            field("left", $._single_symbol),
+            ":=",
+            field("right", $._expression)),
+        label_declaration: $ => prec.left(2, seq(
+            field("name", $._single_symbol),
+            ":")),
+        cheap_label: $ => seq(
+            choice("@", "?"),
+            $._single_symbol
+        ),
+        cheap_label_declaration: $ => prec.left(2, seq(
+            field("name", $.cheap_label),
+            ":")
+        ),
+
+        unnamed_label: _ => ":",
+        unnamed_label_plus: $ => /:\++/,
+        unnamed_label_minus: $ => /:-+/,
+    },
+    literals: {
+        _literal: $ => choice(
+            $._number_literal,
+            $.string_literal,
+        ),
+        _dollar_hex: _ => token.immediate(seq(
+            field("base_symbol", "$"),
+            field("digits", /[a-fA-F0-9]+(_?[a-fA-F0-9]+)*/)
+        )),
+        _h_hex: _ => token.immediate(seq(
+            field("digits", /[a-fA-F0-9]+(_?[a-fA-F0-9]+)*/),
+            field("base_symbol", /[hH]/),
+        )),
+        hex_literal: $ => choice(
+            $._dollar_hex,
+            $._h_hex,
+        ),
+        decimal_literal: _ => field("digits", /[0-9]+(_?[0-9]+)*/),
+        binary_literal: $ => token.immediate(seq(
+            field("base_symbol", "%"),
+            field("digits", /[0-1]+(_?[0-1]+)*/))
+        ),
+        _number_literal: $ => choice(
+            $.hex_literal,
+            $.binary_literal,
+            $.decimal_literal,
+        ),
+        string_literal: _ => token.immediate(seq(
+            '"',
+            field("contents", repeat(/[^"]/)), // TODO: escaping
+            '"'
+        )),
+    },
+    pseudos: {
+        pseudo_variable: _ => caseInsensitive(pseudo_variables),
+
+        pseudo_function: _ => caseInsensitive(pseudo_functions.nominal),
+        nominal_pseudo_function_call: $ => seq(
+            field("name", $.pseudo_function),
+            "(",
+            field("arguments", $.expression_list),
+            ")",
+        ),
+        pseudo_function_call: $ => choice(
+            $.ident_call,
+            $.blank_call,
+            $.nominal_pseudo_function_call
+        ),
+
+        blank_keyword: $ => caseInsensitive(".blank"),
+        blank_call: $ => seq(
+            alias($.blank_keyword, $.pseudo_function),
+            "(",
+            field("argument", choice(
+                $._expression,
+                seq("{", $._expression, "}"),
+            )),
+            ")"
+        ),
+
+        ident_keyword: $ => caseInsensitive(".ident"),
+        ident_call: $ => seq(
+            field("name", alias($.ident_keyword, $.pseudo_function)),
+            // $.ident_keyword,
+            field("argument", seq("(", $._expression, ")"))
+        ),
+    },
+    commands: {
+        control_command: $ => choice(
+            $.nominal_control_command,
+            $._exceptional_control_command,
+        ),
+        nominal_control_command: $ => prec.right(seq(
+            field("name", alias(caseInsensitive(control_commands.nominal), $.command)),
+            optional(field("arguments", $.expression_list))
+        )),
+        _exceptional_control_command: $ => choice(
+            $.assert_command,
+            $.feature_command,
+            $.repeat_command,
+            $.feature_toggle_command,
+            $.enum_declaration,
+            $.macro_declaration,
+            $.proc_declaration,
+            $.scope_declaration,
+            $.condes_statement,
+            $.if_statement,
+        ),
+
+        assert_command: $ => seq(
+            field("command", ".assert"),
+            $._expression, ",",
+            alias(/warning|error|ldwarning|lderror/, $.action_specifier),
+            optional(seq(",", $._expression))
+        ),
+
+        condes_statement: $ => seq(
+            field("command", ".condes"),
+            $._expression, ",",
+            alias(/constructor|destructor|[0-6]/, $.condes_type),
+            optional(seq(',', $._expression))
+        ),
+
+        enum_declaration: $ => seq(
+            field("command", ".enum"),
+            optional(field("name", $._single_symbol)), "\n",
+            repeat(seq(optional(seq($._single_symbol, optional(seq("=", $._expression)))), "\n")),
+            // field("body", optional($.block)),
+            ".endenum",
+        ),
+
+        feature_toggle_command: $ => seq(
+            field("command", caseInsensitive(control_commands.togglableFeatures)),
+            optional(choice(
+                alias("+", $.plus),
+                alias("-", $.minus),
+                alias("on", $.on),
+                alias("off", $.off),
+            ))
+        ),
+
+        feature_command: $ => seq(
+            field("command", caseInsensitive(".feature")),
+            $._feature,
+            repeat(seq(",", $._feature))
+        ),
+        _feature: $ => choice(
+            $.enable_feature,
+            $.disable_feature,
+        ),
+        enable_feature: $ => seq(
+            field("name", $._feature_name),
+            optional(choice(
+                "+",
+                caseInsensitive("on"),
+            ))
+        ),
+        disable_feature: $ => seq(
+            field("name", $._feature_name),
+            choice(
+                "-",
+                caseInsensitive("off"),
+            )
+        ),
+        _feature_name: $ => caseInsensitive(control_commands.compatibilityFeatures),
+
+
+        if_keyword: $ => caseInsensitive(control_commands.ifKeywords),
+        if_statement: $ => seq(
+            field("if_type", alias($.if_keyword, $.command)),
+            optional(field("condition", $._expression)),
+            "\n",
+            field("body", optional($.block)),
+            repeat($.elseif),
+            optional($.else),
+            alias(".endif", $.command)
+        ),
+        else: $ => seq(
+            alias(".else", $.command),
+            "\n",
+            field("body", optional($.block))
+        ),
+        elseif: $ => seq(
+            alias(".elseif", $.command),
+            field("condition", $._expression),
+            "\n",
+            optional($.block)),
+
+        macro_parameters: $ => seq($._single_symbol, repeat(seq(",", $._single_symbol))),
+        macro_declaration: $ => seq(
+            field("command", ".macro"),
+            field("name", $._single_symbol),
+            field("parameters", optional($.macro_parameters)), "\n",
+            field("body", optional($.block)),
+            alias(".endmacro", $.command)
+        ),
+        macro_argument: $ => prec.right(choice(
+            $._expression,
+            seq("{", $._expression, "}"),
+        )),
+        macro_arguments: $ => prec.right(choice(
+            $.macro_argument,
+            ",",
+            seq($.macro_argument, ","),
+        )),
+        macro_invocation: $ => seq(
+            field("name", $._symbol),
+            $._expression,
+            repeat(seq(",", $._expression))
+            // repeat($.macro_arguments),
+        ),
+
+        proc_declaration: $ => seq(
+            field("command", ".proc"), $._single_symbol, "\n",
+            field("body", optional($.block)),
+            ".endproc"
+        ),
+
+        repeat_command: $ => seq(
+            field("command", ".repeat"),
+            $._one_or_two_expressions,
+            "\n",
+            $.block,
+            ".endrepeat"),
+
+        scope_declaration: $ => seq(
+            field("field", ".scope"), field("name", $._single_symbol), "\n",
+            field("body", optional($.block)),
+            ".endscope"
+        ),
+
+        struct_declaration: $ => seq(
+            field("command", ".struct"), optional($._single_symbol), "\n",
+            optional(field("body", $.struct_block)),
+            ".endstruct"
+        ),
+        struct_member: $ => seq(
+            seq(
+                optional(field("member_name", $._single_symbol)),
+                $.storage_allocator,
+                optional(field("multiplier", $._number_literal))
+            ),
+            "\n"
+        ),
+        _struct_line: $ => seq(optional($._label), optional(choice($._code_unit, $.struct_member)), "\n"),
+        struct_block: $ => repeat1($._struct_line),
+
+        storage_allocator: $ => field("size", caseInsensitive(control_commands.storageAllocators)),
+    },
+    addressing: {
+        _addressing_mode: $ => choice(
+            $.absolute_address,
+            $.immediate_mode,
+            $.indexed_x,
+            $.indexed_y,
+            $.indirect_x,
+            $.indirect_y,
+            $.unnamed_label_plus,
+            $.unnamed_label_minus,
+        ),
+        absolute_address: $ => $._expression,
+        immediate_mode: $ => seq("#", $._expression),
+        indexed_x: $ => seq($._expression, ",", $.x),
+        indexed_y: $ => seq($._expression, ",", $.y),
+        indirect_x: $ => choice(
+            seq("(", $._expression, ",", $.x, ")"),
+            seq("[", $._expression, ",", $.x, "]"),
+        ),
+        indirect_y: $ => choice(
+            seq("(", $._expression, ")", ",", $.y),
+            seq("[", $._expression, "]", ",", $.y),
+        ),
+    },
+    symbols: {
+        identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        _single_symbol: $ => choice(
+            $.identifier,
+            // $._reserved,
+            prec(2, $.ident_call)
+        ),
+        _symbol: $ => choice(
+            $._single_symbol,
+            $.scoped_access,
+            $.global_scope_access,
+        ),
+
+        scoped_access: $ => seq($._single_symbol, repeat1(seq("::", $._single_symbol))),
+        global_scope_access: $ => seq("#::", $._single_symbol, repeat(seq("::", $._single_symbol))),
+
+        _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        _reserved: $ => choice(
+            $.a,
+            $.f,
+            $.sp,
+            $.x,
+            $.y,
+            $.z,
+        ),
+        a: _ => caseInsensitive("a"),
+        f: _ => caseInsensitive("f"),
+        sp: _ => choice(caseInsensitive("s"), caseInsensitive("sp")),
+        x: _ => caseInsensitive("x"),
+        y: _ => caseInsensitive("y"),
+        z: _ => caseInsensitive("z"),
+    },
+};
+
+
+
+
+const _grammar = grammar({
+    name: "ca65",
+    conflicts: $ => [
+        [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
+        [$.macro_invocation, $._expression],
+        [$.assignment_statement, $._expression],
+        [$.unary_operator, $.pseudo_function],
+        [$.unary_expression, $.binary_expression],
+        // [$.pseudo_function, $.identifier],
+    ],
+    externals: _ => [],
+    extras: $ => [
+        // $.line_continue,
+        $.c_comment,
+        $.comment,
+        $._spacing,
+    ],
+    inline: $ => [
+        $.pseudo_function_call,
+        // $._parenned_expression,
+        // $.expression_list,
+    ],
+    precedences: _ => [
+        [
+            "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
+            "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
+            "addsub", // + - | .bitor
+            "comparison_ops", // = <> < > <= >=
+            "boolean_and_xor", // && .and .xor
+            "boolean_or", // || .or
+            "boolean_not", /* ! .not */
+        ],
+    ],
+    supertypes: $ => [$.control_command],
+    word: $ => $._word,
+    rules: {
+        ...rules.meta,
+        ...rules.comments,
+        ...rules.statements,
+        ...rules.expressions,
+        ...rules.instructions,
+        ...rules.labels,
+        ...rules.literals,
+        ...rules.pseudos,
+        ...rules.commands,
+        ...rules.addressing,
+        ...rules.symbols,
+    },
+})
+
+
+function delimitted(rule, delimiter) {
+    return seq(rule, repeat(seq(delimiter, rule)));
+}
+
+
+function toCaseInsensitive(a) {
+    var ca = a.charCodeAt(0);
+    if (ca >= 97 && ca <= 122) return `[${a}${a.toUpperCase()}]`;
+    if (ca >= 65 && ca <= 90) return `[${a.toLowerCase()}${a}]`;
+    return a;
+}
+
+
+function caseInsensitive(rule) {
+    switch (typeof rule) {
+        case "string":
+            return new RegExp(rule.split("").map(toCaseInsensitive).join(""));
+        case "object":
+            return choice(...rule.map(caseInsensitive));
+    }
+    console.error("Casefolding failed");
+}
+
 const operators = {
     unary: [
         "+",
@@ -41,535 +522,4 @@ const reserved = [ // these were surprisingly hard to find
     "sp",
 ]
 
-
-const pseudo_variables = [
-    ".asize",
-    ".cpu",
-    ".isize",
-    ".paramcount",
-    ".time",
-    ".version"
-];
-
-const pseudo_functions_nominal = [
-    ".addrsize",
-    ".bank",
-    ".bankbyte",
-    ".concat",
-    ".const",
-    ".def", ".defined",
-    ".definedmacro",
-    ".hibyte",
-    ".hiword",
-    ".ismnem", ".ismnemonic",
-    ".left",
-    ".lobyte",
-    ".loword",
-    ".match",
-    ".max",
-    ".mid",
-    ".min",
-    ".ref", ".referenced",
-    ".right",
-    ".sizeof",
-    ".sprintf",
-    ".strat",
-    ".string",
-    ".strlen",
-    ".tcount",
-    ".xmatch",
-];
-
-const pseudo_functions_exceptional = [
-    ".blank",
-    ".ident",
-]
-
-const pseudo_functions = {
-    nominal: pseudo_functions_nominal,
-    exceptional: pseudo_functions_exceptional,
-}
-pseudo_functions.all = [
-    ...pseudo_functions.nominal,
-    ...pseudo_functions.exceptional,
-]
-
-const mnemonics = [
-    "adc",
-    "and",
-    "asl",
-    "bbr0",
-    "bbr1",
-    "bbr2",
-    "bbr3",
-    "bbr4",
-    "bbr5",
-    "bbr6",
-    "bbr7",
-    "bbs0",
-    "bbs1",
-    "bbs2",
-    "bbs3",
-    "bbs4",
-    "bbs5",
-    "bbs6",
-    "bbs7",
-    "bcc",
-    "bcs",
-    "beq",
-    "bit",
-    "bmi",
-    "bne",
-    "bpl",
-    "brk",
-    "bvc",
-    "bvs",
-    "clc",
-    "cld",
-    "cli",
-    "clv",
-    "cmp",
-    "cpx",
-    "cpy",
-    "dec",
-    "dex",
-    "dey",
-    "eor",
-    "inc",
-    "inx",
-    "iny",
-    "jmp",
-    "jsr",
-    "lda",
-    "ldx",
-    "ldy",
-    "lsr",
-    "nop",
-    "ora",
-    "pha",
-    "php",
-    "pla",
-    "plp",
-    "rol",
-    "ror",
-    "rti",
-    "rts",
-    "sbc",
-    "sec",
-    "sed",
-    "sei",
-    "sta",
-    "stx",
-    "sty",
-    "tax",
-    "tay",
-    "tsx",
-    "txa",
-    "txs",
-    "tya",
-];
-
-const mnemonics_65816_mode = [
-    "cpa",
-    "dea",
-    "ina",
-    "swa",
-    "tad",
-    "tas",
-    "tda",
-    "tsa",
-    "mvn",
-    "mvp",
-];
-
-const mnemonics_6502X_mode = [
-    "alr",
-    "anc",
-    "arr",
-    "axs",
-    "dcp",
-    "isc",
-    "las",
-    "lax",
-    "rla",
-    "rra",
-    "sax",
-    "slo",
-];
-
-const _4510ModeMnemonics = [
-    "lbcc",
-    "lbcs",
-    "lbeq",
-    "lbit",
-    "lbmi",
-    "lbne",
-    "lbpl",
-    "lbrk",
-    "lbvc",
-    "lbvs",
-]
-
-const controlCommands = {
-    nominal: []
-}
-
-const ifKeywords = [
-    ".if",
-    ".ifblank",
-    ".ifconst",
-    ".ifdef",
-    ".ifnblank",
-    ".ifndef",
-    ".ifnref",
-    ".ifref",
-    ".ifp02",
-    ".ifp4510",
-    ".ifp816",
-    ".ifpc02",
-    ".ifpdtv",
-    ".ifsc02",
-]
-
-const storageAllocators = [
-    ".byte",
-    ".res",
-    ".dbyte",
-    ".word",
-    ".addr",
-    ".faraddr",
-    ".dword",
-]
-
-module.exports = grammar({
-    name: "ca65",
-    extras: $ => [
-        // $.line_continuation,
-        $.comment,
-        $._spacing,
-    ],
-    word: $ => $.word_,
-    conflicts: $ => [
-        [$._nominal_pseudo_function_call, $._ident, $._blank],
-    ],
-    inline: $ => [
-        $._parenned_expression,
-        $._one_or_more_expressions,
-    ],
-    precedences: $ => [[
-        "boolean_not", /* ! .not */
-        "boolean_or", // || .or
-        "boolean_and_xor", // && .and .xor
-        "comparison_ops", // = <> < > <= >=
-        "addsub", // + - | .bitor
-        "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
-        "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
-    ]],
-    rules: {
-        source_file: $ => optional($._lines),
-        comment: $ => /;.*?/,
-        _spacing: $ => / |\t/,
-        _code_unit: $ => choice($._statement, $._expression),
-        unnamed_label: $ => ":",
-        _line: $ => seq(optional($._label), choice($._code_unit, "\n")),
-        // _lines: $ => seq($._line, repeat(seq("\n", $._line))),
-        _lines: $ => delimitted($._line, "\n"),
-        block: $ => repeat1($._line),
-        _single_line_statement: $ => choice(
-            $.control_command,
-            $.instruction,
-        ),
-        _statement: $ => choice(
-            $._single_line_statement,
-            $._block_statement,
-        ),
-        _block_statement: $ => choice(
-            $.macro,
-            $.enum,
-            $.if_statement,
-        ),
-        assignment: $ => seq($._symbol, "=", $._expression),
-        _label: $ => choice($.label_declaration, $.cheap_label_declaration, $.unnamed_label),
-        label_assignment: $ => seq($._symbol, ":=", $._expression),
-        label_declaration: $ => prec.left(2, seq($._symbol, ":")),
-        cheap_label_declaration: $ => seq("@", $.label_declaration),
-        _expression: $ => choice(
-            // seq("(", $._expression, ")"),
-            $.string_literal,
-            $.pseudo_variable,
-            $._number,
-            $._symbol,
-            $.pseudo_function_call,
-            $.unnamed_label_plus,
-            $.unnamed_label_minus,
-            $.scoped_access,
-            $.global_scope_access,
-            // $._unary_expression
-        ),
-        scoped_access: $ => seq($._symbol, repeat1(seq("::", $._symbol))),
-        global_scope_access: $ => seq("#::", $._symbol, repeat(seq("::", $._symbol))),
-        _unary_expression: $ => choice(
-            seq(
-                field("operator", choice(...operators.unary)),
-                field("operand", $._expression))
-        ),
-        _parenned_expression: $ => seq("(", $._expression, ")"),
-        _one_or_two_expressions: $ => seq($._expression, optional(seq(",", $._expression))),
-        _one_or_more_expressions: $ => delimitted($._expression, ","),
-
-        // instruction: $ => seq($.mnemonic, optional($._addressing_mode)),
-        instruction: $ => prec.right(3, seq($.mnemonic, optional($._addressing_mode))),
-
-        // #########################
-        // # Primitives
-        // #########################
-        hex: $ => choice(
-            /\$[a-fA-F0-9]+/,
-            /[a-fA-F0-9]+[hH]/
-        ),
-        decimal: $ => /[0-9_]+/,
-        binary: $ => /%[0-1_]+/,
-        _number: $ => choice(
-            $.hex,
-            $.binary,
-            $.decimal,
-        ),
-        string_literal: $ => token.immediate(seq(
-            '"',
-            repeat(/[^"]/), // TODO: escaping
-            '"'
-        )),
-
-        pseudo_variable: $ => caseInsensitive(pseudo_variables),
-
-        // #########################
-        // # Pseudo Functions
-        // #########################
-        // _pseudo_function: $ => choice($.ident, $.blank, $.pseudo_function_call),
-        pseudo_function: $ => caseInsensitive(pseudo_functions.nominal),
-        _nominal_pseudo_function_call: $ => prec.right(seq(
-            $.pseudo_function,
-            optional(choice(
-                $._expression,
-                // $._parenned_expression,
-                seq("(", $._one_or_more_expressions, ")"),
-            ))
-        )),
-        pseudo_function_call: $ => choice(
-            $._ident,
-            $._blank,
-            $._nominal_pseudo_function_call
-        ),
-        blank_keyword: $ => caseInsensitive(".blank"),
-        _blank: $ => seq(
-            alias($.blank_keyword, $.pseudo_function,),
-            // $.blank_keyword,
-            "(",
-            choice(
-                $._expression,
-                seq("{", $._expression, "}"),
-            ),
-            ")"
-        ),
-        ident_keyword: $ => caseInsensitive(".ident"),
-        _ident: $ => seq(
-            alias($.ident_keyword, $.pseudo_function),
-            // $.ident_keyword,
-            $._parenned_expression
-        ),
-
-        // #########################
-        // # Control Commands
-        // #########################
-        control_command_2: $ => seq(
-            caseInsensitive(controlCommands.nominal),
-            optional(choice(
-                "+", "-",
-                toCaseInsensitive("on"),
-                toCaseInsensitive("off"),
-                $._one_or_more_expressions
-            )
-            )
-        ),
-        control_command: $ => choice(
-            field("command", choice(".a16", ".a8",
-                ".bankbytes", // TODO much later
-                ".bss", ".code", ".data",
-                $.define,
-                // ".else", ".elseif",
-                ".end",
-                ".endrep",
-                // ".enum", ".endenum", ".error",
-                ".exitmac", //
-                ".exitmacro", //
-                ".export", // TODO
-                ".exportzp", // TODO
-                // ".faraddr", ".fatal", ".feature", ".fileopt", ".fopt", ".forceimport", ".global", ".globalzp", ".hibytes",
-                ".i16", // as is
-                ".i8", // as is
-                // ".if", ".ifblank", ".ifconst", ".ifdef", ".ifnblank", ".ifndef", ".ifnref", ".ifp02", ".ifp4510", ".ifp816", ".ifpc02", ".ifpdtv", ".ifpsc02", ".ifref", ".endif",
-                ".import", // as is
-                ".importzp", // as is
-                // ".incbin", ".interruptor", ".linecont", ".list", ".listbytes", ".literal", ".lobytes",
-                ".local",
-                ".localchar",
-                ".macpack",
-                ".mac",
-                ".org",
-                ".out",
-                ".p02",
-                ".p4510",
-                ".p816",
-                ".pagelen",
-                ".pagelength",
-                ".pc02",
-                ".pdtv",
-                ".popcharmap",
-                ".popcpu",
-                ".popseg",
-                // ".proc", ".endproc",
-                ".psc02",
-                ".pushcharmap",
-                ".pushcpu",
-                ".pushseg",
-                ".referto",
-                ".refto",
-                ".reloc",
-                ".repeat", ".endrepeat",
-                ".res",
-                ".rodata",
-                // ".scope", ".endscope",
-                ".segment",
-                ".set",
-                ".setcpu",
-                ".smart",
-                ".struct", ".endstruct",
-                ".tag",
-                ".undef",
-                ".undefine",
-                ".union", ".endunion",
-                ".warning",
-                ".word",
-                ".zeropage")),
-            seq(field("command", /\.(case|debuginfo|autoimport|linecont)/), /\+|-/),
-            seq(field("command", /\.(list)/), /on|off|\+|-/),
-            seq(field("command", /\.(include|delmac|delmacro|error|fatal|listbytes)/), $._expression),
-            seq(field("command", /\.(charmap|fileopt|fopt|global|globalzp)/), $._expression, ",", $._expression),
-            seq(field("command", /\.(align|charmap|constructor|destructor|interruptor)/), $._one_or_two_expressions),
-            seq(field("command", /\.(addr|byt|byte|dbyt|asciiz|dword|faraddr|forceimport|hibytes|literal|lobytes)/), $._one_or_more_expressions),
-            seq(field("command", /\.(incbin)/), $._expression, optional(seq(",", $._expression)), optional(seq(",", $._expression))),
-            seq(field("command", ".assert"), $._expression, ",", /warning|error|ldwarning|lderror/, optional(seq(",", $._expression))),
-            seq(field("command", ".condes"), $._expression, ",", /constructor|destructor|[0-6]/, optional(seq(',', $._expression))),
-            seq(field("command", ".feature"), $._feature, repeat(seq(",", $._feature))),
-            // $.macro
-
-        ),
-        _block_control_command: $ => choice(
-            $.enum,
-            $.if_statement,
-            $.macro,
-            $.proc,
-            $.scope
-        ),
-        define: $ => seq(".define", $._symbol, $._expression),
-        enum: $ => seq(
-            ".enum",
-            optional(field("name", $._symbol)), "\n",
-            repeat(seq(optional(seq($._symbol, optional(seq("=", $._expression)))), "\n")),
-            // field("body", optional($.block)),
-            ".endenum",),
-        _feature: $ => seq($._expression, optional(/-|\+/)),
-        if_keyword: $ => caseInsensitive(ifKeywords),
-        if_statement: $ => seq(
-            $.if_keyword,
-            optional(field("condition", $._expression)),
-            "\n",
-            optional($.block),
-            repeat($.elseif),
-            optional($.else),
-            ".endif"
-        ),
-        else: $ => seq(".else", "\n", optional($.block)),
-        elseif: $ => seq(".elseif", $._expression, "\n", optional($.block)),
-        macro: $ => seq(
-            ".macro",
-            field("name", $._symbol),
-            field("parameters", optional($.parameter_list)), "\n",
-            field("body", optional($.block)),
-            ".endmacro"),
-        parameter_list: $ => seq($._symbol, repeat(seq(",", $._symbol))),
-        proc: $ => seq(
-            ".proc", $._symbol, "\n",
-            field("body", optional($.block)),
-            ".endproc"
-        ),
-        repeat: $ => seq(".repeat", $._one_or_two_expressions, "\n", $.block, ".endrepeat"),
-        scope: $ => seq(
-            ".scope", field("name", $._symbol), "\n",
-            field("body", optional($.block)),
-            ".endscope"
-        ),
-        struct: $ => seq(
-            ".struct", optional($._symbol), "\n",
-        ),
-        _storage_allocator: $ => caseInsensitive(storageAllocators),
-        struct_member: $ => seq(
-            choice(
-                seq($._symbol,)
-            ),
-            "\n"
-        ),
-
-
-        // #########################
-        // # Addressing
-        // #########################
-        _addressing_mode: $ => choice(
-            $.absolute_address,
-            $.immediate_mode,
-            $.indexed_x,
-            $.indexed_y,
-            $.indirect_x,
-            $.indirect_y,
-        ),
-        absolute_address: $ => $._expression,
-        immediate_mode: $ => seq("#", $._expression),
-        indexed_x: $ => seq($._expression, ",", "x"),
-        indexed_y: $ => seq($._expression, ",", "y"),
-        indirect_x: $ => seq("(", $._expression, ",", "x", ")"),
-        indirect_y: $ => seq("(", $._expression, ")", ",", "y"),
-        unnamed_label_plus: $ => /:\++/,
-        unnamed_label_minus: $ => /:-+/,
-
-        // #########################
-        // # (de)priority Hell
-        // #########################
-        mnemonic: $ => caseInsensitive(mnemonics),
-        word_: $ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_]*/,
-        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-        _symbol: $ => choice($.identifier, prec(2, $._ident)),
-        // reserved: $ => /a|A|f|F|s|S|x|X|y|Y/,
-    },
-})
-
-function delimitted(rule, delimiter) {
-    return seq(rule, repeat(seq(delimiter, rule)));
-}
-
-function toCaseInsensitive(a) {
-    var ca = a.charCodeAt(0);
-    if (ca >= 97 && ca <= 122) return `[${a}${a.toUpperCase()}]`;
-    if (ca >= 65 && ca <= 90) return `[${a.toLowerCase()}${a}]`;
-    return a;
-}
-
-function caseInsensitive(rule) {
-    switch (typeof rule) {
-        case "string":
-            return new RegExp(rule.split("").map(toCaseInsensitive).join(""));
-        case "object":
-            return choice(...rule.map(caseInsensitive));
-    }
-    console.error("Casefolding failed");
-}
-
+module.exports = _grammar;

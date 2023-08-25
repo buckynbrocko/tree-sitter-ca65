@@ -1,0 +1,23 @@
+==================
+Identifiers
+==================
+
+tree-sitter-expression-block-start
+
+foo
+bar
+foo@
+foo$
+.foo
+
+tree-sitter-expression-block-end
+
+---
+
+(source_file
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+)

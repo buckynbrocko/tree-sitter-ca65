@@ -1,0 +1,32 @@
+================================================================================
+If Statements
+================================================================================
+
+.if 1 = $1
+    .out "1 equals $1"
+.else
+    .out "uh oh"
+.endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    if_type: (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (hex_literal))
+    body: (block
+      (nominal_control_command
+        name: (command)
+        arguments: (expression_list
+          (string_literal))))
+    (else
+      (command)
+      body: (block
+        (nominal_control_command
+          name: (command)
+          arguments: (expression_list
+            (string_literal)))))
+    (command)))

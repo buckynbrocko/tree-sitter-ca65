@@ -1,0 +1,35 @@
+==================
+Binary Literals
+==================
+
+tree-sitter-expression-block-start
+
+%0
+%1
+%00
+%11
+%101
+%111
+%0_0
+%1_1
+%000_1111
+%101_010
+%111_000
+
+tree-sitter-expression-block-end
+
+---
+
+(source_file
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+    (binary_literal)
+)

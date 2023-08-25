@@ -1,0 +1,30 @@
+================================================================================
+Feature Control-Command
+================================================================================
+
+.feature c_comments
+.feature c_comments +
+.feature c_comments -
+.feature c_comments on
+.feature c_comments off
+.feature c_comments, at_in_identifiers -, dollar_is_pc off, leading_dot_in_identifiers on, org_per_seg +
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (disable_feature))
+  (feature_command
+    (enable_feature))
+  (feature_command
+    (disable_feature))
+  (feature_command
+    (enable_feature)
+    (disable_feature)
+    (disable_feature)
+    (enable_feature)
+    (enable_feature)))

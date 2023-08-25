@@ -1,0 +1,33 @@
+================================================================================
+Binary Expressions
+================================================================================
+
+tree-sitter-expression-block-start
+1 - 1
+1 + 1
+1 * 1
+1 * -1
+tree-sitter-expression-block-end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (binary_operator)
+    right: (unary_expression
+      operator: (unary_operator)
+      operand: (decimal_literal)))
+)

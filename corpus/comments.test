@@ -1,0 +1,28 @@
+==================
+Comments
+==================
+
+;This be a comment
+; Also a comment
+
+/**/
+
+; ...
+
+/* ;idk */
+
+; ...
+
+/* a */
+
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (c_comment)
+  (comment)
+  (c_comment)
+  (comment)
+  (c_comment))

@@ -1,0 +1,29 @@
+==================
+concat pseudo-function
+==================
+
+
+.concat("hello", "world", "!")
+.string("hello", "world", ".")
+
+
+---
+
+(source_file
+  (nominal_pseudo_function_call
+    name: (pseudo_function)
+    arguments: (expression_list
+      (string_literal)
+      (string_literal)
+      (string_literal)
+      )
+    )
+  (nominal_pseudo_function_call
+    name: (pseudo_function)
+    arguments: (expression_list
+      (string_literal)
+      (string_literal)
+      (string_literal)
+      )
+    )
+)

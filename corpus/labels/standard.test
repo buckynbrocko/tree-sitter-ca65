@@ -1,0 +1,38 @@
+================================================================================
+Standard Labels
+================================================================================
+
+Label:
+    ; ...
+AnotherLabel: lda #$00
+YetAnotherLabel: rts ; and a comment
+@CheapLabel:
+NewStandardLabel:
+@CheapLabel: ; (again)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (label_declaration
+    name: (identifier))
+  (comment)
+  (label_declaration
+    name: (identifier))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (immediate_mode
+      (hex_literal)))
+  (label_declaration
+    name: (identifier))
+  (instruction
+    mnemonic: (mnemonic))
+  (comment)
+  (cheap_label_declaration
+    name: (cheap_label
+      (identifier)))
+  (label_declaration
+    name: (identifier))
+  (cheap_label_declaration
+    name: (cheap_label
+      (identifier)))
+  (comment))

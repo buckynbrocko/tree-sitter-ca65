@@ -1,0 +1,30 @@
+================================================================================
+unary expressions
+================================================================================
+
+tree-sitter-expression-block-start
++1
+-1
+~1
+<1
+>1
+tree-sitter-expression-block-end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (unary_expression
+    operator: (unary_operator)
+    operand: (decimal_literal))
+  (unary_expression
+    operator: (unary_operator)
+    operand: (decimal_literal))
+  (unary_expression
+    operator: (unary_operator)
+    operand: (decimal_literal))
+  (unary_expression
+    operator: (unary_operator)
+    operand: (decimal_literal))
+  (unary_expression
+    operator: (unary_operator)
+    operand: (decimal_literal)))

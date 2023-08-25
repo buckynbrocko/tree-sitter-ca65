@@ -15,5 +15,16 @@
   },
   "scripts": {
     "test": "tree-sitter test"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.ca65",
+      "file-types": [
+        "s",
+        "asm",
+        "ca65"
+      ],
+      "injection-regex": "ca65"
+    }
+  ]
 }

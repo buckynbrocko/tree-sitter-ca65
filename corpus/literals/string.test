@@ -1,0 +1,42 @@
+================================================================================
+String Literals
+================================================================================
+
+
+.out "multi-line
+string"
+.include "this be a string"
+.include .concat("this also be a string")
+.include .concat("this", "be", "a", "concatenated", "string")
+
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+        (string_literal)))
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+        (string_literal)))
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+    (nominal_pseudo_function_call
+      name: (pseudo_function)
+      arguments: (expression_list
+      (string_literal))))
+    )
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+    (nominal_pseudo_function_call
+      name: (pseudo_function)
+      arguments: (expression_list
+        (string_literal)
+        (string_literal)
+        (string_literal)
+        (string_literal)
+        (string_literal))))))
