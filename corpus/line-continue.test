@@ -1,0 +1,29 @@
+==================
+line-continue
+==================
+
+adc \
+    #123
+.out "continued string \
+    continues string"
+; cannot be continued \
+  will_be_an_ambiguous_symbol
+
+---
+
+(source_file
+  (instruction
+    mnemonic: (mnemonic)
+    (line_continue)
+    address: (immediate_mode
+      (decimal_literal))
+    )
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+      (string_literal)
+    )
+  )
+  (comment)
+  (ambiguous_symbol (identifier))
+)

@@ -5,6 +5,8 @@ main: generate test
 init:
 	npm install
 	mkdir -p .ignore
+	touch -c .ignore/dev-null.asm
+
 
 pre-commit: generate test build-wasm
 	@echo "TODO"
