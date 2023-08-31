@@ -5,6 +5,8 @@ main: generate test
 init:
 	npm install
 	mkdir -p .ignore
+	touch -c .ignore/dev-null.asm
+
 
 pre-commit: generate test build-wasm
 	@echo "TODO"
@@ -24,6 +26,9 @@ test-filter:
 
 build-wasm: grammar.js
 	npx tree-sitter build-wasm
+
+publish:
+	scripts/publish
 
 dev-null:
 	ca65 .ignore/dev-null.asm -o /dev/null

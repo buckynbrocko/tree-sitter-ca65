@@ -1,0 +1,37 @@
+================================================================================
+.enum command
+================================================================================
+
+.enum a_name
+    foo = 1
+    bar = 2
+    .if 1 < 2
+        baz = 3
+    .endif
+.endenum
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (command)
+    name: (identifier)
+    body: (block
+      (assignment_statement
+        left: (identifier)
+        right: (decimal_literal))
+      (assignment_statement
+        left: (identifier)
+        right: (decimal_literal))
+      (if_statement
+        if_type: (command)
+        condition: (binary_expression
+          left: (decimal_literal)
+          operator: (binary_operator)
+          right: (decimal_literal))
+        body: (block
+          (assignment_statement
+            left: (identifier)
+            right: (decimal_literal)))
+        (command)))
+    (command)))

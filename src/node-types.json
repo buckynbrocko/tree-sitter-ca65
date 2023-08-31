@@ -24,6 +24,10 @@
         "named": true
       },
       {
+        "type": "file_opt_command",
+        "named": true
+      },
+      {
         "type": "if_statement",
         "named": true
       },
@@ -45,6 +49,14 @@
       },
       {
         "type": "scope_declaration",
+        "named": true
+      },
+      {
+        "type": "struct_declaration",
+        "named": true
+      },
+      {
+        "type": "union_declaration",
         "named": true
       }
     ]
@@ -117,54 +129,15 @@
     }
   },
   {
-    "type": "assert_command",
+    "type": "ambiguous_symbol",
     "named": true,
-    "fields": {
-      "command": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": ".assert",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "action_specifier",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
           "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
           "named": true
         },
         {
@@ -176,23 +149,173 @@
           "named": true
         },
         {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
           "type": "scoped_access",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "assert_command",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "contextual_keyword",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "message": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
+          "type": "command",
           "named": true
         }
       ]
@@ -225,9 +348,17 @@
         ]
       },
       "right": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -293,9 +424,17 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -365,9 +504,17 @@
         ]
       },
       "right": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -441,6 +588,14 @@
         "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -528,6 +683,14 @@
       "required": false,
       "types": [
         {
+          "type": "EOF",
+          "named": true
+        },
+        {
+          "type": "ambiguous_symbol",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -608,6 +771,10 @@
           "named": true
         },
         {
+          "type": "union_struct_member",
+          "named": true
+        },
+        {
           "type": "unnamed_label",
           "named": true
         }
@@ -658,79 +825,179 @@
     "type": "condes_statement",
     "named": true,
     "fields": {
-      "command": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": ".condes",
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          }
+        ]
+      },
+      "priority": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
             "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "contextual_keyword",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "condes_type",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
+          "type": "command",
           "named": true
         }
       ]
@@ -744,7 +1011,22 @@
   {
     "type": "disable_feature",
     "named": true,
-    "fields": {}
+    "fields": {
+      "quantifier": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "minus",
+            "named": true
+          },
+          {
+            "type": "off",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "else",
@@ -776,10 +1058,28 @@
     "type": "elseif",
     "named": true,
     "fields": {
-      "condition": {
+      "body": {
         "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -840,13 +1140,9 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "block",
-          "named": true
-        },
         {
           "type": "command",
           "named": true
@@ -857,19 +1153,34 @@
   {
     "type": "enable_feature",
     "named": true,
-    "fields": {}
+    "fields": {
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "plus",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "enum_declaration",
     "named": true,
     "fields": {
-      "command": {
+      "body": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": ".enum",
-            "named": false
+            "type": "block",
+            "named": true
           }
         ]
       },
@@ -890,62 +1201,10 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
+          "type": "command",
           "named": true
         }
       ]
@@ -1027,6 +1286,10 @@
       "required": true,
       "types": [
         {
+          "type": "command",
+          "named": true
+        },
+        {
           "type": "disable_feature",
           "named": true
         },
@@ -1040,25 +1303,107 @@
   {
     "type": "feature_toggle_command",
     "named": true,
-    "fields": {},
+    "fields": {
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "minus",
+            "named": true
+          },
+          {
+            "type": "off",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "plus",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "minus",
+          "type": "command",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "file_opt_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
           "named": true
         },
         {
-          "type": "off",
+          "type": "binary_literal",
           "named": true
         },
         {
-          "type": "on",
+          "type": "blank_call",
           "named": true
         },
         {
-          "type": "plus",
+          "type": "cheap_label",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "global_scope_access",
+          "named": true
+        },
+        {
+          "type": "hex_literal",
+          "named": true
+        },
+        {
+          "type": "ident_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nominal_pseudo_function_call",
+          "named": true
+        },
+        {
+          "type": "pseudo_variable",
+          "named": true
+        },
+        {
+          "type": "scoped_access",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -1189,9 +1534,17 @@
         ]
       },
       "condition": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -1786,16 +2139,6 @@
           }
         ]
       },
-      "command": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": ".macro",
-            "named": false
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1822,7 +2165,7 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -2021,6 +2364,20 @@
             "named": false
           }
         ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -2028,11 +2385,7 @@
       "required": true,
       "types": [
         {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
+          "type": "command",
           "named": true
         }
       ]
@@ -2052,13 +2405,97 @@
     "type": "repeat_command",
     "named": true,
     "fields": {
-      "command": {
+      "body": {
         "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "iterations": {
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": ".repeat",
+            "type": "(",
             "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "iterator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
           }
         ]
       }
@@ -2068,63 +2505,7 @@
       "required": true,
       "types": [
         {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
+          "type": "command",
           "named": true
         }
       ]
@@ -2144,16 +2525,6 @@
           }
         ]
       },
-      "field": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": ".scope",
-            "named": false
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
@@ -2168,6 +2539,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2197,6 +2578,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "EOF",
+          "named": true
+        },
+        {
+          "type": "ambiguous_symbol",
+          "named": true
+        },
         {
           "type": "assignment_statement",
           "named": true
@@ -2295,109 +2684,25 @@
     "fields": {}
   },
   {
-    "type": "struct_block",
+    "type": "string_literal",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "assignment_statement",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "cheap_label_declaration",
-          "named": true
-        },
-        {
-          "type": "control_command",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "instruction",
-          "named": true
-        },
-        {
-          "type": "label_declaration",
-          "named": true
-        },
-        {
-          "type": "macro_invocation",
-          "named": true
-        },
-        {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "struct_member",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "unnamed_label",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
-    "type": "struct_member",
+    "type": "struct_declaration",
     "named": true,
     "fields": {
-      "member_name": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2410,32 +2715,14 @@
             "named": true
           }
         ]
-      },
-      "multiplier": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "binary_literal",
-            "named": true
-          },
-          {
-            "type": "decimal_literal",
-            "named": true
-          },
-          {
-            "type": "hex_literal",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "storage_allocator",
+          "type": "command",
           "named": true
         }
       ]
@@ -2446,9 +2733,17 @@
     "named": true,
     "fields": {
       "operand": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "binary_expression",
             "named": true
@@ -2525,17 +2820,149 @@
     "fields": {}
   },
   {
+    "type": "union_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_struct_member",
+    "named": true,
+    "fields": {
+      "multiplier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "global_scope_access",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "scoped_access",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident_call",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "storage_allocator",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "unnamed_label",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "\n",
-    "named": false
-  },
-  {
-    "type": "!",
-    "named": false
   },
   {
     "type": "#",
@@ -2543,14 +2970,6 @@
   },
   {
     "type": "#::",
-    "named": false
-  },
-  {
-    "type": "&",
-    "named": false
-  },
-  {
-    "type": "&&",
     "named": false
   },
   {
@@ -2562,75 +2981,11 @@
     "named": false
   },
   {
-    "type": "*",
-    "named": false
-  },
-  {
-    "type": "+",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
   {
-    "type": "-",
-    "named": false
-  },
-  {
-    "type": ".assert",
-    "named": false
-  },
-  {
-    "type": ".condes",
-    "named": false
-  },
-  {
-    "type": ".endenum",
-    "named": false
-  },
-  {
-    "type": ".endproc",
-    "named": false
-  },
-  {
-    "type": ".endrepeat",
-    "named": false
-  },
-  {
-    "type": ".endscope",
-    "named": false
-  },
-  {
-    "type": ".endstruct",
-    "named": false
-  },
-  {
-    "type": ".enum",
-    "named": false
-  },
-  {
-    "type": ".macro",
-    "named": false
-  },
-  {
     "type": ".proc",
-    "named": false
-  },
-  {
-    "type": ".repeat",
-    "named": false
-  },
-  {
-    "type": ".scope",
-    "named": false
-  },
-  {
-    "type": ".struct",
-    "named": false
-  },
-  {
-    "type": "/",
     "named": false
   },
   {
@@ -2646,23 +3001,7 @@
     "named": false
   },
   {
-    "type": "<",
-    "named": false
-  },
-  {
-    "type": "<<",
-    "named": false
-  },
-  {
     "type": "=",
-    "named": false
-  },
-  {
-    "type": ">",
-    "named": false
-  },
-  {
-    "type": ">>",
     "named": false
   },
   {
@@ -2674,6 +3013,10 @@
     "named": false
   },
   {
+    "type": "EOF",
+    "named": true
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -2682,15 +3025,7 @@
     "named": false
   },
   {
-    "type": "^",
-    "named": false
-  },
-  {
     "type": "a",
-    "named": true
-  },
-  {
-    "type": "action_specifier",
     "named": true
   },
   {
@@ -2706,7 +3041,7 @@
     "named": true
   },
   {
-    "type": "condes_type",
+    "type": "contextual_keyword",
     "named": true
   },
   {
@@ -2715,6 +3050,10 @@
   },
   {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "line_continue",
     "named": true
   },
   {
@@ -2731,10 +3070,6 @@
   },
   {
     "type": "plus",
-    "named": true
-  },
-  {
-    "type": "string_literal",
     "named": true
   },
   {
@@ -2770,15 +3105,7 @@
     "named": false
   },
   {
-    "type": "|",
-    "named": false
-  },
-  {
     "type": "}",
-    "named": false
-  },
-  {
-    "type": "~",
     "named": false
   }
 ]

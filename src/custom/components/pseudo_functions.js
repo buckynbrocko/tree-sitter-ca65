@@ -2,16 +2,13 @@ const pseudo_functions = {
     nominal: [
         ".addrsize",
         ".bank",
-        ".bankbyte",
         ".concat",
         ".const",
         ".def", ".defined",
         ".definedmacro",
-        ".hibyte",
         ".hiword",
         ".ismnem", ".ismnemonic",
         ".left",
-        ".lobyte",
         ".loword",
         ".match",
         ".max",
@@ -29,6 +26,9 @@ const pseudo_functions = {
     ],
     exceptional: [
         ".blank",
+        ".hibyte",
+        ".lobyte",
+        ".bankbyte",
         ".ident",
     ],
 }

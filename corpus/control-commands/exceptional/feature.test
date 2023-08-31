@@ -13,18 +13,32 @@ Feature Control-Command
 
 (source_file
   (feature_command
+    (command)
     (enable_feature))
   (feature_command
-    (enable_feature))
+    (command)
+    (enable_feature
+      quantifier: (plus)))
   (feature_command
-    (disable_feature))
+    (command)
+    (disable_feature
+      quantifier: (minus)))
   (feature_command
-    (enable_feature))
+    (command)
+    (enable_feature
+      quantifier: (on)))
   (feature_command
-    (disable_feature))
+    (command)
+    (disable_feature
+      quantifier: (off)))
   (feature_command
+    (command)
     (enable_feature)
-    (disable_feature)
-    (disable_feature)
-    (enable_feature)
-    (enable_feature)))
+    (disable_feature
+      quantifier: (minus))
+    (disable_feature
+      quantifier: (off))
+    (enable_feature
+      quantifier: (on))
+    (enable_feature
+      quantifier: (plus))))

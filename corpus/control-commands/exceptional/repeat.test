@@ -1,0 +1,28 @@
+================================================================================
+.repeat command
+================================================================================
+
+.repeat 1
+    ; ...
+.endrepeat
+
+.repeat 1, an_identifier
+    ; ...
+.endrepeat
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (repeat_command
+    (command)
+    iterations: (decimal_literal)
+    (comment)
+    body: (block)
+    (command))
+  (repeat_command
+    (command)
+    iterations: (decimal_literal)
+    iterator: (identifier)
+    (comment)
+    body: (block)
+    (command)))

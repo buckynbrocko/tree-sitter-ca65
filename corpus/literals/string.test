@@ -3,32 +3,31 @@ String Literals
 ================================================================================
 
 
-.out "multi-line
-string"
-.include "this be a string"
-.include .concat("this also be a string")
-.include .concat("this", "be", "a", "concatenated", "string")
 
+tree-sitter-expression-block-start
+"double quoted"
+'single quoted'
+"double quoted with escaped double quote \""
+"double quoted with escaped single quote \'"
+'single quoted with escaped double quote \"'
+'single quoted with escaped single quote \''
+"all the escaped characters \\\'\"\t\r\n\xAA"
+'all the escaped characters \\\'\"\t\r\n\xAA'
+tree-sitter-expression-block-end
+
+.include .concat("this", "be", "a", "concatenated", "string")
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (nominal_control_command
-    name: (command)
-    arguments: (expression_list
-        (string_literal)))
-  (nominal_control_command
-    name: (command)
-    arguments: (expression_list
-        (string_literal)))
-  (nominal_control_command
-    name: (command)
-    arguments: (expression_list
-    (nominal_pseudo_function_call
-      name: (pseudo_function)
-      arguments: (expression_list
-      (string_literal))))
-    )
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
+  (string_literal)
   (nominal_control_command
     name: (command)
     arguments: (expression_list
@@ -39,4 +38,5 @@ string"
         (string_literal)
         (string_literal)
         (string_literal)
-        (string_literal))))))
+        (string_literal)))))
+        )

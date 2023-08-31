@@ -13,14 +13,20 @@ Features Control-Commands
 
 (source_file
   (feature_toggle_command
-    (plus))
+    (command)
+    quantifier: (plus))
   (feature_toggle_command
-    (minus))
+    (command)
+    quantifier: (minus))
   (feature_toggle_command
-    (plus))
+    (command)
+    quantifier: (plus))
   (feature_toggle_command
-    (minus))
+    (command)
+    quantifier: (minus))
   (feature_toggle_command
-    (plus))
+    (command)
+    quantifier: (plus))
   (feature_toggle_command
-    (minus)))
+    (command)
+    quantifier: (minus)))

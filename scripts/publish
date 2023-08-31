@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+error () {
+    >&2 echo -e "\x1b[1;31mERROR: $1\x1b[0m"
+    exit -1
+}
+
+branch-is () {
+    if (( $# < 1 )); then
+        error "branch name needed"
+    fi
+
+    CURRENT=$(git branch --show-current)
+
+    if [[ $CURRENT == $1 ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+if (! (branch-is "main") ) ; then
+    error "Branch is not 'main'. Please switch to branch 'main' before publishing (\`git switch main\`)"
+fi
+
+npm publish --dry-run

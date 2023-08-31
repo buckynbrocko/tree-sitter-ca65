@@ -15,11 +15,13 @@ Macros
 .endmacro
 
 outer 1, 2, 3
+outer
 
 --------------------------------------------------------------------------------
 
 (source_file
   (macro_declaration
+    (command)
     name: (identifier)
     parameters: (macro_parameters
       (identifier)
@@ -27,6 +29,7 @@ outer 1, 2, 3
       (identifier))
     body: (block
       (macro_declaration
+        (command)
         name: (identifier)
         parameters: (macro_parameters
           (identifier)
@@ -61,4 +64,7 @@ outer 1, 2, 3
     name: (identifier)
     (decimal_literal)
     (decimal_literal)
-    (decimal_literal)))
+    (decimal_literal))
+  (ambiguous_symbol
+    (identifier))
+    )

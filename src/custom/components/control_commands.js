@@ -1,4 +1,4 @@
-const controlCommands = {
+const control_commands = {
     nominal: [
         ".a16",
         ".a8",
@@ -23,7 +23,6 @@ const controlCommands = {
         ".exportzp",
         ".faraddr",
         ".fatal",
-        ".fileopt", ".fopt",
         ".forceimport",
         ".global",
         ".globalzp",
@@ -74,6 +73,7 @@ const controlCommands = {
         ".case",
         ".debuginfo",
         ".linecont",
+        ".list",
         ".smart",
     ],
     exceptional: [
@@ -81,10 +81,10 @@ const controlCommands = {
         ".condes",
         ".enum", ".endenum",
         ".feature",
+        ".fileopt", ".fopt",
         ".else",
         ".elseif",
         ".endif",
-        ".list",
         ".mac", ".macro", ".endmac", ".endmacro",
         ".proc", ".endproc",
         ".repeat", ".endrep", ".endrepeat",
@@ -109,7 +109,7 @@ const controlCommands = {
         ".ifsc02",
     ],
     storageAllocators: [
-        "byt", ".byte",
+        ".byt", ".byte",
         ".res",
         ".dbyte",
         ".word",
@@ -138,10 +138,15 @@ const controlCommands = {
     ]
 };
 
-controlCommands.exceptional = [
-    ...controlCommands.exceptional,
-    ...controlCommands.ifKeywords,
-    ...controlCommands.storageAllocators,
+control_commands.exceptional = [
+    ...control_commands.exceptional,
+    ...control_commands.ifKeywords,
+    ...control_commands.storageAllocators,
 ]
 
-module.exports = controlCommands;
+control_commands.nominal = [
+    ...control_commands.nominal,
+    ...control_commands.storageAllocators,
+]
+
+module.exports = control_commands;

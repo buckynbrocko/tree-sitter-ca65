@@ -98,6 +98,7 @@ const mnemonics = {
         "rra",
         "sax",
         "slo",
+        "sre",
     ],
     _4510Mode: [
         "lbcc",

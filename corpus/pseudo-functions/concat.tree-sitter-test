@@ -2,9 +2,10 @@
 concat pseudo-function
 ==================
 
-
+tree-sitter-expression-block-start
 .concat("hello", "world", "!")
 .string("hello", "world", ".")
+tree-sitter-expression-block-end
 
 
 ---

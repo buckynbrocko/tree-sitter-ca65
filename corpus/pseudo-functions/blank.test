@@ -1,0 +1,20 @@
+==================
+.blank pseudo-function
+==================
+
+tree-sitter-expression-block-start
+
+.blank(idk)
+.blank({idk})
+
+tree-sitter-expression-block-end
+
+---
+
+(source_file
+      (blank_call
+        (pseudo_function)
+        (identifier))
+      (blank_call
+        (pseudo_function)
+        (identifier)))
