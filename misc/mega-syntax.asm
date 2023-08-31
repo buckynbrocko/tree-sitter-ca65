@@ -3,6 +3,7 @@
 ;;; ;;; ;;; ;;; ;;;
 
 ;;; Number Literals
+tree-sitter-expression-block-start
 %0
 %1
 %00
@@ -38,10 +39,13 @@ $EE
 $FF
 $DEAD
 $BEEF
+tree-sitter-expression-block-end
 
 
 ;;; String Literals
+tree-sitter-expression-block-start
 "hello world"
+tree-sitter-expression-block-end
 
 ;;; ;;; ;;; ;;; ;;;
 ;;; Mnemonics

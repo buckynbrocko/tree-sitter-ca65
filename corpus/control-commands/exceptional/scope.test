@@ -1,0 +1,53 @@
+================================================================================
+.scope command
+================================================================================
+
+.scope foo
+    .scope bar
+        baz = 3
+    .endscope
+.endscope
+
+.out .sprintf("%d", foo::bar::baz)
+.out .sprintf("%d", foo::.ident("bar")::baz)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (scope_declaration
+    (command)
+    name: (identifier)
+    body: (block
+      (scope_declaration
+        (command)
+        name: (identifier)
+        body: (block
+          (assignment_statement
+            left: (identifier)
+            right: (decimal_literal)))
+        (command)))
+    (command))
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+      (nominal_pseudo_function_call
+        name: (pseudo_function)
+        arguments: (expression_list
+          (string_literal)
+          (scoped_access
+            (identifier)
+            (identifier)
+            (identifier))))))
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+      (nominal_pseudo_function_call
+        name: (pseudo_function)
+        arguments: (expression_list
+          (string_literal)
+          (scoped_access
+            (identifier)
+            (ident_call
+              name: (pseudo_function)
+              argument: (string_literal))
+            (identifier)))))))

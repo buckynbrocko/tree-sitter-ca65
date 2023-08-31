@@ -7,6 +7,16 @@
     "parsing",
     "incremental"
   ],
+  "author": {
+    "name": "Bucky Allen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buckynbrocko/tree-sitter-ca65.git"
+  },
+  "files": [
+    "tree-sitter-ca65.wasm"
+  ],
   "dependencies": {
     "nan": "^2.12.1"
   },

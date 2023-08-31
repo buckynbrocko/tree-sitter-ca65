@@ -10,41 +10,74 @@ adc 42, y ; indexed y
 adc (42, x) ; indirect x
 adc (42), y ; indirect y
 
+adc (1 + 2) + 40, y
+adc (1 + 2), y
+adc ((6 * 7), x)
+
+
+
 
 --------------------------------------------------------------------------------
 
 (source_file
   (instruction
-    (mnemonic)
-    (absolute_address
+    mnemonic: (mnemonic)
+    address: (absolute_address
       (decimal_literal)))
   (comment)
   (instruction
-    (mnemonic)
-    (immediate_mode
+    mnemonic: (mnemonic)
+    address: (immediate_mode
       (decimal_literal)))
   (comment)
   (instruction
-    (mnemonic)
-    (indexed_x
+    mnemonic: (mnemonic)
+    address: (indexed_x
       (decimal_literal)
       (x)))
   (comment)
   (instruction
-    (mnemonic)
-    (indexed_y
+    mnemonic: (mnemonic)
+    address: (indexed_y
       (decimal_literal)
       (y)))
   (comment)
   (instruction
-    (mnemonic)
-    (indirect_x
+    mnemonic: (mnemonic)
+    address: (indirect_x
       (decimal_literal)
       (x)))
   (comment)
   (instruction
-    (mnemonic)
-    (indirect_y
+    mnemonic: (mnemonic)
+    address: (indirect_y
       (decimal_literal)
       (y)))
-  (comment))
+  (comment)
+  (instruction
+    mnemonic: (mnemonic)
+    address: (indexed_y
+      (binary_expression
+        left: (binary_expression
+          left: (decimal_literal)
+          operator: (binary_operator)
+          right: (decimal_literal))
+        operator: (binary_operator)
+        right: (decimal_literal))
+      (y)))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (indirect_y
+      (binary_expression
+        left: (decimal_literal)
+        operator: (binary_operator)
+        right: (decimal_literal))
+      (y)))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (indirect_x
+      (binary_expression
+        left: (decimal_literal)
+        operator: (binary_operator)
+        right: (decimal_literal))
+      (x))))

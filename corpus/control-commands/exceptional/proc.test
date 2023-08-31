@@ -1,0 +1,26 @@
+================================================================================
+.proc command
+================================================================================
+
+.proc a_name
+    ; doing stuff ...
+    adc 123
+    .out "meehoy meenyoy"
+.endproc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (proc_declaration
+    name: (identifier)
+    (comment)
+    body: (block
+      (instruction
+        mnemonic: (mnemonic)
+        address: (absolute_address
+          (decimal_literal)))
+      (nominal_control_command
+        name: (command)
+        arguments: (expression_list
+          (string_literal))))
+    (command)))

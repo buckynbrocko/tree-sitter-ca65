@@ -1,0 +1,108 @@
+================================================================================
+.condes command
+================================================================================
+
+.condes some_symbol, constructor, 69
+.condes some_symbol, destructor, 420
+.condes some_symbol, 0, 3
+.condes some_symbol, 1, 0
+.condes some_symbol, 2, 100
+.condes some_symbol, 3, 1337
+.condes some_symbol, 4, 86
+.condes some_symbol, 5, 75
+.condes some_symbol, 6, 309
+
+.condes some_symbol, constructor
+.condes some_symbol, destructor
+.condes some_symbol, 0
+.condes some_symbol, 1
+.condes some_symbol, 2
+.condes some_symbol, 3
+.condes some_symbol, 4
+.condes some_symbol, 5
+.condes some_symbol, 6
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (contextual_keyword)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (contextual_keyword)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)
+    priority: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (contextual_keyword))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (contextual_keyword))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal))
+  (condes_statement
+    (command)
+    name: (identifier)
+    type: (decimal_literal)))

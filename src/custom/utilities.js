@@ -3,21 +3,36 @@ function delimited(rule, delimiter) {
 }
 
 
-function _toCaseInsensitive(a) {
-    var ca = a.charCodeAt(0);
-    if (ca >= 97 && ca <= 122) return `[${a}${a.toUpperCase()}]`;
-    if (ca >= 65 && ca <= 90) return `[${a.toLowerCase()}${a}]`;
-    return a.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+function _decase_character(character) {
+    var ca = character.charCodeAt(0);
+    if (ca >= 97 && ca <= 122) return `[${character}${character.toUpperCase()}]`;
+    if (ca >= 65 && ca <= 90) return `[${character.toLowerCase()}${character}]`;
+    return character.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+function _decase_string(string_) {
+    if (typeof string_ !== "string") {
+        console.error(string_);
+        throw new TypeError("type is " + typeof string_);
+    }
+    return new RegExp(string_.split("").map(_decase_character).join(""));
 }
 
 
-function caseless(rule) {
-    if (Array.isArray(rule)) {
-        return choice(...rule.map(caseless));
-    } else if (typeof rule === "string") {
-        return new RegExp(rule.split("").map(_toCaseInsensitive).join(""));
+function caseless(...rules) {
+    switch (rules.length) {
+        case 0: throw new Error("Need a rule for an argument");
+        case 1:
+            let rule = rules[0];
+            if (typeof rule === "string") {
+                return _decase_string(rule);
+            } else if (Array.isArray(rule)) {
+                return choice(...rule.map(_decase_string));
+            }
+            throw new Error("Casefolding failed");
+        default:
+            return caseless(rules);
     }
-    throw new Error("Casefolding failed");
 }
 
 function rep(...rule) {
@@ -89,7 +104,7 @@ function optional_field(name, value) {
 }
 
 module.exports.delimited = delimited;
-module.exports.toCaseInsensitive = _toCaseInsensitive;
+module.exports.toCaseInsensitive = _decase_character;
 module.exports.caseless = caseless;
 module.exports.rep = rep;
 module.exports.rep1 = rep1;

@@ -27,5 +27,8 @@ test-filter:
 build-wasm: grammar.js
 	npx tree-sitter build-wasm
 
+publish:
+	scripts/publish
+
 dev-null:
 	ca65 .ignore/dev-null.asm -o /dev/null

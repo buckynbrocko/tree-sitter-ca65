@@ -1,0 +1,66 @@
+================================================================================
+.struct command
+================================================================================
+
+.struct Foo
+    foo .word
+    .byte
+    .byte 2
+    bar .addr 3
+    .if 1 < 2
+        baz .byte
+    .elseif 1 > 2
+        baz .word
+    .else
+        baz .byte 3
+    .endif
+.endstruct
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_declaration
+    (command)
+    name: (identifier)
+    body: (block
+      (union_struct_member
+        name: (identifier)
+        size: (storage_allocator))
+      (union_struct_member
+        size: (storage_allocator))
+      (union_struct_member
+        size: (storage_allocator)
+        multiplier: (decimal_literal))
+      (union_struct_member
+        name: (identifier)
+        size: (storage_allocator)
+        multiplier: (decimal_literal))
+      (if_statement
+        if_type: (command)
+        condition: (binary_expression
+          left: (decimal_literal)
+          operator: (binary_operator)
+          right: (decimal_literal))
+        body: (block
+          (union_struct_member
+            name: (identifier)
+            size: (storage_allocator)))
+        (elseif
+          (command)
+          condition: (binary_expression
+            left: (decimal_literal)
+            operator: (binary_operator)
+            right: (decimal_literal))
+          body: (block
+            (union_struct_member
+              name: (identifier)
+              size: (storage_allocator))))
+        (else
+          (command)
+          body: (block
+            (union_struct_member
+              name: (identifier)
+              size: (storage_allocator)
+              multiplier: (decimal_literal))))
+        (command)))
+    (command)))

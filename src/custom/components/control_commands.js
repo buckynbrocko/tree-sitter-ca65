@@ -146,7 +146,7 @@ control_commands.exceptional = [
 
 control_commands.nominal = [
     ...control_commands.nominal,
-    control_commands.storageAllocators,
+    ...control_commands.storageAllocators,
 ]
 
 module.exports = control_commands;

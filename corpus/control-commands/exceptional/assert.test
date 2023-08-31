@@ -1,0 +1,77 @@
+================================================================================
+.assert command
+================================================================================
+
+.assert 1 < 2, warning, "uh oh"
+.assert 1 < 2, error, "uh oh"
+.assert 1 < 2, ldwarning, "uh oh"
+.assert 1 < 2, lderror, "uh oh"
+
+.assert 1 < 2, warning
+.assert 1 < 2, error
+.assert 1 < 2, ldwarning
+.assert 1 < 2, lderror
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword)
+    message: (string_literal))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword)
+    message: (string_literal))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword)
+    message: (string_literal))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword)
+    message: (string_literal))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword))
+  (assert_command
+    (command)
+    condition: (binary_expression
+      left: (decimal_literal)
+      operator: (binary_operator)
+      right: (decimal_literal))
+    action: (contextual_keyword)))

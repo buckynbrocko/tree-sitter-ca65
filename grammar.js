@@ -19,11 +19,12 @@ const optional_field = utilities.optional_field;
 const grammar_ = () => grammar({
     name: "ca65",
     conflicts: $ => [
-        [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
-        [$.macro_invocation, $._expression],
-        [$.assignment_statement, $._expression],
-        [$.unary_operator, $.pseudo_function],
-        [$.unary_expression, $.binary_expression],
+        // [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
+        // [$.macro_invocation, $._expression],
+        // [$.assignment_statement, $._expression],
+        // [$.unary_operator, $.pseudo_function],
+        // [$.unary_expression, $.binary_expression],
+        // [$.union_struct_member, $.macro_invocation],
         // [$.pseudo_function, $.identifier],
     ],
     externals: _ => [],
@@ -38,7 +39,7 @@ const grammar_ = () => grammar({
     ],
     precedences: _ => [
         [
-            "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .banknyte
+            "unary_ops", // + - ~ < > ^ .bitnot .lobyte .hibyte .bankbyte
             "muldiv", /* * / & ^  <<  >> .mod .bitand .bitxor .shl .shr */
             "addsub", // + - | .bitor
             "comparison_ops", // = <> < > <= >=
@@ -46,6 +47,10 @@ const grammar_ = () => grammar({
             "boolean_or", // || .or
             "boolean_not", /* ! .not */
         ],
+        [
+            "enum-member",
+            "statement"
+        ]
     ],
     supertypes: $ => [$.control_command],
     word: $ => $._word,
@@ -87,7 +92,6 @@ const rules_ = {
             ";",
             field("contents", /.*?/)
         ),
-        // c_comment: _ => /\/\*[^(\*\/)]*?\*\/\r?\n/,
         c_comment: _ => immediate(
             field("left", "/*"),
             field("contents", /[^(\*\/)]*?/),
@@ -112,8 +116,8 @@ const rules_ = {
         )
     },
     expressions: {
-        _expression: $ => pick(
-            // ["(", $._expression, ")"],
+        _expression: $ => choice(
+            prec(-1, seq("(", $._expression, ")")),
             $._literal,
             $.pseudo_variable,
             $.pseudo_function_call,
@@ -122,7 +126,6 @@ const rules_ = {
             $.binary_expression,
             $.cheap_label,
         ),
-        _parenned_expression: $ => seq("(", $._expression, ")"),
         expression_list: $ => delimited($._expression, ","),
         expressions: $ => repeat1($._expression),
         unary_expression: $ => prec(2,
@@ -132,8 +135,8 @@ const rules_ = {
             )
         ),
         unary_operator: $ => choice(
-            prec("unary_ops", choice("+", "-", "~", "<", ">", "^", caseless([".bitnot", ".lobyte", ".hibyte", ".bankbyte"]))),
-            prec("boolean_not", choice("!", caseless(".not"))),
+            prec("unary_ops", caseless("+", "-", "~", "<", ">", "^", ".bitnot", ".lobyte", ".hibyte", ".bankbyte")),
+            prec("boolean_not", caseless("!", ".not")),
         ),
 
         binary_expression: $ => prec.left(seq(
@@ -142,10 +145,10 @@ const rules_ = {
             field("right", $._expression),
         )),
         binary_operator: $ => choice(
-            prec("muldiv", choice("*", "/", "&", "^", "<<", ">>", caseless([".mod", ".bitand", ".bitxor", ".shl", ".shr"]))),
-            prec("addsub", choice("+", "-", "|", caseless(".bitor"))),
-            prec("comparison_ops", caseless(["=", "<>", "<", ">", "<=", ">="])),
-            prec("boolean_and_xor", choice("&&", caseless([".and", ".xor"]))),
+            prec("muldiv", caseless("*", "/", "&", "^", "<<", ">>", ".mod", ".bitand", ".bitxor", ".shl", ".shr")),
+            prec("addsub", caseless("+", "-", "|", ".bitor")),
+            prec("comparison_ops", caseless("=", "<>", "<", ">", "<=", ">=")),
+            prec("boolean_and_xor", caseless("&&", ".and", ".xor")),
             prec("boolean_or", caseless(".or")),
         ),
         _expression_block: $ => seq( // (For testing/debugging purposes)
@@ -159,7 +162,7 @@ const rules_ = {
         ),
     },
     instructions: {
-        mnemonic: _ => caseless(mnemonics.common),
+        mnemonic: _ => caseless(mnemonics.all),
         instruction: $ => prec.right(3,
             seq(
                 field("mnemonic", $.mnemonic),
@@ -291,7 +294,6 @@ const rules_ = {
         ident_keyword: _ => caseless(".ident"),
         ident_call: $ => seq(
             field("name", alias($.ident_keyword, $.pseudo_function)),
-            // $.ident_keyword,
             field("argument", seq("(", $._expression, ")"))
         ),
     },
@@ -304,9 +306,9 @@ const rules_ = {
             seq(
                 field(
                     "name",
-                    alias(caseless(control_commands.nominal), $.command)
+                    caseless_alias(control_commands.nominal, $.command)
                 ),
-                optional(field("arguments", $.expression_list))
+                optional_field("arguments", $.expression_list)
             )
         ),
         _exceptional_control_command: $ => choice(
@@ -320,6 +322,7 @@ const rules_ = {
             $.macro_declaration,
             $.proc_declaration,
             $.scope_declaration,
+            $.struct_declaration,
             $.union_declaration,
 
             $.condes_statement,
@@ -332,12 +335,12 @@ const rules_ = {
             ",",
             field(
                 "action",
-                caseless([
+                caseless_alias([
                     "warning",
                     "error",
                     "ldwarning",
                     "lderror"
-                ])
+                ], $.contextual_keyword)
             ),
             opt(
                 ",",
@@ -347,21 +350,22 @@ const rules_ = {
 
         condes_statement: $ => seq(
             caseless_alias(".condes", $.command),
-            $._expression,
+            field("name", $._symbol),
             ",",
             field(
                 "type",
                 choice(
-                    /[0-6]/,
-                    caseless([
+                    $._expression,
+                    // /[0-6]/,
+                    caseless_alias([
                         "constructor",
                         "destructor"
-                    ])
+                    ], $.contextual_keyword)
                 )
             ),
             opt(
                 ',',
-                field("message", $._expression)
+                field("priority", $._expression)
             )
         ),
 
@@ -369,13 +373,7 @@ const rules_ = {
             caseless_alias(".enum", $.command),
             optional_field("name", $._single_symbol),
             $._newline,
-            rep(
-                opt(
-                    $._single_symbol,
-                    opt("=", $._expression)
-                ),
-                $._newline,
-            ),
+            optional_field("body", $.block),
             caseless_alias(".endenum", $.command),
         ),
 
@@ -424,11 +422,11 @@ const rules_ = {
             caseless_alias([".fileopt", ".fopt"], $.command),
             field(
                 "option",
-                caseless([
+                caseless(
                     "author",
                     "comment",
                     "compiler"
-                ])
+                )
             ),
             $._expression
         ),
@@ -456,7 +454,7 @@ const rules_ = {
             caseless_alias(".elseif", $.command),
             field("condition", $._expression),
             $._newline,
-            optional($.block)),
+            optional_field("body", $.block)),
 
         macro_parameters: $ => delimited($._single_symbol, ","),
         macro_declaration: $ => seq(
@@ -487,7 +485,7 @@ const rules_ = {
 
         proc_declaration: $ => seq(
             field("command", ".proc"),
-            $._single_symbol,
+            field("name", $._single_symbol),
             $._newline,
             optional_field("body", $.block),
             caseless_alias(".endproc", $.command)
@@ -495,9 +493,13 @@ const rules_ = {
 
         repeat_command: $ => seq(
             caseless_alias(".repeat", $.command),
-            $.expression_list,
+            field("iterations", $._expression),
+            opt(
+                ",",
+                field("iterator", $._single_symbol)
+            ),
             $._newline,
-            $.block,
+            optional_field("body", $.block),
             caseless_alias(".endrepeat", $.command)
         ),
 
@@ -511,39 +513,70 @@ const rules_ = {
 
         struct_declaration: $ => seq(
             caseless_alias(".struct", $.command),
-            optional($._single_symbol),
+            optional_field("name", $._single_symbol),
             $._newline,
-            optional_field("body", $.struct_block),
+            optional_field(
+                "body",
+                alias($.union_struct_block, $.block),
+            ),
             caseless_alias(".endstruct", $.command)
         ),
-        struct_member: $ => seq(
-            optional_field("member_name", $._single_symbol),
-            $.storage_allocator,
-            optional_field("multiplier", $._number_literal),
-            $._newline
-        ),
-        _struct_line: $ => seq(
-            optional($._label),
-            optional(choice(
-                $._code_unit,
-                $.struct_member
-            )),
-            $._newline
-        ),
-        struct_block: $ => repeat1($._struct_line),
 
         union_declaration: $ => seq(
             caseless_alias(".union", $.command),
             optional_field("name", $._single_symbol),
             $._newline,
-            optional_field("body", $.block),
+            optional_field(
+                "body",
+                alias($.union_struct_block, $.block),
+            ),
             caseless_alias(".endunion", $.command)
         ),
 
-        storage_allocator: $ => field(
-            "size",
-            caseless(control_commands.storageAllocators)
+        union_struct_member: $ => seq(
+            optional_field("name", $._single_symbol),
+            field("size", $.storage_allocator),
+            optional_field("multiplier", $._expression),
         ),
+        _union_struct_line: $ => seq(
+            optional($._label),
+            optional(choice(
+                $.union_struct_member,
+                alias($.union_struct_if_statement, $.if_statement),
+                $.macro_invocation,
+                $._expression_block,
+                alias($._symbol, $.ambiguous_symbol),
+            )),
+            $._newline
+        ),
+        union_struct_block: $ => repeat1($._union_struct_line),
+
+        union_struct_if_statement: $ => seq(
+            field(
+                "if_type",
+                alias($.if_keyword, $.command)
+            ),
+            optional_field("condition", $._expression),
+            $._newline,
+            optional_field("body", alias($.union_struct_block, $.block)),
+            repeat(alias($.union_struct_elseif, $.elseif)),
+            optional(alias($.union_struct_else, $.else)),
+            caseless_alias(".endif", $.command)
+        ),
+        union_struct_else: $ => seq(
+            caseless_alias(".else", $.command),
+            $._newline,
+            optional_field("body", alias($.union_struct_block, $.block))
+        ),
+        union_struct_elseif: $ => seq(
+            caseless_alias(".elseif", $.command),
+            field("condition", $._expression),
+            $._newline,
+            optional_field("body", alias($.union_struct_block, $.block))),
+
+
+
+        storage_allocator: $ => caseless(control_commands.storageAllocators),
     },
     addressing: {
         _addressing_mode: $ => choice(
