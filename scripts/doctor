@@ -1,13 +1,48 @@
 #!/bin/zsh
 
-report-existence () {
+CLEAR="\x1b[0m"
+
+RED="\x1b[1;31m"
+GREEN="\x1b[1;32m"
+BLUE="\x1b[1;34m"
+
+UNDERLINE="\x1b[4m"
+UNUNDERLINE="\x1b[24m"
+
+suggest () {
+    echo -e "suggested command:\n\t$BLUE$1$CLEAR"
+}
+
+checkmark () {
+    echo "$GREEN✓ $1$CLEAR"
+}
+
+xmark () {
+    echo "$RED✕ $1$CLEAR"
+}
+
+
+is-available () {
     if type $1 &> /dev/null; then
-        echo "\`$1\` installed"
+        echo -e "$GREEN✓ $1$CLEAR"
     else
-        echo "\`$1\` not installed"
+        echo -e "$RED✕ $1 not found$CLEAR"
     fi
 }
 
-report-existence node
-report-existence npm
-report-existence emcc #emscripten
+is-available git
+is-available make
+is-available node
+is-available npm
+is-available emcc #emscripten
+
+
+if [[ -d node_modules ]]; then
+    echo "$(checkmark "node_modules/")"
+else
+    echo "$(xmark "node_modules/ not found")\n"
+    suggest "make init"
+    exit 1
+fi
+
+echo "\nShould be good to go."

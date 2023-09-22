@@ -28,7 +28,7 @@
         "value": "\u0000"
       }
     },
-    "_line_end": {
+    "_EOL": {
       "type": "CHOICE",
       "members": [
         {
@@ -79,7 +79,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_line_end"
+          "name": "_EOL"
         }
       ]
     },

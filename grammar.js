@@ -76,14 +76,14 @@ const rules_ = {
         _newline: _ => /\r?\n/,
         line_continue: _ => /\\\r?\n/,
         EOF: _ => token('\0'),
-        _line_end: $ => choice($._newline, $.EOF),
+        _EOL: $ => choice($._newline, $.EOF),
         _code_unit: $ => choice(
             $._statement,
         ),
         _line: $ => seq(
             optional($._label),
             optional($._code_unit),
-            $._line_end
+            $._EOL
         ),
         block: $ => repeat1($._line),
     },
