@@ -7,7 +7,7 @@ init:
 	mkdir -p .ignore
 	touch -c .ignore/dev-null.asm
 
-pre-commit: generate test build-wasm
+pre-commit: src/parser.c test tree-sitter-ca65.wasm
 
 publish:
 	scripts/publish
@@ -15,20 +15,18 @@ publish:
 doctor:
 	scripts/doctor
 
-generate: grammar.js
+generate: src/parser.c
+
+src/parser.c: grammar.js src/custom/*
 	npx tree-sitter generate
 
-# src/parser.c: grammar.js
-#	make generate
-
-# test: src/parser.c
-test:
+test: src/parser.c
 	npx tree-sitter test
 
 test-filter:
 	npx tree-sitter test --filter $(filter)
 
-tree-sitter-ca65.wasm: grammar.js
+tree-sitter-ca65.wasm: src/parser.c
 	npx tree-sitter build-wasm
 
 wasm: tree-sitter-ca65.wasm
