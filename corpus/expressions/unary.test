@@ -20,35 +20,35 @@ tree-sitter-expression-block-end
 
 (source_file
   (unary_expression
-    operator: (unary_operator)
+    operator: (plus)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (minus)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (tilde)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (LT)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (GT)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (bang)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (dot_not)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (bitnot)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (lobyte)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (hibyte)
     operand: (decimal_literal))
   (unary_expression
-    operator: (unary_operator)
+    operator: (bankbyte)
     operand: (decimal_literal)))

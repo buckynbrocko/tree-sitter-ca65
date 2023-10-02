@@ -1,5 +1,125 @@
 [
   {
+    "type": "PC",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "dollar_PC",
+        "named": true
+      },
+      {
+        "type": "star_PC",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "binary_operator",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "GT",
+        "named": true
+      },
+      {
+        "type": "GTE",
+        "named": true
+      },
+      {
+        "type": "GTGT",
+        "named": true
+      },
+      {
+        "type": "LT",
+        "named": true
+      },
+      {
+        "type": "LTE",
+        "named": true
+      },
+      {
+        "type": "LTGT",
+        "named": true
+      },
+      {
+        "type": "LTLT",
+        "named": true
+      },
+      {
+        "type": "ampersand",
+        "named": true
+      },
+      {
+        "type": "ampersand_ampersand",
+        "named": true
+      },
+      {
+        "type": "bitand",
+        "named": true
+      },
+      {
+        "type": "bitor",
+        "named": true
+      },
+      {
+        "type": "bitxor",
+        "named": true
+      },
+      {
+        "type": "caret",
+        "named": true
+      },
+      {
+        "type": "dot_and",
+        "named": true
+      },
+      {
+        "type": "dot_mod",
+        "named": true
+      },
+      {
+        "type": "dot_or",
+        "named": true
+      },
+      {
+        "type": "dot_xor",
+        "named": true
+      },
+      {
+        "type": "equals",
+        "named": true
+      },
+      {
+        "type": "minus",
+        "named": true
+      },
+      {
+        "type": "pipe",
+        "named": true
+      },
+      {
+        "type": "plus",
+        "named": true
+      },
+      {
+        "type": "shl",
+        "named": true
+      },
+      {
+        "type": "shr",
+        "named": true
+      },
+      {
+        "type": "slash",
+        "named": true
+      },
+      {
+        "type": "star",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "control_command",
     "named": true,
     "subtypes": [
@@ -57,6 +177,60 @@
       },
       {
         "type": "union_declaration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "unary_operator",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "GT",
+        "named": true
+      },
+      {
+        "type": "LT",
+        "named": true
+      },
+      {
+        "type": "bang",
+        "named": true
+      },
+      {
+        "type": "bankbyte",
+        "named": true
+      },
+      {
+        "type": "bitnot",
+        "named": true
+      },
+      {
+        "type": "caret",
+        "named": true
+      },
+      {
+        "type": "dot_not",
+        "named": true
+      },
+      {
+        "type": "hibyte",
+        "named": true
+      },
+      {
+        "type": "lobyte",
+        "named": true
+      },
+      {
+        "type": "minus",
+        "named": true
+      },
+      {
+        "type": "plus",
+        "named": true
+      },
+      {
+        "type": "tilde",
         "named": true
       }
     ]
@@ -330,6 +504,10 @@
         "required": true,
         "types": [
           {
+            "type": "PC",
+            "named": true
+          },
+          {
             "type": "global_scope_access",
             "named": true
           },
@@ -574,11 +752,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "binary_operator",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "blank_call",
@@ -1209,6 +1382,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "equals",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "expression_list",
@@ -2399,7 +2577,17 @@
   {
     "type": "pseudo_variable",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "PC",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "repeat_command",
@@ -2679,6 +2867,16 @@
     "fields": {}
   },
   {
+    "type": "star",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "star_PC",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "storage_allocator",
     "named": true,
     "fields": {}
@@ -2813,11 +3011,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "unary_operator",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "union_declaration",
@@ -2981,6 +3174,10 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
@@ -3017,6 +3214,34 @@
     "named": true
   },
   {
+    "type": "GT",
+    "named": true
+  },
+  {
+    "type": "GTE",
+    "named": true
+  },
+  {
+    "type": "GTGT",
+    "named": true
+  },
+  {
+    "type": "LT",
+    "named": true
+  },
+  {
+    "type": "LTE",
+    "named": true
+  },
+  {
+    "type": "LTGT",
+    "named": true
+  },
+  {
+    "type": "LTLT",
+    "named": true
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -3029,11 +3254,47 @@
     "named": true
   },
   {
+    "type": "ampersand",
+    "named": true
+  },
+  {
+    "type": "ampersand_ampersand",
+    "named": true
+  },
+  {
+    "type": "bang",
+    "named": true
+  },
+  {
+    "type": "bankbyte",
+    "named": true
+  },
+  {
     "type": "binary_literal",
     "named": true
   },
   {
+    "type": "bitand",
+    "named": true
+  },
+  {
+    "type": "bitnot",
+    "named": true
+  },
+  {
+    "type": "bitor",
+    "named": true
+  },
+  {
+    "type": "bitxor",
+    "named": true
+  },
+  {
     "type": "c_comment",
+    "named": true
+  },
+  {
+    "type": "caret",
     "named": true
   },
   {
@@ -3045,7 +3306,35 @@
     "named": true
   },
   {
+    "type": "dollar_PC",
+    "named": true
+  },
+  {
+    "type": "dot_and",
+    "named": true
+  },
+  {
+    "type": "dot_mod",
+    "named": true
+  },
+  {
+    "type": "dot_not",
+    "named": true
+  },
+  {
+    "type": "dot_or",
+    "named": true
+  },
+  {
+    "type": "dot_xor",
+    "named": true
+  },
+  {
     "type": "f",
+    "named": true
+  },
+  {
+    "type": "hibyte",
     "named": true
   },
   {
@@ -3054,6 +3343,10 @@
   },
   {
     "type": "line_continue",
+    "named": true
+  },
+  {
+    "type": "lobyte",
     "named": true
   },
   {
@@ -3069,7 +3362,27 @@
     "named": true
   },
   {
+    "type": "pipe",
+    "named": true
+  },
+  {
     "type": "plus",
+    "named": true
+  },
+  {
+    "type": "shl",
+    "named": true
+  },
+  {
+    "type": "shr",
+    "named": true
+  },
+  {
+    "type": "slash",
+    "named": true
+  },
+  {
+    "type": "tilde",
     "named": true
   },
   {

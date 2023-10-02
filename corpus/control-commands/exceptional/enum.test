@@ -27,7 +27,7 @@
         if_type: (command)
         condition: (binary_expression
           left: (decimal_literal)
-          operator: (binary_operator)
+          operator: (LT)
           right: (decimal_literal))
         body: (block
           (assignment_statement
