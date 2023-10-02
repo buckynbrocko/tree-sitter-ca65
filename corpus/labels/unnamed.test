@@ -56,14 +56,14 @@ Unnamed Labels
     address: (absolute_address
       (binary_expression
         left: (identifier)
-        operator: (binary_operator)
+        operator: (plus)
         right: (decimal_literal))))
   (instruction
     mnemonic: (mnemonic)
     address: (absolute_address
       (binary_expression
         left: (identifier)
-        operator: (binary_operator)
+        operator: (plus)
         right: (decimal_literal))))
   (instruction
     mnemonic: (mnemonic)

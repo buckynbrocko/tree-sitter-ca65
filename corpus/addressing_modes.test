@@ -60,9 +60,9 @@ adc ((6 * 7), x)
       (binary_expression
         left: (binary_expression
           left: (decimal_literal)
-          operator: (binary_operator)
+          operator: (plus)
           right: (decimal_literal))
-        operator: (binary_operator)
+        operator: (plus)
         right: (decimal_literal))
       (y)))
   (instruction
@@ -70,7 +70,7 @@ adc ((6 * 7), x)
     address: (indirect_y
       (binary_expression
         left: (decimal_literal)
-        operator: (binary_operator)
+        operator: (plus)
         right: (decimal_literal))
       (y)))
   (instruction
@@ -78,6 +78,6 @@ adc ((6 * 7), x)
     address: (indirect_x
       (binary_expression
         left: (decimal_literal)
-        operator: (binary_operator)
+        operator: (star)
         right: (decimal_literal))
       (x))))

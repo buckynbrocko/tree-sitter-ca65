@@ -180,6 +180,19 @@
         }
       ]
     },
+    "_assignable_to": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "PC"
+        }
+      ]
+    },
     "assignment_statement": {
       "type": "SEQ",
       "members": [
@@ -188,7 +201,7 @@
           "name": "left",
           "content": {
             "type": "SYMBOL",
-            "name": "_symbol"
+            "name": "_assignable_to"
           }
         },
         {
@@ -316,6 +329,134 @@
         ]
       }
     },
+    "plus": {
+      "type": "STRING",
+      "value": "+"
+    },
+    "minus": {
+      "type": "STRING",
+      "value": "-"
+    },
+    "tilde": {
+      "type": "STRING",
+      "value": "~"
+    },
+    "LT": {
+      "type": "STRING",
+      "value": "<"
+    },
+    "GT": {
+      "type": "STRING",
+      "value": ">"
+    },
+    "caret": {
+      "type": "STRING",
+      "value": "^"
+    },
+    "bang": {
+      "type": "STRING",
+      "value": "!"
+    },
+    "star": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "slash": {
+      "type": "STRING",
+      "value": "/"
+    },
+    "ampersand": {
+      "type": "STRING",
+      "value": "&"
+    },
+    "ampersand_ampersand": {
+      "type": "STRING",
+      "value": "&&"
+    },
+    "LTLT": {
+      "type": "STRING",
+      "value": "<<"
+    },
+    "GTGT": {
+      "type": "STRING",
+      "value": ">>"
+    },
+    "pipe": {
+      "type": "STRING",
+      "value": "|"
+    },
+    "equals": {
+      "type": "STRING",
+      "value": "="
+    },
+    "LTGT": {
+      "type": "STRING",
+      "value": "<>"
+    },
+    "LTE": {
+      "type": "STRING",
+      "value": "<="
+    },
+    "GTE": {
+      "type": "STRING",
+      "value": ">="
+    },
+    "bitnot": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][nN][oO][tT]"
+    },
+    "lobyte": {
+      "type": "PATTERN",
+      "value": "\\.[lL][oO][bB][yY][tT][eE]"
+    },
+    "hibyte": {
+      "type": "PATTERN",
+      "value": "\\.[hH][iI][bB][yY][tT][eE]"
+    },
+    "bankbyte": {
+      "type": "PATTERN",
+      "value": "\\.[bB][aA][nN][kK][bB][yY][tT][eE]"
+    },
+    "dot_not": {
+      "type": "PATTERN",
+      "value": "\\.[nN][oO][tT]"
+    },
+    "dot_mod": {
+      "type": "PATTERN",
+      "value": "\\.[mM][oO][dD]"
+    },
+    "bitand": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][aA][nN][dD]"
+    },
+    "bitxor": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][xX][oO][rR]"
+    },
+    "shl": {
+      "type": "PATTERN",
+      "value": "\\.[sS][hH][lL]"
+    },
+    "shr": {
+      "type": "PATTERN",
+      "value": "\\.[sS][hH][rR]"
+    },
+    "bitor": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][oO][rR]"
+    },
+    "dot_and": {
+      "type": "PATTERN",
+      "value": "\\.[aA][nN][dD]"
+    },
+    "dot_xor": {
+      "type": "PATTERN",
+      "value": "\\.[xX][oO][rR]"
+    },
+    "dot_or": {
+      "type": "PATTERN",
+      "value": "\\.[oO][rR]"
+    },
     "unary_operator": {
       "type": "CHOICE",
       "members": [
@@ -326,44 +467,44 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "\\+"
+                "type": "SYMBOL",
+                "name": "plus"
               },
               {
-                "type": "PATTERN",
-                "value": "\\-"
+                "type": "SYMBOL",
+                "name": "minus"
               },
               {
-                "type": "PATTERN",
-                "value": "~"
+                "type": "SYMBOL",
+                "name": "tilde"
               },
               {
-                "type": "PATTERN",
-                "value": "<"
+                "type": "SYMBOL",
+                "name": "LT"
               },
               {
-                "type": "PATTERN",
-                "value": ">"
+                "type": "SYMBOL",
+                "name": "GT"
               },
               {
-                "type": "PATTERN",
-                "value": "\\^"
+                "type": "SYMBOL",
+                "name": "caret"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[bB][iI][tT][nN][oO][tT]"
+                "type": "SYMBOL",
+                "name": "bitnot"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[lL][oO][bB][yY][tT][eE]"
+                "type": "SYMBOL",
+                "name": "lobyte"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[hH][iI][bB][yY][tT][eE]"
+                "type": "SYMBOL",
+                "name": "hibyte"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[bB][aA][nN][kK][bB][yY][tT][eE]"
+                "type": "SYMBOL",
+                "name": "bankbyte"
               }
             ]
           }
@@ -375,12 +516,12 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "!"
+                "type": "SYMBOL",
+                "name": "bang"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[nN][oO][tT]"
+                "type": "SYMBOL",
+                "name": "dot_not"
               }
             ]
           }
@@ -430,48 +571,48 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "\\*"
+                "type": "SYMBOL",
+                "name": "star"
               },
               {
-                "type": "PATTERN",
-                "value": "\\/"
+                "type": "SYMBOL",
+                "name": "slash"
               },
               {
-                "type": "PATTERN",
-                "value": "&"
+                "type": "SYMBOL",
+                "name": "ampersand"
               },
               {
-                "type": "PATTERN",
-                "value": "\\^"
+                "type": "SYMBOL",
+                "name": "caret"
               },
               {
-                "type": "PATTERN",
-                "value": "<<"
+                "type": "SYMBOL",
+                "name": "LTLT"
               },
               {
-                "type": "PATTERN",
-                "value": ">>"
+                "type": "SYMBOL",
+                "name": "GTGT"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[mM][oO][dD]"
+                "type": "SYMBOL",
+                "name": "dot_mod"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[bB][iI][tT][aA][nN][dD]"
+                "type": "SYMBOL",
+                "name": "bitand"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[bB][iI][tT][xX][oO][rR]"
+                "type": "SYMBOL",
+                "name": "bitxor"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[sS][hH][lL]"
+                "type": "SYMBOL",
+                "name": "shl"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[sS][hH][rR]"
+                "type": "SYMBOL",
+                "name": "shr"
               }
             ]
           }
@@ -483,20 +624,20 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "\\+"
+                "type": "SYMBOL",
+                "name": "plus"
               },
               {
-                "type": "PATTERN",
-                "value": "\\-"
+                "type": "SYMBOL",
+                "name": "minus"
               },
               {
-                "type": "PATTERN",
-                "value": "\\|"
+                "type": "SYMBOL",
+                "name": "pipe"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[bB][iI][tT][oO][rR]"
+                "type": "SYMBOL",
+                "name": "bitor"
               }
             ]
           }
@@ -508,28 +649,28 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "="
+                "type": "SYMBOL",
+                "name": "equals"
               },
               {
-                "type": "PATTERN",
-                "value": "<>"
+                "type": "SYMBOL",
+                "name": "LTGT"
               },
               {
-                "type": "PATTERN",
-                "value": "<"
+                "type": "SYMBOL",
+                "name": "LT"
               },
               {
-                "type": "PATTERN",
-                "value": ">"
+                "type": "SYMBOL",
+                "name": "GT"
               },
               {
-                "type": "PATTERN",
-                "value": "<="
+                "type": "SYMBOL",
+                "name": "LTE"
               },
               {
-                "type": "PATTERN",
-                "value": ">="
+                "type": "SYMBOL",
+                "name": "GTE"
               }
             ]
           }
@@ -541,16 +682,16 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "&&"
+                "type": "SYMBOL",
+                "name": "ampersand_ampersand"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[aA][nN][dD]"
+                "type": "SYMBOL",
+                "name": "dot_and"
               },
               {
-                "type": "PATTERN",
-                "value": "\\.[xX][oO][rR]"
+                "type": "SYMBOL",
+                "name": "dot_xor"
               }
             ]
           }
@@ -559,8 +700,8 @@
           "type": "PREC",
           "value": "boolean_or",
           "content": {
-            "type": "PATTERN",
-            "value": "\\.[oO][rR]"
+            "type": "SYMBOL",
+            "name": "dot_or"
           }
         }
       ]
@@ -1434,28 +1575,37 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\\.[aA][sS][iI][zZ][eE]"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\.[aA][sS][iI][zZ][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\.[cC][pP][uU]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\.[iI][sS][iI][zZ][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\.[pP][aA][rR][aA][mM][cC][oO][uU][nN][tT]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\.[tT][iI][mM][eE]"
+            },
+            {
+              "type": "PATTERN",
+              "value": "\\.[vV][eE][rR][sS][iI][oO][nN]"
+            }
+          ]
         },
         {
-          "type": "PATTERN",
-          "value": "\\.[cC][pP][uU]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\.[iI][sS][iI][zZ][eE]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\.[pP][aA][rR][aA][mM][cC][oO][uU][nN][tT]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\.[tT][iI][mM][eE]"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\.[vV][eE][rR][sS][iI][oO][nN]"
+          "type": "SYMBOL",
+          "name": "PC"
         }
       ]
     },
@@ -2628,14 +2778,6 @@
           "value": "[uU][nN][dD][eE][rR][lL][iI][nN][eE]_[iI][nN]_[nN][uU][mM][bB][eE][rR][sS]"
         }
       ]
-    },
-    "plus": {
-      "type": "STRING",
-      "value": "+"
-    },
-    "minus": {
-      "type": "STRING",
-      "value": "-"
     },
     "on": {
       "type": "PATTERN",
@@ -4037,6 +4179,27 @@
       "type": "PATTERN",
       "value": "(\\.|\\$)?[a-zA-Z_][a-zA-Z0-9_@\\$]*"
     },
+    "star_PC": {
+      "type": "STRING",
+      "value": "*"
+    },
+    "dollar_PC": {
+      "type": "STRING",
+      "value": "$"
+    },
+    "PC": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "star_PC"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dollar_PC"
+        }
+      ]
+    },
     "_reserved": {
       "type": "CHOICE",
       "members": [
@@ -4166,7 +4329,10 @@
     "pseudo_function_call"
   ],
   "supertypes": [
-    "control_command"
+    "control_command",
+    "PC",
+    "unary_operator",
+    "binary_operator"
   ]
 }
 

@@ -6,6 +6,12 @@ tree-sitter-expression-block-start
 1 - 1
 1 + 1
 1 * 1
+1 / 1
+1 << 1
+1 >> 1
+1 < 1
+1 > 1
+!(1 > 1)
 1 * -1
 tree-sitter-expression-block-end
 
@@ -14,20 +20,45 @@ tree-sitter-expression-block-end
 (source_file
   (binary_expression
     left: (decimal_literal)
-    operator: (binary_operator)
+    operator: (minus)
     right: (decimal_literal))
   (binary_expression
     left: (decimal_literal)
-    operator: (binary_operator)
+    operator: (plus)
     right: (decimal_literal))
   (binary_expression
     left: (decimal_literal)
-    operator: (binary_operator)
+    operator: (star)
     right: (decimal_literal))
   (binary_expression
     left: (decimal_literal)
-    operator: (binary_operator)
+    operator: (slash)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (LTLT)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (GTGT)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (LT)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (GT)
+    right: (decimal_literal))
+  (unary_expression
+    operator: (bang)
+    operand: (binary_expression
+      left: (decimal_literal)
+      operator: (GT)
+      right: (decimal_literal)))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (star)
     right: (unary_expression
-      operator: (unary_operator)
-      operand: (decimal_literal)))
-)
+      operator: (minus)
+      operand: (decimal_literal))))

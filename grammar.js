@@ -52,7 +52,12 @@ const grammar_ = () => grammar({
             "statement"
         ]
     ],
-    supertypes: $ => [$.control_command],
+    supertypes: $ => [
+        $.control_command,
+        $.PC,
+        $.unary_operator,
+        $.binary_operator,
+    ],
     word: $ => $._word,
     rules: {
         ...rules_.meta,
@@ -109,8 +114,13 @@ const rules_ = {
             alias($._symbol, $.ambiguous_symbol),
         ),
 
+        _assignable_to: $ => choice(
+            $._symbol,
+            $.PC
+        ),
+
         assignment_statement: $ => seq(
-            field("left", $._symbol),
+            field("left", $._assignable_to),
             "=",
             field("right", $._expression)
         )
@@ -134,9 +144,43 @@ const rules_ = {
                 field("operand", $._expression)
             )
         ),
+        plus: _ => "+",
+        minus: _ => "-",
+        tilde: _ => "~",
+        LT: _ => "<",
+        GT: _ => ">",
+        caret: _ => "^",
+        bang: _ => "!",
+        star: _ => "*",
+        slash: _ => "/",
+        ampersand: _ => "&",
+        ampersand_ampersand: _ => "&&",
+        LTLT: _ => "<<",
+        GTGT: _ => ">>",
+        pipe: _ => "|",
+        equals: _ => "=",
+        LTGT: _ => "<>",
+        LTE: _ => "<=",
+        GTE: _ => ">=",
+        bitnot: _ => caseless(".bitnot"),
+        lobyte: _ => caseless(".lobyte"),
+        hibyte: _ => caseless(".hibyte"),
+        bankbyte: _ => caseless(".bankbyte"),
+        dot_not: _ => caseless(".not"),
+        dot_mod: _ => caseless(".mod"),
+        bitand: _ => caseless(".bitand"),
+        bitxor: _ => caseless(".bitxor"),
+        shl: _ => caseless(".shl"),
+        shr: _ => caseless(".shr"),
+        bitor: _ => caseless(".bitor"),
+        dot_and: _ => caseless(".and"),
+        dot_xor: _ => caseless(".xor"),
+        dot_or: _ => caseless(".or"),
+        // : _ => caseless("."),
+
         unary_operator: $ => choice(
-            prec("unary_ops", caseless("+", "-", "~", "<", ">", "^", ".bitnot", ".lobyte", ".hibyte", ".bankbyte")),
-            prec("boolean_not", caseless("!", ".not")),
+            prec("unary_ops", choice($.plus, $.minus, $.tilde, $.LT, $.GT, $.caret, $.bitnot, $.lobyte, $.hibyte, $.bankbyte)),
+            prec("boolean_not", choice($.bang, $.dot_not)),
         ),
 
         binary_expression: $ => prec.left(seq(
@@ -145,11 +189,16 @@ const rules_ = {
             field("right", $._expression),
         )),
         binary_operator: $ => choice(
-            prec("muldiv", caseless("*", "/", "&", "^", "<<", ">>", ".mod", ".bitand", ".bitxor", ".shl", ".shr")),
-            prec("addsub", caseless("+", "-", "|", ".bitor")),
-            prec("comparison_ops", caseless("=", "<>", "<", ">", "<=", ">=")),
-            prec("boolean_and_xor", caseless("&&", ".and", ".xor")),
-            prec("boolean_or", caseless(".or")),
+            prec("muldiv", choice($.star, $.slash, $.ampersand, $.caret, $.LTLT, $.GTGT, $.dot_mod, $.bitand, $.bitxor, $.shl, $.shr)),
+            prec("addsub", choice($.plus, $.minus, $.pipe, $.bitor)),
+            prec("comparison_ops", choice($.equals, $.LTGT, $.LT, $.GT, $.LTE, $.GTE)),
+            prec("boolean_and_xor", choice($.ampersand_ampersand, $.dot_and, $.dot_xor)),
+            prec("boolean_or", $.dot_or),
+            // prec("muldiv", caseless("*", "/", "&", "^", "<<", ">>", ".mod", ".bitand", ".bitxor", ".shl", ".shr")),
+            // prec("addsub", caseless("+", "-", "|", ".bitor")),
+            // prec("comparison_ops", caseless("=", "<>", "<", ">", "<=", ">=")),
+            // prec("boolean_and_xor", caseless("&&", ".and", ".xor")),
+            // prec("boolean_or", caseless(".or")),
         ),
         _expression_block: $ => seq( // (For testing/debugging purposes)
             "tree-sitter-expression-block-start",
@@ -263,7 +312,7 @@ const rules_ = {
         ),
     },
     pseudos: {
-        pseudo_variable: _ => caseless(pseudo_variables),
+        pseudo_variable: $ => choice(caseless(pseudo_variables), $.PC),
 
         pseudo_function: _ => caseless(pseudo_functions.nominal),
         nominal_pseudo_function_call: $ => seq(
@@ -413,8 +462,6 @@ const rules_ = {
             ))
         ),
         _feature_name: $ => caseless(control_commands.compatibilityFeatures),
-        plus: _ => "+",
-        minus: _ => "-",
         on: _ => caseless("on"),
         off: _ => caseless("off"),
 
@@ -626,6 +673,13 @@ const rules_ = {
         ),
 
         _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        star_PC: _ => "*",
+        dollar_PC: _ => "$",
+        PC: $ => choice(
+            $.star_PC,
+            $.dollar_PC
+        ),
 
         _reserved: $ => choice(
             $.a,
