@@ -1,4 +1,4 @@
-.PHONY: init pre-commit publish doctor generate test wasm dev-null
+.PHONY: init pre-commit publish doctor generate test test-update wasm dev-null foo bar
 
 main: src/parser.c test
 
@@ -23,10 +23,14 @@ src/parser.c: grammar.js src/custom/*
 test: src/parser.c
 	npx tree-sitter test $(args)
 
+test-update: src/parser.c
+	npx tree-sitter test --update $(args)
+
 tree-sitter-ca65.wasm: src/parser.c
 	npx tree-sitter build-wasm
 
 wasm: tree-sitter-ca65.wasm
+
 
 dev-null:
 	ca65 .ignore/dev-null.asm -o /dev/null
