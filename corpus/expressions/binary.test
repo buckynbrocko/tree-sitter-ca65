@@ -1,5 +1,5 @@
 ================================================================================
-Binary Expressions
+binary expressions
 ================================================================================
 
 tree-sitter-expression-block-start
@@ -12,6 +12,7 @@ tree-sitter-expression-block-start
 1 < 1
 1 > 1
 !(1 > 1)
+!1 > 1
 1 * -1
 tree-sitter-expression-block-end
 
@@ -56,6 +57,12 @@ tree-sitter-expression-block-end
       left: (decimal_literal)
       operator: (GT)
       right: (decimal_literal)))
+  (binary_expression
+    left: (unary_expression
+      operator: (bang)
+      operand: (decimal_literal))
+    operator: (GT)
+    right: (decimal_literal))
   (binary_expression
     left: (decimal_literal)
     operator: (star)
