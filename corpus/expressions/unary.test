@@ -3,6 +3,7 @@ unary expressions
 ================================================================================
 
 tree-sitter-expression-block-start
+
 +1
 -1
 ~1
@@ -11,6 +12,7 @@ tree-sitter-expression-block-start
 !1
 !!1
 .not 1
+.not .not 1
 .bitnot 1
 .lobyte 1
 .hibyte 1
@@ -46,6 +48,11 @@ tree-sitter-expression-block-end
   (unary_expression
     operator: (dot_not)
     operand: (decimal_literal))
+  (unary_expression
+    operator: (dot_not)
+    operand: (unary_expression
+      operator: (dot_not)
+      operand: (decimal_literal)))
   (unary_expression
     operator: (bitnot)
     operand: (decimal_literal))

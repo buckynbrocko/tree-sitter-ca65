@@ -138,11 +138,17 @@ const rules_ = {
         ),
         expression_list: $ => delimited($._expression, ","),
         expressions: $ => repeat1($._expression),
-        unary_expression: $ => prec(2,
-            seq(
-                field("operator", $.unary_operator),
+        unary_expression: $ => choice(
+            prec("unary_ops", seq(
+                field("operator", choice($.plus, $.minus, $.tilde, $.LT, $.GT, $.caret, $.bitnot, $.lobyte, $.hibyte, $.bankbyte)),
                 field("operand", $._expression)
-            )
+
+            )),
+            prec("boolean_not", seq(
+                field("operator", choice($.bang, $.dot_not)),
+                field("operand", $._expression)
+
+            )),
         ),
         plus: _ => "+",
         minus: _ => "-",
@@ -182,10 +188,33 @@ const rules_ = {
             prec("boolean_not", choice($.bang, $.dot_not)),
         ),
 
-        binary_expression: $ => prec.left(seq(
-            field("left", $._expression),
-            field("operator", $.binary_operator),
-            field("right", $._expression),
+        binary_expression: $ => prec.right(choice(
+            prec("muldiv", seq(
+                field("left", $._expression),
+                field("operator", choice($.star, $.slash, $.ampersand, $.caret, $.LTLT, $.GTGT, $.dot_mod, $.bitand, $.bitxor, $.shl, $.shr),),
+                field("right", $._expression),
+            )),
+            prec("addsub", seq(
+                field("left", $._expression),
+                field("operator", choice($.plus, $.minus, $.pipe, $.bitor)),
+                field("right", $._expression),
+            )),
+            prec("comparison_ops", seq(
+                field("left", $._expression),
+                field("operator", choice($.equals, $.LTGT, $.LT, $.GT, $.LTE, $.GTE)),
+                field("right", $._expression),
+            )),
+            prec("boolean_and_xor", seq(
+                field("left", $._expression),
+                field("operator", choice($.ampersand_ampersand, $.dot_and, $.dot_xor)),
+                field("right", $._expression),
+            )),
+            prec("boolean_or", seq(
+                field("left", $._expression),
+                field("operator", $.dot_or),
+                field("right", $._expression),
+            )),
+
         )),
         binary_operator: $ => choice(
             prec("muldiv", choice($.star, $.slash, $.ampersand, $.caret, $.LTLT, $.GTGT, $.dot_mod, $.bitand, $.bitxor, $.shl, $.shr)),
@@ -193,11 +222,6 @@ const rules_ = {
             prec("comparison_ops", choice($.equals, $.LTGT, $.LT, $.GT, $.LTE, $.GTE)),
             prec("boolean_and_xor", choice($.ampersand_ampersand, $.dot_and, $.dot_xor)),
             prec("boolean_or", $.dot_or),
-            // prec("muldiv", caseless("*", "/", "&", "^", "<<", ">>", ".mod", ".bitand", ".bitxor", ".shl", ".shr")),
-            // prec("addsub", caseless("+", "-", "|", ".bitor")),
-            // prec("comparison_ops", caseless("=", "<>", "<", ">", "<=", ">=")),
-            // prec("boolean_and_xor", caseless("&&", ".and", ".xor")),
-            // prec("boolean_or", caseless(".or")),
         ),
         _expression_block: $ => seq( // (For testing/debugging purposes)
             "tree-sitter-expression-block-start",

@@ -3,6 +3,7 @@ binary expressions
 ================================================================================
 
 tree-sitter-expression-block-start
+
 1 - 1
 1 + 1
 1 * 1
@@ -11,9 +12,20 @@ tree-sitter-expression-block-start
 1 >> 1
 1 < 1
 1 > 1
+
+; precedence
+
 !(1 > 1)
 !1 > 1
 1 * -1
+1 + 1 + 1 + 1
+
+; associativity/precedence tests
+
+1 * 1 + 1
+1 + 1 * 1
+6 / (2 * 3)
+
 tree-sitter-expression-block-end
 
 --------------------------------------------------------------------------------
@@ -51,6 +63,13 @@ tree-sitter-expression-block-end
     left: (decimal_literal)
     operator: (GT)
     right: (decimal_literal))
+  (comment)
+  (unary_expression
+    operator: (bang)
+    operand: (binary_expression
+      left: (decimal_literal)
+      operator: (GT)
+      right: (decimal_literal)))
   (unary_expression
     operator: (bang)
     operand: (binary_expression
@@ -58,14 +77,40 @@ tree-sitter-expression-block-end
       operator: (GT)
       right: (decimal_literal)))
   (binary_expression
-    left: (unary_expression
-      operator: (bang)
-      operand: (decimal_literal))
-    operator: (GT)
-    right: (decimal_literal))
-  (binary_expression
     left: (decimal_literal)
     operator: (star)
     right: (unary_expression
       operator: (minus)
-      operand: (decimal_literal))))
+      operand: (decimal_literal)))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (plus)
+    right: (binary_expression
+      left: (decimal_literal)
+      operator: (plus)
+      right: (binary_expression
+        left: (decimal_literal)
+        operator: (plus)
+        right: (decimal_literal))))
+  (comment)
+  (binary_expression
+    left: (binary_expression
+      left: (decimal_literal)
+      operator: (star)
+      right: (decimal_literal))
+    operator: (plus)
+    right: (decimal_literal))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (plus)
+    right: (binary_expression
+      left: (decimal_literal)
+      operator: (star)
+      right: (decimal_literal)))
+  (binary_expression
+    left: (decimal_literal)
+    operator: (slash)
+    right: (binary_expression
+      left: (decimal_literal)
+      operator: (star)
+      right: (decimal_literal))))

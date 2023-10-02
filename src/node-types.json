@@ -676,7 +676,103 @@
         "required": true,
         "types": [
           {
-            "type": "binary_operator",
+            "type": "GT",
+            "named": true
+          },
+          {
+            "type": "GTE",
+            "named": true
+          },
+          {
+            "type": "GTGT",
+            "named": true
+          },
+          {
+            "type": "LT",
+            "named": true
+          },
+          {
+            "type": "LTE",
+            "named": true
+          },
+          {
+            "type": "LTGT",
+            "named": true
+          },
+          {
+            "type": "LTLT",
+            "named": true
+          },
+          {
+            "type": "ampersand",
+            "named": true
+          },
+          {
+            "type": "ampersand_ampersand",
+            "named": true
+          },
+          {
+            "type": "bitand",
+            "named": true
+          },
+          {
+            "type": "bitor",
+            "named": true
+          },
+          {
+            "type": "bitxor",
+            "named": true
+          },
+          {
+            "type": "caret",
+            "named": true
+          },
+          {
+            "type": "dot_and",
+            "named": true
+          },
+          {
+            "type": "dot_mod",
+            "named": true
+          },
+          {
+            "type": "dot_or",
+            "named": true
+          },
+          {
+            "type": "dot_xor",
+            "named": true
+          },
+          {
+            "type": "equals",
+            "named": true
+          },
+          {
+            "type": "minus",
+            "named": true
+          },
+          {
+            "type": "pipe",
+            "named": true
+          },
+          {
+            "type": "plus",
+            "named": true
+          },
+          {
+            "type": "shl",
+            "named": true
+          },
+          {
+            "type": "shr",
+            "named": true
+          },
+          {
+            "type": "slash",
+            "named": true
+          },
+          {
+            "type": "star",
             "named": true
           }
         ]
@@ -3005,7 +3101,51 @@
         "required": true,
         "types": [
           {
-            "type": "unary_operator",
+            "type": "GT",
+            "named": true
+          },
+          {
+            "type": "LT",
+            "named": true
+          },
+          {
+            "type": "bang",
+            "named": true
+          },
+          {
+            "type": "bankbyte",
+            "named": true
+          },
+          {
+            "type": "bitnot",
+            "named": true
+          },
+          {
+            "type": "caret",
+            "named": true
+          },
+          {
+            "type": "dot_not",
+            "named": true
+          },
+          {
+            "type": "hibyte",
+            "named": true
+          },
+          {
+            "type": "lobyte",
+            "named": true
+          },
+          {
+            "type": "minus",
+            "named": true
+          },
+          {
+            "type": "plus",
+            "named": true
+          },
+          {
+            "type": "tilde",
             "named": true
           }
         ]
