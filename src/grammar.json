@@ -401,9 +401,9 @@
       "type": "STRING",
       "value": ">="
     },
-    "bitnot": {
+    "bankbyte": {
       "type": "PATTERN",
-      "value": "\\.[bB][iI][tT][nN][oO][tT]"
+      "value": "\\.[bB][aA][nN][kK][bB][yY][tT][eE]"
     },
     "lobyte": {
       "type": "PATTERN",
@@ -413,25 +413,41 @@
       "type": "PATTERN",
       "value": "\\.[hH][iI][bB][yY][tT][eE]"
     },
-    "bankbyte": {
+    "bitand": {
       "type": "PATTERN",
-      "value": "\\.[bB][aA][nN][kK][bB][yY][tT][eE]"
+      "value": "\\.[bB][iI][tT][aA][nN][dD]"
     },
-    "dot_not": {
+    "bitnot": {
       "type": "PATTERN",
-      "value": "\\.[nN][oO][tT]"
+      "value": "\\.[bB][iI][tT][nN][oO][tT]"
+    },
+    "bitor": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][oO][rR]"
+    },
+    "bitxor": {
+      "type": "PATTERN",
+      "value": "\\.[bB][iI][tT][xX][oO][rR]"
+    },
+    "dot_and": {
+      "type": "PATTERN",
+      "value": "\\.[aA][nN][dD]"
     },
     "dot_mod": {
       "type": "PATTERN",
       "value": "\\.[mM][oO][dD]"
     },
-    "bitand": {
+    "dot_not": {
       "type": "PATTERN",
-      "value": "\\.[bB][iI][tT][aA][nN][dD]"
+      "value": "\\.[nN][oO][tT]"
     },
-    "bitxor": {
+    "dot_or": {
       "type": "PATTERN",
-      "value": "\\.[bB][iI][tT][xX][oO][rR]"
+      "value": "\\.[oO][rR]"
+    },
+    "dot_xor": {
+      "type": "PATTERN",
+      "value": "\\.[xX][oO][rR]"
     },
     "shl": {
       "type": "PATTERN",
@@ -440,22 +456,6 @@
     "shr": {
       "type": "PATTERN",
       "value": "\\.[sS][hH][rR]"
-    },
-    "bitor": {
-      "type": "PATTERN",
-      "value": "\\.[bB][iI][tT][oO][rR]"
-    },
-    "dot_and": {
-      "type": "PATTERN",
-      "value": "\\.[aA][nN][dD]"
-    },
-    "dot_xor": {
-      "type": "PATTERN",
-      "value": "\\.[xX][oO][rR]"
-    },
-    "dot_or": {
-      "type": "PATTERN",
-      "value": "\\.[oO][rR]"
     },
     "unary_operator": {
       "type": "CHOICE",

@@ -1,4 +1,4 @@
-.PHONY: init pre-commit publish doctor generate test test-filter wasm dev-null
+.PHONY: init pre-commit publish doctor generate test wasm dev-null
 
 main: src/parser.c test
 
@@ -21,10 +21,7 @@ src/parser.c: grammar.js src/custom/*
 	npx tree-sitter generate
 
 test: src/parser.c
-	npx tree-sitter test
-
-test-filter:
-	npx tree-sitter test --filter $(filter)
+	npx tree-sitter test $(args)
 
 tree-sitter-ca65.wasm: src/parser.c
 	npx tree-sitter build-wasm
