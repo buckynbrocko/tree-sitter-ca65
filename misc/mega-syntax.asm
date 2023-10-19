@@ -45,6 +45,7 @@ tree-sitter-expression-block-end
 ;;; String Literals
 tree-sitter-expression-block-start
 "hello world"
+"this string has an escape sequence \n"
 tree-sitter-expression-block-end
 
 ;;; ;;; ;;; ;;; ;;;
@@ -167,6 +168,28 @@ LocalLabelIsNoLongerValid:
 ;;; ;;; ;;; ;;; ;;;
 ;;; Control Commands
 ;;; ;;; ;;; ;;; ;;;
+
+.macro macro_name arg, another_arg
+    lda arg
+    ldx another_arg
+    arg
+    another_arg
+.endmacro
+
+.macro macro_name arg
+    lda arg
+    arg
+.endmacro
+
+.struct a_struct_name
+    member_name .byte
+    another_member_name .word
+.endstruct
+
+.union a_union_name
+    member_name .byte
+    another_member_name .word
+.endunion
 
 ;;; ;;; ;;; ;;; ;;;
 ;;; Predefined Constants
