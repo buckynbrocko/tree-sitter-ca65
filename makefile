@@ -9,6 +9,17 @@ init:
 
 pre-commit: src/parser.c test tree-sitter-ca65.wasm
 
+shared-library: src/parser.c
+	cd src && gcc -o ca65.so -shared parser.c -Os -fPIC -I .
+
+highlight-html: test
+	npx tree-sitter highlight misc/smb-movements.s --html > misc/smb-movements.html  
+	npx tree-sitter highlight misc/mega-syntax.asm --html > misc/mega-syntax.html  
+
+highlight: test
+	npx tree-sitter highlight misc/smb-movements.s	
+	npx tree-sitter highlight misc/mega-syntax.asm
+
 publish:
 	scripts/publish
 

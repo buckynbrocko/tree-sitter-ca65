@@ -19,6 +19,7 @@ const optional_field = utilities.optional_field;
 const grammar_ = () => grammar({
     name: "ca65",
     conflicts: $ => [
+        // [$._expression, $._addressing_mode],
         // [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
         // [$.macro_invocation, $._expression],
         // [$.assignment_statement, $._expression],
@@ -100,7 +101,7 @@ const rules_ = {
         c_comment: _ => immediate(
             field("left", "/*"),
             field("contents", /[^(\*\/)]*?/),
-            field("left", "*/"),
+            field("right", "*/"),
             /\r?\n/
         ),
     },
@@ -109,6 +110,7 @@ const rules_ = {
             $.control_command,
             $.instruction,
             $.assignment_statement,
+            $.label_assignment,
             $.macro_invocation,
             $._expression_block,
             alias($._symbol, $.ambiguous_symbol),
@@ -135,6 +137,8 @@ const rules_ = {
             $.unary_expression,
             $.binary_expression,
             $.cheap_label,
+            $.unnamed_label_plus,
+            $.unnamed_label_minus,
         ),
         expression_list: $ => delimited($._expression, ","),
         expressions: $ => repeat1($._expression),
@@ -299,7 +303,8 @@ const rules_ = {
             $.binary_literal,
             $.decimal_literal,
         ),
-        string_literal: _ => choice(
+
+        string_literal: $ => choice(
             immediate(
                 '"',
                 field("contents",
@@ -554,7 +559,7 @@ const rules_ = {
         ),
 
         proc_declaration: $ => seq(
-            field("command", ".proc"),
+            caseless_alias(".proc", $.command),
             field("name", $._single_symbol),
             $._newline,
             optional_field("body", $.block),
@@ -649,7 +654,7 @@ const rules_ = {
         storage_allocator: $ => caseless(control_commands.storageAllocators),
     },
     addressing: {
-        _addressing_mode: $ => choice(
+        _addressing_mode: $ => prec(3, choice(
             $.absolute_address,
             $.immediate_mode,
             $.indexed_x,
@@ -658,7 +663,7 @@ const rules_ = {
             $.indirect_y,
             $.unnamed_label_plus,
             $.unnamed_label_minus,
-        ),
+        )),
         absolute_address: $ => $._expression,
         immediate_mode: $ => seq("#", $._expression),
         indexed_x: $ => seq($._expression, ",", $.x),
@@ -676,6 +681,7 @@ const rules_ = {
         identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
 
         _single_symbol: $ => choice(
+            $._reserved,
             $.identifier,
             prec(2, $.ident_call)
         ),

@@ -17,6 +17,14 @@ tree-sitter-expression-block-start
 .lobyte 1
 .hibyte 1
 .bankbyte 1
+
+;associativity/precedence
++-1
+-+1
+!!1
+-!1
+!-1
+
 tree-sitter-expression-block-end
 
 --------------------------------------------------------------------------------
@@ -64,4 +72,30 @@ tree-sitter-expression-block-end
     operand: (decimal_literal))
   (unary_expression
     operator: (bankbyte)
-    operand: (decimal_literal)))
+    operand: (decimal_literal))
+  (comment)
+  (unary_expression
+    operator: (plus)
+    operand: (unary_expression
+      operator: (minus)
+      operand: (decimal_literal)))
+  (unary_expression
+    operator: (minus)
+    operand: (unary_expression
+      operator: (plus)
+      operand: (decimal_literal)))
+  (unary_expression
+    operator: (bang)
+    operand: (unary_expression
+      operator: (bang)
+      operand: (decimal_literal)))
+  (unary_expression
+    operator: (minus)
+    operand: (unary_expression
+      operator: (bang)
+      operand: (decimal_literal)))
+  (unary_expression
+    operator: (bang)
+    operand: (unary_expression
+      operator: (minus)
+      operand: (decimal_literal))))
