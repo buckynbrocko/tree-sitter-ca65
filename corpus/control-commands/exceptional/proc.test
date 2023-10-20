@@ -12,6 +12,7 @@
 
 (source_file
   (proc_declaration
+    (command)
     name: (identifier)
     (comment)
     body: (block

@@ -19,6 +19,7 @@ const optional_field = utilities.optional_field;
 const grammar_ = () => grammar({
     name: "ca65",
     conflicts: $ => [
+        // [$._expression, $._addressing_mode],
         // [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
         // [$.macro_invocation, $._expression],
         // [$.assignment_statement, $._expression],
@@ -52,7 +53,12 @@ const grammar_ = () => grammar({
             "statement"
         ]
     ],
-    supertypes: $ => [$.control_command],
+    supertypes: $ => [
+        $.control_command,
+        $.PC,
+        $.unary_operator,
+        $.binary_operator,
+    ],
     word: $ => $._word,
     rules: {
         ...rules_.meta,
@@ -95,7 +101,7 @@ const rules_ = {
         c_comment: _ => immediate(
             field("left", "/*"),
             field("contents", /[^(\*\/)]*?/),
-            field("left", "*/"),
+            field("right", "*/"),
             /\r?\n/
         ),
     },
@@ -104,13 +110,19 @@ const rules_ = {
             $.control_command,
             $.instruction,
             $.assignment_statement,
+            $.label_assignment,
             $.macro_invocation,
             $._expression_block,
             alias($._symbol, $.ambiguous_symbol),
         ),
 
+        _assignable_to: $ => choice(
+            $._symbol,
+            $.PC
+        ),
+
         assignment_statement: $ => seq(
-            field("left", $._symbol),
+            field("left", $._assignable_to),
             "=",
             field("right", $._expression)
         )
@@ -125,31 +137,95 @@ const rules_ = {
             $.unary_expression,
             $.binary_expression,
             $.cheap_label,
+            $.unnamed_label_plus,
+            $.unnamed_label_minus,
         ),
         expression_list: $ => delimited($._expression, ","),
         expressions: $ => repeat1($._expression),
-        unary_expression: $ => prec(2,
-            seq(
-                field("operator", $.unary_operator),
+        unary_expression: $ => choice(
+            prec("unary_ops", seq(
+                field("operator", choice($.plus, $.minus, $.tilde, $.LT, $.GT, $.caret, $.bitnot, $.lobyte, $.hibyte, $.bankbyte)),
                 field("operand", $._expression)
-            )
+
+            )),
+            prec("boolean_not", seq(
+                field("operator", choice($.bang, $.dot_not)),
+                field("operand", $._expression)
+
+            )),
         ),
+        plus: _ => "+",
+        minus: _ => "-",
+        tilde: _ => "~",
+        LT: _ => "<",
+        GT: _ => ">",
+        caret: _ => "^",
+        bang: _ => "!",
+        star: _ => "*",
+        slash: _ => "/",
+        ampersand: _ => "&",
+        ampersand_ampersand: _ => "&&",
+        LTLT: _ => "<<",
+        GTGT: _ => ">>",
+        pipe: _ => "|",
+        equals: _ => "=",
+        LTGT: _ => "<>",
+        LTE: _ => "<=",
+        GTE: _ => ">=",
+        bankbyte: _ => caseless(".bankbyte"),
+        lobyte: _ => caseless(".lobyte"),
+        hibyte: _ => caseless(".hibyte"),
+        bitand: _ => caseless(".bitand"),
+        bitnot: _ => caseless(".bitnot"),
+        bitor: _ => caseless(".bitor"),
+        bitxor: _ => caseless(".bitxor"),
+        dot_and: _ => caseless(".and"),
+        dot_mod: _ => caseless(".mod"),
+        dot_not: _ => caseless(".not"),
+        dot_or: _ => caseless(".or"),
+        dot_xor: _ => caseless(".xor"),
+        shl: _ => caseless(".shl"),
+        shr: _ => caseless(".shr"),
+
         unary_operator: $ => choice(
-            prec("unary_ops", caseless("+", "-", "~", "<", ">", "^", ".bitnot", ".lobyte", ".hibyte", ".bankbyte")),
-            prec("boolean_not", caseless("!", ".not")),
+            prec("unary_ops", choice($.plus, $.minus, $.tilde, $.LT, $.GT, $.caret, $.bitnot, $.lobyte, $.hibyte, $.bankbyte)),
+            prec("boolean_not", choice($.bang, $.dot_not)),
         ),
 
-        binary_expression: $ => prec.left(seq(
-            field("left", $._expression),
-            field("operator", $.binary_operator),
-            field("right", $._expression),
+        binary_expression: $ => prec.right(choice(
+            prec("muldiv", seq(
+                field("left", $._expression),
+                field("operator", choice($.star, $.slash, $.ampersand, $.caret, $.LTLT, $.GTGT, $.dot_mod, $.bitand, $.bitxor, $.shl, $.shr),),
+                field("right", $._expression),
+            )),
+            prec("addsub", seq(
+                field("left", $._expression),
+                field("operator", choice($.plus, $.minus, $.pipe, $.bitor)),
+                field("right", $._expression),
+            )),
+            prec("comparison_ops", seq(
+                field("left", $._expression),
+                field("operator", choice($.equals, $.LTGT, $.LT, $.GT, $.LTE, $.GTE)),
+                field("right", $._expression),
+            )),
+            prec("boolean_and_xor", seq(
+                field("left", $._expression),
+                field("operator", choice($.ampersand_ampersand, $.dot_and, $.dot_xor)),
+                field("right", $._expression),
+            )),
+            prec("boolean_or", seq(
+                field("left", $._expression),
+                field("operator", $.dot_or),
+                field("right", $._expression),
+            )),
+
         )),
         binary_operator: $ => choice(
-            prec("muldiv", caseless("*", "/", "&", "^", "<<", ">>", ".mod", ".bitand", ".bitxor", ".shl", ".shr")),
-            prec("addsub", caseless("+", "-", "|", ".bitor")),
-            prec("comparison_ops", caseless("=", "<>", "<", ">", "<=", ">=")),
-            prec("boolean_and_xor", caseless("&&", ".and", ".xor")),
-            prec("boolean_or", caseless(".or")),
+            prec("muldiv", choice($.star, $.slash, $.ampersand, $.caret, $.LTLT, $.GTGT, $.dot_mod, $.bitand, $.bitxor, $.shl, $.shr)),
+            prec("addsub", choice($.plus, $.minus, $.pipe, $.bitor)),
+            prec("comparison_ops", choice($.equals, $.LTGT, $.LT, $.GT, $.LTE, $.GTE)),
+            prec("boolean_and_xor", choice($.ampersand_ampersand, $.dot_and, $.dot_xor)),
+            prec("boolean_or", $.dot_or),
         ),
         _expression_block: $ => seq( // (For testing/debugging purposes)
             "tree-sitter-expression-block-start",
@@ -227,7 +303,8 @@ const rules_ = {
             $.binary_literal,
             $.decimal_literal,
         ),
-        string_literal: _ => choice(
+
+        string_literal: $ => choice(
             immediate(
                 '"',
                 field("contents",
@@ -263,7 +340,7 @@ const rules_ = {
         ),
     },
     pseudos: {
-        pseudo_variable: _ => caseless(pseudo_variables),
+        pseudo_variable: $ => choice(caseless(pseudo_variables), $.PC),
 
         pseudo_function: _ => caseless(pseudo_functions.nominal),
         nominal_pseudo_function_call: $ => seq(
@@ -312,7 +389,7 @@ const rules_ = {
             )
         ),
         _exceptional_control_command: $ => choice(
-            $.assert_command,
+            $.assert_statement,
             $.feature_command,
             $.feature_toggle_command,
             $.file_opt_command,
@@ -329,7 +406,7 @@ const rules_ = {
             $.if_statement,
         ),
 
-        assert_command: $ => seq(
+        assert_statement: $ => seq(
             caseless_alias(".assert", $.command),
             field("condition", $._expression),
             ",",
@@ -399,36 +476,32 @@ const rules_ = {
             $.disable_feature,
         ),
         enable_feature: $ => seq(
-            field("name", $._feature_name),
+            field("name", $.feature_name),
             optional_field("quantifier", choice(
                 $.plus,
                 $.on,
             ))
         ),
         disable_feature: $ => seq(
-            field("name", $._feature_name),
+            field("name", $.feature_name),
             field("quantifier", choice(
                 $.minus,
                 $.off,
             ))
         ),
-        _feature_name: $ => caseless(control_commands.compatibilityFeatures),
-        plus: _ => "+",
-        minus: _ => "-",
+        feature_name: $ => caseless(control_commands.compatibilityFeatures),
         on: _ => caseless("on"),
         off: _ => caseless("off"),
 
         file_opt_command: $ => seq(
             caseless_alias([".fileopt", ".fopt"], $.command),
-            field(
-                "option",
-                caseless(
-                    "author",
-                    "comment",
-                    "compiler"
-                )
-            ),
+            field("option", $.file_option),
             $._expression
+        ),
+        file_option: _ => caseless(
+            "author",
+            "comment",
+            "compiler"
         ),
 
 
@@ -458,12 +531,12 @@ const rules_ = {
 
         macro_parameters: $ => delimited($._single_symbol, ","),
         macro_declaration: $ => seq(
-            caseless_alias(".macro", $.command),
+            caseless_alias([".macro", ".mac"], $.command),
             field("name", $._single_symbol),
             optional_field("parameters", $.macro_parameters),
             $._newline,
             optional_field("body", $.block),
-            caseless_alias(".endmacro", $.command)
+            caseless_alias([".endmacro", ".endmac"], $.command)
         ),
         macro_argument: $ => prec.right(
             pick(
@@ -484,7 +557,7 @@ const rules_ = {
         ),
 
         proc_declaration: $ => seq(
-            field("command", ".proc"),
+            caseless_alias(".proc", $.command),
             field("name", $._single_symbol),
             $._newline,
             optional_field("body", $.block),
@@ -500,7 +573,13 @@ const rules_ = {
             ),
             $._newline,
             optional_field("body", $.block),
-            caseless_alias(".endrepeat", $.command)
+            alias(
+                caseless(
+                    ".endrepeat",
+                    ".endrep",
+                ),
+                $.command
+            )
         ),
 
         scope_declaration: $ => seq(
@@ -579,7 +658,7 @@ const rules_ = {
         storage_allocator: $ => caseless(control_commands.storageAllocators),
     },
     addressing: {
-        _addressing_mode: $ => choice(
+        _addressing_mode: $ => prec(3, choice(
             $.absolute_address,
             $.immediate_mode,
             $.indexed_x,
@@ -588,7 +667,7 @@ const rules_ = {
             $.indirect_y,
             $.unnamed_label_plus,
             $.unnamed_label_minus,
-        ),
+        )),
         absolute_address: $ => $._expression,
         immediate_mode: $ => seq("#", $._expression),
         indexed_x: $ => seq($._expression, ",", $.x),
@@ -606,6 +685,7 @@ const rules_ = {
         identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
 
         _single_symbol: $ => choice(
+            $._reserved,
             $.identifier,
             prec(2, $.ident_call)
         ),
@@ -626,6 +706,13 @@ const rules_ = {
         ),
 
         _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        star_PC: _ => "*",
+        dollar_PC: _ => "$",
+        PC: $ => choice(
+            $.star_PC,
+            $.dollar_PC
+        ),
 
         _reserved: $ => choice(
             $.a,

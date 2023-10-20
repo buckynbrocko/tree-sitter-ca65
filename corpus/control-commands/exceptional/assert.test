@@ -15,63 +15,63 @@
 --------------------------------------------------------------------------------
 
 (source_file
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword)
     message: (string_literal))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword)
     message: (string_literal))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword)
     message: (string_literal))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword)
     message: (string_literal))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword))
-  (assert_command
+  (assert_statement
     (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (binary_operator)
+      operator: (LT)
       right: (decimal_literal))
     action: (contextual_keyword)))

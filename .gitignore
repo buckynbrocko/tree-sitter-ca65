@@ -143,3 +143,5 @@ build/Makefile
 build/Makefile
 build/config.gypi
 build/tree_sitter_ca65_binding.target.mk
+.vscode/settings.json
+.vscode/

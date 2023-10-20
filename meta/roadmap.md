@@ -1,5 +1,13 @@
 # Project Roadmap
 
+## Docket
+
+- expand tree-sitter tests
+- add labels to all tree-sitter tests
+- add `How To Use` doc
+- implement/Decry TODO Features
+- publish to npm (?)
+
 ## Features
 
 ### Implemented
@@ -13,21 +21,24 @@
 - `.FEATURE` features:
     - `@` in identifiers
     - `$` in identifiers
+    - `$` is `PC`
+    - `*` is `PC`
+    - assignment to `PC`
     - leading `.` in identifiers
     - square brackets for indirect addressing
-    - C-style comments
+    - C-style `//` comments
     - labels without colons
     - string escapes
     - underlines within numbers
 
 ### TODO
 
-- `$` is `PC`
+- implement arbitrary solution for colonless-label/macro invocation ambiguity 
 
 ### Not Planned
 
-- identifiers overloading instruction names
 - the following `.FEATURE` features:
     - missing char terminator 
     - loose char terminator
     - loose string terminator
+    - identifiers overloading instruction names (seriously just don't)
