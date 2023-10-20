@@ -39,7 +39,7 @@
         if_type: (command)
         condition: (binary_expression
           left: (decimal_literal)
-          operator: (LT)
+          operator: (binary_operator)
           right: (decimal_literal))
         body: (block
           (union_struct_member
@@ -49,7 +49,7 @@
           (command)
           condition: (binary_expression
             left: (decimal_literal)
-            operator: (GT)
+            operator: (binary_operator)
             right: (decimal_literal))
           body: (block
             (union_struct_member

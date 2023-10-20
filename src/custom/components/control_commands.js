@@ -127,13 +127,13 @@ const control_commands = {
         "labels_without_colons",
         "leading_dot_in_identifiers",
         "long_jsr_jmp_rts",
-        "loose_char_term", // not-actually supported
-        "loose_string_term", // not-actually supported
-        "missing_char_term", // not-actually supported
+        "loose_char_term",
+        "loose_string_term",
+        "missing_char_term",
         "org_per_seg",
         "pc_assignment",
         "string_escapes",
-        "ubiquitous_idents", // not-actually supported
+        "ubiquitous_idents",
         "underline_in_numbers",
     ]
 };
