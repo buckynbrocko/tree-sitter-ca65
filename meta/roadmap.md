@@ -21,6 +21,9 @@
 - `.FEATURE` features:
     - `@` in identifiers
     - `$` in identifiers
+    - `$` is `PC`
+    - `*` is `PC`
+    - assignment to `PC`
     - leading `.` in identifiers
     - square brackets for indirect addressing
     - C-style `//` comments
@@ -30,13 +33,12 @@
 
 ### TODO
 
-- `$` is `PC`
-- assignment to `PC`
+- implement arbitrary solution for colonless-label/macro invocation ambiguity 
 
 ### Not Planned
 
-- identifiers overloading instruction names (seriously just don't)
 - the following `.FEATURE` features:
     - missing char terminator 
     - loose char terminator
     - loose string terminator
+    - identifiers overloading instruction names (seriously just don't)

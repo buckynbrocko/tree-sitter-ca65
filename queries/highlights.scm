@@ -53,15 +53,47 @@
     left: (identifier)? @constant
     ":=" @operator)
 (cheap_label
+    [
+        "@"
+        "?"
+    ] @operator
     (identifier) @constant)
 
 (storage_allocator) @type
 (pseudo_variable) @constant
 (pseudo_function) @function.builtin
 
-
+;;;;;;;;
+;;;; Control Commands
+;;;;;;;;
 
 (command) @keyword @command
+
+;;; .assert
+(assert_statement
+    action: (_) @keyword.contextual)
+
+;;; condes
+(condes_statement
+    name: (identifier) @constant
+    type: (_) @keyword.contextual)
+
+(enum_declaration
+    name: (identifier) @constant)
+
+(enable_feature
+    name: (_) @keyword.contextual
+    quantifier: (_) @operator)
+(disable_feature
+    name: (_) @keyword.contextual
+    quantifier: (_) @operator)
+
+(feature_toggle_command
+    quantifier: (_) @operator)
+
+(file_opt_command
+    (command)
+    option: (_) @keyword.contextual)
 
 (macro_declaration
     name: (_) @function
@@ -77,6 +109,12 @@
 
 (macro_invocation
     name: (identifier) @function)
+
+(proc_declaration
+    name: (identifier) @constant)
+
+(scope_declaration
+    name: (identifier) @constant)
 
 (struct_declaration
     name: (_)? @type
