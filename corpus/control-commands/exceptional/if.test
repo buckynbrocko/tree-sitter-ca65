@@ -15,7 +15,7 @@ If Statements
     if_type: (command)
     condition: (binary_expression
       left: (decimal_literal)
-      operator: (equals)
+      operator: (binary_operator)
       right: (hex_literal))
     body: (block
       (nominal_control_command

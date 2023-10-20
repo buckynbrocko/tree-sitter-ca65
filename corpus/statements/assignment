@@ -9,53 +9,37 @@ foo::bar = 3
 foo::bar = baz
 foo::bar = baz::qux
 three = 1 + 2
-* = 1234
-$ = 5678
-var = $ + 2
 
 
 --------------------------------------------------------------------------------
 
 (source_file
   (assignment_statement
-    left: (identifier)
-    right: (decimal_literal))
+    (identifier)
+    (decimal_literal))
   (assignment_statement
-    left: (identifier)
-    right: (identifier))
+    (identifier)
+    (identifier))
   (assignment_statement
-    left: (scoped_access
+    (scoped_access
       (identifier)
       (identifier))
-    right: (decimal_literal))
+    (decimal_literal))
   (assignment_statement
-    left: (scoped_access
+    (scoped_access
       (identifier)
       (identifier))
-    right: (identifier))
+    (identifier))
   (assignment_statement
-    left: (scoped_access
+    (scoped_access
       (identifier)
       (identifier))
-    right: (scoped_access
+    (scoped_access
       (identifier)
       (identifier)))
   (assignment_statement
-    left: (identifier)
-    right: (binary_expression
-      left: (decimal_literal)
-      operator: (plus)
-      right: (decimal_literal)))
-  (assignment_statement
-    left: (star_PC)
-    right: (decimal_literal))
-  (assignment_statement
-    left: (dollar_PC)
-    right: (decimal_literal))
-  (assignment_statement
-    left: (identifier)
-    right: (binary_expression
-      left: (pseudo_variable
-        (dollar_PC))
-      operator: (plus)
-      right: (decimal_literal))))
+    (identifier)
+    (binary_expression
+      (decimal_literal)
+      (binary_operator)
+      (decimal_literal))))

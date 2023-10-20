@@ -33,7 +33,8 @@
         "s",
         "asm",
         "ca65"
-      ]
+      ],
+      "injection-regex": "ca65"
     }
   ]
 }

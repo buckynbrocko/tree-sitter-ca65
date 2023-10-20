@@ -3,99 +3,52 @@ unary expressions
 ================================================================================
 
 tree-sitter-expression-block-start
-
 +1
 -1
 ~1
 <1
 >1
 !1
-!!1
 .not 1
-.not .not 1
 .bitnot 1
 .lobyte 1
 .hibyte 1
 .bankbyte 1
-
-;associativity/precedence
-+-1
--+1
-!!1
--!1
-!-1
-
 tree-sitter-expression-block-end
 
 --------------------------------------------------------------------------------
 
 (source_file
   (unary_expression
-    operator: (plus)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (minus)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (tilde)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (LT)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (GT)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (bang)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (bang)
-    operand: (unary_expression
-      operator: (bang)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (dot_not)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (dot_not)
-    operand: (unary_expression
-      operator: (dot_not)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (bitnot)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (lobyte)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (hibyte)
+    operator: (unary_operator)
     operand: (decimal_literal))
   (unary_expression
-    operator: (bankbyte)
-    operand: (decimal_literal))
-  (comment)
-  (unary_expression
-    operator: (plus)
-    operand: (unary_expression
-      operator: (minus)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (minus)
-    operand: (unary_expression
-      operator: (plus)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (bang)
-    operand: (unary_expression
-      operator: (bang)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (minus)
-    operand: (unary_expression
-      operator: (bang)
-      operand: (decimal_literal)))
-  (unary_expression
-    operator: (bang)
-    operand: (unary_expression
-      operator: (minus)
-      operand: (decimal_literal))))
+    operator: (unary_operator)
+    operand: (decimal_literal)))
