@@ -389,7 +389,7 @@ const rules_ = {
             )
         ),
         _exceptional_control_command: $ => choice(
-            $.assert_command,
+            $.assert_statement,
             $.feature_command,
             $.feature_toggle_command,
             $.file_opt_command,
@@ -406,7 +406,7 @@ const rules_ = {
             $.if_statement,
         ),
 
-        assert_command: $ => seq(
+        assert_statement: $ => seq(
             caseless_alias(".assert", $.command),
             field("condition", $._expression),
             ",",
@@ -476,34 +476,32 @@ const rules_ = {
             $.disable_feature,
         ),
         enable_feature: $ => seq(
-            field("name", $._feature_name),
+            field("name", $.feature_name),
             optional_field("quantifier", choice(
                 $.plus,
                 $.on,
             ))
         ),
         disable_feature: $ => seq(
-            field("name", $._feature_name),
+            field("name", $.feature_name),
             field("quantifier", choice(
                 $.minus,
                 $.off,
             ))
         ),
-        _feature_name: $ => caseless(control_commands.compatibilityFeatures),
+        feature_name: $ => caseless(control_commands.compatibilityFeatures),
         on: _ => caseless("on"),
         off: _ => caseless("off"),
 
         file_opt_command: $ => seq(
             caseless_alias([".fileopt", ".fopt"], $.command),
-            field(
-                "option",
-                caseless(
-                    "author",
-                    "comment",
-                    "compiler"
-                )
-            ),
+            field("option", $.file_option),
             $._expression
+        ),
+        file_option: _ => caseless(
+            "author",
+            "comment",
+            "compiler"
         ),
 
 
@@ -533,12 +531,12 @@ const rules_ = {
 
         macro_parameters: $ => delimited($._single_symbol, ","),
         macro_declaration: $ => seq(
-            caseless_alias(".macro", $.command),
+            caseless_alias([".macro", ".mac"], $.command),
             field("name", $._single_symbol),
             optional_field("parameters", $.macro_parameters),
             $._newline,
             optional_field("body", $.block),
-            caseless_alias(".endmacro", $.command)
+            caseless_alias([".endmacro", ".endmac"], $.command)
         ),
         macro_argument: $ => prec.right(
             pick(
@@ -575,7 +573,13 @@ const rules_ = {
             ),
             $._newline,
             optional_field("body", $.block),
-            caseless_alias(".endrepeat", $.command)
+            alias(
+                caseless(
+                    ".endrepeat",
+                    ".endrep",
+                ),
+                $.command
+            )
         ),
 
         scope_declaration: $ => seq(

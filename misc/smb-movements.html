@@ -184,101 +184,101 @@
 </td></tr>
 <tr><td class=line-number>82</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>83</td><td class=line><span style='color: #5f00d7'>.proc</span> reset
+<tr><td class=line-number>83</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>reset</span>
 </td></tr>
-<tr><td class=line-number>84</td><td class=line>  <span style='color: #5f00d7'>sei</span>
+<tr><td class=line-number>84</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sei</span>
 </td></tr>
-<tr><td class=line-number>85</td><td class=line>  <span style='color: #5f00d7'>cld</span>
+<tr><td class=line-number>85</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>cld</span>
 </td></tr>
-<tr><td class=line-number>86</td><td class=line>  <span style='color: #5f00d7'>ldx</span> #<span style='font-weight: bold;color: #875f00'>$ff</span>
+<tr><td class=line-number>86</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>ldx</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$ff</span>
 </td></tr>
-<tr><td class=line-number>87</td><td class=line>  <span style='color: #5f00d7'>txs</span>
+<tr><td class=line-number>87</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>txs</span>
 </td></tr>
-<tr><td class=line-number>88</td><td class=line>  <span style='color: #5f00d7'>ldx</span> #<span style='font-weight: bold;color: #875f00'>0</span>
+<tr><td class=line-number>88</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>ldx</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>0</span>
 </td></tr>
-<tr><td class=line-number>89</td><td class=line>  <span style='color: #5f00d7'>stx</span> PPU_CTRL
+<tr><td class=line-number>89</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>stx</span> PPU_CTRL
 </td></tr>
-<tr><td class=line-number>90</td><td class=line>  <span style='color: #5f00d7'>stx</span> PPU_MASK
+<tr><td class=line-number>90</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>stx</span> PPU_MASK
 </td></tr>
-<tr><td class=line-number>91</td><td class=line>  <span style='color: #5f00d7'>stx</span> <span style='font-weight: bold;color: #875f00'>$4010</span>
+<tr><td class=line-number>91</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>stx</span> <span style='font-weight: bold;color: #875f00'>$4010</span>
 </td></tr>
-<tr><td class=line-number>92</td><td class=line>  <span style='color: #5f00d7'>ldx</span> #<span style='font-weight: bold;color: #875f00'>%01000000</span>
+<tr><td class=line-number>92</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>ldx</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>%01000000</span>
 </td></tr>
-<tr><td class=line-number>93</td><td class=line>  <span style='color: #5f00d7'>stx</span> <span style='font-weight: bold;color: #875f00'>$4017</span>
+<tr><td class=line-number>93</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>stx</span> <span style='font-weight: bold;color: #875f00'>$4017</span>
 </td></tr>
-<tr><td class=line-number>94</td><td class=line>  <span style='color: #5f00d7'>bit</span> PPU_STATUS
+<tr><td class=line-number>94</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bit</span> PPU_STATUS
 </td></tr>
 <tr><td class=line-number>95</td><td class=line>  VblankWait
 </td></tr>
-<tr><td class=line-number>96</td><td class=line>  <span style='color: #5f00d7'>ldx</span> #<span style='font-weight: bold;color: #875f00'>0</span>
+<tr><td class=line-number>96</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>ldx</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>0</span>
 </td></tr>
-<tr><td class=line-number>97</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>0</span>
+<tr><td class=line-number>97</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>0</span>
 </td></tr>
-<tr><td class=line-number>98</td><td class=line>@ram_reset_loop:
+<tr><td class=line-number>98</td><td class=line><span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>ram_reset_loop</span>:
 </td></tr>
-<tr><td class=line-number>99</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$000</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>99</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$000</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>100</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$100</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>100</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$100</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>101</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$200</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>101</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$200</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>102</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$300</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>102</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$300</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>103</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$400</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>103</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$400</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>104</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$500</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>104</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$500</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>105</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$600</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>105</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$600</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>106</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$700</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>106</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$700</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>107</td><td class=line>  <span style='color: #5f00d7'>inx</span>
+<tr><td class=line-number>107</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>inx</span>
 </td></tr>
-<tr><td class=line-number>108</td><td class=line>  <span style='color: #5f00d7'>bne</span> @ram_reset_loop
+<tr><td class=line-number>108</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bne</span> <span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>ram_reset_loop</span>
 </td></tr>
-<tr><td class=line-number>109</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>%11101111</span>
+<tr><td class=line-number>109</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>%11101111</span>
 </td></tr>
-<tr><td class=line-number>110</td><td class=line>@sprite_reset_loop:
+<tr><td class=line-number>110</td><td class=line><span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>sprite_reset_loop</span>:
 </td></tr>
-<tr><td class=line-number>111</td><td class=line>  <span style='color: #5f00d7'>sta</span> <span style='font-weight: bold;color: #875f00'>$200</span>, <span style='font-weight: bold;'>x</span>
+<tr><td class=line-number>111</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> <span style='font-weight: bold;color: #875f00'>$200</span>, <span style='font-weight: bold;color: #ffaaaa'>x</span>
 </td></tr>
-<tr><td class=line-number>112</td><td class=line>  <span style='color: #5f00d7'>inx</span>
+<tr><td class=line-number>112</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>inx</span>
 </td></tr>
-<tr><td class=line-number>113</td><td class=line>  <span style='color: #5f00d7'>bne</span> @sprite_reset_loop
+<tr><td class=line-number>113</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bne</span> <span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>sprite_reset_loop</span>
 </td></tr>
-<tr><td class=line-number>114</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$00</span>
+<tr><td class=line-number>114</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$00</span>
 </td></tr>
-<tr><td class=line-number>115</td><td class=line>  <span style='color: #5f00d7'>sta</span> OAM_ADDR
+<tr><td class=line-number>115</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> OAM_ADDR
 </td></tr>
-<tr><td class=line-number>116</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$02</span>
+<tr><td class=line-number>116</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$02</span>
 </td></tr>
-<tr><td class=line-number>117</td><td class=line>  <span style='color: #5f00d7'>sta</span> OAM_DMA
+<tr><td class=line-number>117</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> OAM_DMA
 </td></tr>
 <tr><td class=line-number>118</td><td class=line>  VblankWait
 </td></tr>
-<tr><td class=line-number>119</td><td class=line>  <span style='color: #5f00d7'>bit</span> PPU_STATUS
+<tr><td class=line-number>119</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bit</span> PPU_STATUS
 </td></tr>
-<tr><td class=line-number>120</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$3F</span>
+<tr><td class=line-number>120</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$3F</span>
 </td></tr>
-<tr><td class=line-number>121</td><td class=line>  <span style='color: #5f00d7'>sta</span> PPU_ADDR
+<tr><td class=line-number>121</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_ADDR
 </td></tr>
-<tr><td class=line-number>122</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$00</span>
+<tr><td class=line-number>122</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$00</span>
 </td></tr>
-<tr><td class=line-number>123</td><td class=line>  <span style='color: #5f00d7'>sta</span> PPU_ADDR
+<tr><td class=line-number>123</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_ADDR
 </td></tr>
-<tr><td class=line-number>124</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$0F</span>
+<tr><td class=line-number>124</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$0F</span>
 </td></tr>
-<tr><td class=line-number>125</td><td class=line>  <span style='color: #5f00d7'>ldx</span> #<span style='font-weight: bold;color: #875f00'>$20</span>
+<tr><td class=line-number>125</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>ldx</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$20</span>
 </td></tr>
-<tr><td class=line-number>126</td><td class=line>@resetPalettesLoop:
+<tr><td class=line-number>126</td><td class=line><span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>resetPalettesLoop</span>:
 </td></tr>
-<tr><td class=line-number>127</td><td class=line>  <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>127</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>128</td><td class=line>  <span style='color: #5f00d7'>dex</span>
+<tr><td class=line-number>128</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>dex</span>
 </td></tr>
-<tr><td class=line-number>129</td><td class=line>  <span style='color: #5f00d7'>bne</span> @resetPalettesLoop
+<tr><td class=line-number>129</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bne</span> <span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>resetPalettesLoop</span>
 </td></tr>
-<tr><td class=line-number>130</td><td class=line>  <span style='color: #5f00d7'>jmp</span> main
+<tr><td class=line-number>130</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jmp</span> main
 </td></tr>
 <tr><td class=line-number>131</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>
@@ -302,23 +302,23 @@
 </td></tr>
 <tr><td class=line-number>141</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>142</td><td class=line><span style='color: #5f00d7'>.proc</span> main
+<tr><td class=line-number>142</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>main</span>
 </td></tr>
-<tr><td class=line-number>143</td><td class=line>  <span style='color: #5f00d7'>jsr</span> init_game
+<tr><td class=line-number>143</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> init_game
 </td></tr>
-<tr><td class=line-number>144</td><td class=line>loop:
+<tr><td class=line-number>144</td><td class=line><span style='color: #875f00'>loop</span>:
 </td></tr>
-<tr><td class=line-number>145</td><td class=line>  <span style='color: #5f00d7'>jsr</span> game_loop
+<tr><td class=line-number>145</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> game_loop
 </td></tr>
 <tr><td class=line-number>146</td><td class=line>  SetRenderFlag
 </td></tr>
-<tr><td class=line-number>147</td><td class=line>@wait_for_render:
+<tr><td class=line-number>147</td><td class=line><span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>wait_for_render</span>:
 </td></tr>
-<tr><td class=line-number>148</td><td class=line>  <span style='color: #5f00d7'>bit</span> Game::<span style='font-style: italic;color: #af0000'>flags</span>
+<tr><td class=line-number>148</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bit</span> Game::<span style='font-style: italic;color: #af0000'>flags</span>
 </td></tr>
-<tr><td class=line-number>149</td><td class=line>  <span style='color: #5f00d7'>bmi</span> @wait_for_render
+<tr><td class=line-number>149</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bmi</span> <span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>wait_for_render</span>
 </td></tr>
-<tr><td class=line-number>150</td><td class=line>  <span style='color: #5f00d7'>jmp</span> loop
+<tr><td class=line-number>150</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jmp</span> loop
 </td></tr>
 <tr><td class=line-number>151</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>
@@ -344,19 +344,19 @@
 </td></tr>
 <tr><td class=line-number>162</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>163</td><td class=line><span style='color: #5f00d7'>.proc</span> nmi
+<tr><td class=line-number>163</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>nmi</span>
 </td></tr>
-<tr><td class=line-number>164</td><td class=line>  <span style='color: #5f00d7'>bit</span> Game::<span style='font-style: italic;color: #af0000'>flags</span>
+<tr><td class=line-number>164</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bit</span> Game::<span style='font-style: italic;color: #af0000'>flags</span>
 </td></tr>
-<tr><td class=line-number>165</td><td class=line>  <span style='color: #5f00d7'>bpl</span> @return
+<tr><td class=line-number>165</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>bpl</span> <span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>return</span>
 </td></tr>
-<tr><td class=line-number>166</td><td class=line>  <span style='color: #5f00d7'>jsr</span> render_loop
+<tr><td class=line-number>166</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> render_loop
 </td></tr>
 <tr><td class=line-number>167</td><td class=line>  UnsetRenderFlag
 </td></tr>
-<tr><td class=line-number>168</td><td class=line>@return:
+<tr><td class=line-number>168</td><td class=line><span style='font-weight: bold;color: #0bbdd'>@</span><span style='color: #875f00'>return</span>:
 </td></tr>
-<tr><td class=line-number>169</td><td class=line>  <span style='color: #5f00d7'>rti</span>
+<tr><td class=line-number>169</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>rti</span>
 </td></tr>
 <tr><td class=line-number>170</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>
@@ -368,19 +368,19 @@
 </td></tr>
 <tr><td class=line-number>174</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>175</td><td class=line><span style='color: #5f00d7'>.proc</span> init_game
+<tr><td class=line-number>175</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>init_game</span>
 </td></tr>
 <tr><td class=line-number>176</td><td class=line>  <span style='font-style: italic;color: #8a8a8a'>; Initialize the game state</span>
 </td></tr>
-<tr><td class=line-number>177</td><td class=line>  <span style='color: #5f00d7'>jsr</span> Game::<span style='font-style: italic;color: #af0000'>init</span>
+<tr><td class=line-number>177</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> Game::<span style='font-style: italic;color: #af0000'>init</span>
 </td></tr>
-<tr><td class=line-number>178</td><td class=line>  <span style='color: #5f00d7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>init</span>
+<tr><td class=line-number>178</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>init</span>
 </td></tr>
 <tr><td class=line-number>179</td><td class=line>
 </td></tr>
 <tr><td class=line-number>180</td><td class=line>  <span style='color: #5f00d7'>.ifndef</span> VIDEO_DEMO_MODE
 </td></tr>
-<tr><td class=line-number>181</td><td class=line>    <span style='color: #5f00d7'>jsr</span> VelocityIndicator::<span style='font-style: italic;color: #af0000'>init</span>
+<tr><td class=line-number>181</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>jsr</span> VelocityIndicator::<span style='font-style: italic;color: #af0000'>init</span>
 </td></tr>
 <tr><td class=line-number>182</td><td class=line>  <span style='color: #5f00d7'>.endif</span>
 </td></tr>
@@ -388,15 +388,15 @@
 </td></tr>
 <tr><td class=line-number>184</td><td class=line>  <span style='font-style: italic;color: #8a8a8a'>; Enable rendering and NMI</span>
 </td></tr>
-<tr><td class=line-number>185</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>%10110000</span>
+<tr><td class=line-number>185</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>%10110000</span>
 </td></tr>
-<tr><td class=line-number>186</td><td class=line>  <span style='color: #5f00d7'>sta</span> PPU_CTRL
+<tr><td class=line-number>186</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_CTRL
 </td></tr>
-<tr><td class=line-number>187</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>%00011110</span>
+<tr><td class=line-number>187</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>%00011110</span>
 </td></tr>
-<tr><td class=line-number>188</td><td class=line>  <span style='color: #5f00d7'>sta</span> PPU_MASK
+<tr><td class=line-number>188</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_MASK
 </td></tr>
-<tr><td class=line-number>189</td><td class=line>  <span style='color: #5f00d7'>rts</span>
+<tr><td class=line-number>189</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>rts</span>
 </td></tr>
 <tr><td class=line-number>190</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>
@@ -408,21 +408,21 @@
 </td></tr>
 <tr><td class=line-number>194</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>195</td><td class=line><span style='color: #5f00d7'>.proc</span> game_loop
+<tr><td class=line-number>195</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>game_loop</span>
 </td></tr>
-<tr><td class=line-number>196</td><td class=line>  <span style='color: #5f00d7'>jsr</span> Joypad::<span style='font-style: italic;color: #af0000'>update</span>
+<tr><td class=line-number>196</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> Joypad::<span style='font-style: italic;color: #af0000'>update</span>
 </td></tr>
-<tr><td class=line-number>197</td><td class=line>  <span style='color: #5f00d7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>Movement</span>::update
+<tr><td class=line-number>197</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>Movement</span>::<span style='font-style: italic;color: #af0000'>update</span>
 </td></tr>
-<tr><td class=line-number>198</td><td class=line>  <span style='color: #5f00d7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>Sprite</span>::update
+<tr><td class=line-number>198</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>jsr</span> Player::<span style='font-style: italic;color: #af0000'>Sprite</span>::<span style='font-style: italic;color: #af0000'>update</span>
 </td></tr>
 <tr><td class=line-number>199</td><td class=line>  <span style='color: #5f00d7'>.ifndef</span> VIDEO_DEMO_MODE
 </td></tr>
-<tr><td class=line-number>200</td><td class=line>    <span style='color: #5f00d7'>jsr</span> VelocityIndicator::<span style='font-style: italic;color: #af0000'>update</span>
+<tr><td class=line-number>200</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>jsr</span> VelocityIndicator::<span style='font-style: italic;color: #af0000'>update</span>
 </td></tr>
 <tr><td class=line-number>201</td><td class=line>  <span style='color: #5f00d7'>.endif</span>
 </td></tr>
-<tr><td class=line-number>202</td><td class=line>  <span style='color: #5f00d7'>rts</span>
+<tr><td class=line-number>202</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>rts</span>
 </td></tr>
 <tr><td class=line-number>203</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>
@@ -434,37 +434,37 @@
 </td></tr>
 <tr><td class=line-number>207</td><td class=line><span style='font-style: italic;color: #8a8a8a'>;-------------------------------------------------------------------------------</span>
 </td></tr>
-<tr><td class=line-number>208</td><td class=line><span style='color: #5f00d7'>.proc</span> render_loop
+<tr><td class=line-number>208</td><td class=line><span style='color: #5f00d7'>.proc</span> <span style='color: #875f00'>render_loop</span>
 </td></tr>
 <tr><td class=line-number>209</td><td class=line>  <span style='font-style: italic;color: #8a8a8a'>; Update the binary button indicator tiles</span>
 </td></tr>
 <tr><td class=line-number>210</td><td class=line>  <span style='color: #5f00d7'>.ifndef</span> VIDEO_DEMO_MODE
 </td></tr>
-<tr><td class=line-number>211</td><td class=line>    VramColRow <span style='font-weight: bold;color: #875f00'>2</span>, <span style='font-weight: bold;color: #875f00'>25</span>, NAMETABLE_A
+<tr><td class=line-number>211</td><td class=line>    <span style='color: #005fd7'>VramColRow</span> <span style='font-weight: bold;color: #875f00'>2</span>, <span style='font-weight: bold;color: #875f00'>25</span>, NAMETABLE_A
 </td></tr>
-<tr><td class=line-number>212</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span>
+<tr><td class=line-number>212</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span>
 </td></tr>
-<tr><td class=line-number>213</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>213</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>214</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #4e4e4e'>+</span> <span style='font-weight: bold;color: #875f00'>1</span>
+<tr><td class=line-number>214</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #0bbdd'>+</span> <span style='font-weight: bold;color: #875f00'>1</span>
 </td></tr>
-<tr><td class=line-number>215</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>215</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>216</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #4e4e4e'>+</span> <span style='font-weight: bold;color: #875f00'>4</span>
+<tr><td class=line-number>216</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #0bbdd'>+</span> <span style='font-weight: bold;color: #875f00'>4</span>
 </td></tr>
-<tr><td class=line-number>217</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>217</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>218</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #4e4e4e'>+</span> <span style='font-weight: bold;color: #875f00'>5</span>
+<tr><td class=line-number>218</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #0bbdd'>+</span> <span style='font-weight: bold;color: #875f00'>5</span>
 </td></tr>
-<tr><td class=line-number>219</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>219</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>220</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #4e4e4e'>+</span> <span style='font-weight: bold;color: #875f00'>6</span>
+<tr><td class=line-number>220</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #0bbdd'>+</span> <span style='font-weight: bold;color: #875f00'>6</span>
 </td></tr>
-<tr><td class=line-number>221</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>221</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
-<tr><td class=line-number>222</td><td class=line>    <span style='color: #5f00d7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #4e4e4e'>+</span> <span style='font-weight: bold;color: #875f00'>7</span>
+<tr><td class=line-number>222</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>lda</span> Joypad::<span style='font-style: italic;color: #af0000'>downTiles</span> <span style='font-weight: bold;color: #0bbdd'>+</span> <span style='font-weight: bold;color: #875f00'>7</span>
 </td></tr>
-<tr><td class=line-number>223</td><td class=line>    <span style='color: #5f00d7'>sta</span> PPU_DATA
+<tr><td class=line-number>223</td><td class=line>    <span style='font-weight: bold;color: #005fd7'>sta</span> PPU_DATA
 </td></tr>
 <tr><td class=line-number>224</td><td class=line>  <span style='color: #5f00d7'>.endif</span>
 </td></tr>
@@ -472,13 +472,13 @@
 </td></tr>
 <tr><td class=line-number>226</td><td class=line>  <span style='font-style: italic;color: #8a8a8a'>; Transfer Sprites via OAM</span>
 </td></tr>
-<tr><td class=line-number>227</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$00</span>
+<tr><td class=line-number>227</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$00</span>
 </td></tr>
-<tr><td class=line-number>228</td><td class=line>  <span style='color: #5f00d7'>sta</span> OAM_ADDR
+<tr><td class=line-number>228</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> OAM_ADDR
 </td></tr>
-<tr><td class=line-number>229</td><td class=line>  <span style='color: #5f00d7'>lda</span> #<span style='font-weight: bold;color: #875f00'>$02</span>
+<tr><td class=line-number>229</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>lda</span> <span style='font-weight: bold;color: #0bbdd'>#</span><span style='font-weight: bold;color: #875f00'>$02</span>
 </td></tr>
-<tr><td class=line-number>230</td><td class=line>  <span style='color: #5f00d7'>sta</span> OAM_DMA
+<tr><td class=line-number>230</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>sta</span> OAM_DMA
 </td></tr>
 <tr><td class=line-number>231</td><td class=line>
 </td></tr>
@@ -488,7 +488,7 @@
 </td></tr>
 <tr><td class=line-number>234</td><td class=line>
 </td></tr>
-<tr><td class=line-number>235</td><td class=line>  <span style='color: #5f00d7'>rts</span>
+<tr><td class=line-number>235</td><td class=line>  <span style='font-weight: bold;color: #005fd7'>rts</span>
 </td></tr>
 <tr><td class=line-number>236</td><td class=line><span style='color: #5f00d7'>.endproc</span>
 </td></tr>

@@ -124,7 +124,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "assert_command",
+        "type": "assert_statement",
         "named": true
       },
       {
@@ -386,7 +386,7 @@
     }
   },
   {
-    "type": "assert_command",
+    "type": "assert_statement",
     "named": true,
     "fields": {
       "action": {
@@ -1701,6 +1701,16 @@
     "type": "disable_feature",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "feature_name",
+            "named": true
+          }
+        ]
+      },
       "quantifier": {
         "multiple": false,
         "required": true,
@@ -1875,6 +1885,16 @@
     "type": "enable_feature",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "feature_name",
+            "named": true
+          }
+        ]
+      },
       "quantifier": {
         "multiple": false,
         "required": false,
@@ -2083,6 +2103,11 @@
     }
   },
   {
+    "type": "feature_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "feature_toggle_command",
     "named": true,
     "fields": {
@@ -2123,7 +2148,18 @@
   {
     "type": "file_opt_command",
     "named": true,
-    "fields": {},
+    "fields": {
+      "option": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "file_option",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -2222,6 +2258,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "file_option",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "global_scope_access",
