@@ -1,6 +1,6 @@
-==================
+================================================================================
 line-continue
-==================
+================================================================================
 
 adc \
     #123
@@ -9,21 +9,23 @@ adc \
 ; cannot be continued \
   will_be_an_ambiguous_symbol
 
----
+--------------------------------------------------------------------------------
 
 (source_file
   (instruction
     mnemonic: (mnemonic)
     (line_continue)
     address: (immediate_mode
-      (decimal_literal))
-    )
+      (decimal_literal)))
   (nominal_control_command
-    name: (command)
-    arguments: (expression_list
-      (string_literal)
-    )
-  )
+    name: (command))
+  (ERROR
+    (UNEXPECTED '\n'))
+  (ambiguous_symbol_pair
+    (identifier)
+    (identifier))
+  (ERROR
+    (UNEXPECTED '\n'))
   (comment)
-  (ambiguous_symbol (identifier))
-)
+  (ambiguous_symbol
+    (identifier)))

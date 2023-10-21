@@ -341,6 +341,7 @@ const rules_ = {
         _literal: $ => choice(
             $._number_literal,
             $.string_literal,
+            $.char_sans_terminator,
         ),
         _dollar_hex: _ => immediate(
             field("base_symbol", "$"),
@@ -364,6 +365,7 @@ const rules_ = {
             $.binary_literal,
             $.decimal_literal,
         ),
+        char_sans_terminator: _ => prec.left(/'./),
 
         string_literal: $ => choice(
             immediate(
@@ -377,7 +379,7 @@ const rules_ = {
                         "\\r", // \r
                         "\\n", // \n
                         /\\x[0-9A-F]{2}/, // \x01, \x9A, \xEF, ...
-                        /[^"]/,
+                        /[^"\n]/,
                     ))
                 ),
                 '"'
@@ -393,11 +395,11 @@ const rules_ = {
                         "\\r", // \r
                         "\\n", // \n
                         /\\x[0-9A-F]{2}/, // \x01, \x9A, \xEF, ...
-                        /[^']/,
+                        /[^'\n]/,
                     ))
                 ),
                 "'"
-            )
+            ),
         ),
     },
     pseudos: {

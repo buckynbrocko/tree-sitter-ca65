@@ -38,5 +38,4 @@
 ### Not Planned
 
 - the following `.FEATURE` features:
-    - missing char terminator 
     - identifiers overloading instruction names (seriously just don't)

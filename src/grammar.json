@@ -1766,6 +1766,10 @@
         {
           "type": "SYMBOL",
           "name": "string_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "char_sans_terminator"
         }
       ]
     },
@@ -1879,6 +1883,14 @@
         }
       ]
     },
+    "char_sans_terminator": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "PATTERN",
+        "value": "'."
+      }
+    },
     "string_literal": {
       "type": "CHOICE",
       "members": [
@@ -1929,7 +1941,7 @@
                       },
                       {
                         "type": "PATTERN",
-                        "value": "[^\"]"
+                        "value": "[^\"\\n]"
                       }
                     ]
                   }
@@ -1989,7 +2001,7 @@
                       },
                       {
                         "type": "PATTERN",
-                        "value": "[^']"
+                        "value": "[^'\\n]"
                       }
                     ]
                   }

@@ -17,6 +17,9 @@ tree-sitter-expression-block-end
 
 .include .concat("this", "be", "a", "concatenated", "string")
 
+lda #'a
+.asciiz 'q
+
 --------------------------------------------------------------------------------
 
 (source_file
@@ -31,12 +34,19 @@ tree-sitter-expression-block-end
   (nominal_control_command
     name: (command)
     arguments: (expression_list
-    (nominal_pseudo_function_call
-      name: (pseudo_function)
-      arguments: (expression_list
-        (string_literal)
-        (string_literal)
-        (string_literal)
-        (string_literal)
-        (string_literal)))))
-        )
+      (nominal_pseudo_function_call
+        name: (pseudo_function)
+        arguments: (expression_list
+          (string_literal)
+          (string_literal)
+          (string_literal)
+          (string_literal)
+          (string_literal)))))
+  (instruction
+    mnemonic: (mnemonic)
+    address: (immediate_mode
+      (char_sans_terminator)))
+  (nominal_control_command
+    name: (command)
+    arguments: (expression_list
+      (char_sans_terminator))))
