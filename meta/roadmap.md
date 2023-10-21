@@ -39,6 +39,4 @@
 
 - the following `.FEATURE` features:
     - missing char terminator 
-    - loose char terminator
-    - loose string terminator
     - identifiers overloading instruction names (seriously just don't)
