@@ -386,6 +386,57 @@
     }
   },
   {
+    "type": "ambiguous_symbol_pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "a",
+          "named": true
+        },
+        {
+          "type": "f",
+          "named": true
+        },
+        {
+          "type": "global_scope_access",
+          "named": true
+        },
+        {
+          "type": "ident_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "scoped_access",
+          "named": true
+        },
+        {
+          "type": "sp",
+          "named": true
+        },
+        {
+          "type": "x",
+          "named": true
+        },
+        {
+          "type": "y",
+          "named": true
+        },
+        {
+          "type": "z",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assert_statement",
     "named": true,
     "fields": {
@@ -1236,6 +1287,10 @@
           "named": true
         },
         {
+          "type": "ambiguous_symbol_pair",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -1297,6 +1352,10 @@
         },
         {
           "type": "label_declaration",
+          "named": true
+        },
+        {
+          "type": "label_sans_colon",
           "named": true
         },
         {
@@ -3316,6 +3375,49 @@
     }
   },
   {
+    "type": "label_sans_colon",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "a",
+          "named": true
+        },
+        {
+          "type": "f",
+          "named": true
+        },
+        {
+          "type": "ident_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "sp",
+          "named": true
+        },
+        {
+          "type": "x",
+          "named": true
+        },
+        {
+          "type": "y",
+          "named": true
+        },
+        {
+          "type": "z",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "macro_argument",
     "named": true,
     "fields": {},
@@ -4112,6 +4214,10 @@
           "named": true
         },
         {
+          "type": "ambiguous_symbol_pair",
+          "named": true
+        },
+        {
           "type": "assignment_statement",
           "named": true
         },
@@ -4173,6 +4279,10 @@
         },
         {
           "type": "label_declaration",
+          "named": true
+        },
+        {
+          "type": "label_sans_colon",
           "named": true
         },
         {

@@ -14,6 +14,11 @@ Macros
   jmp ($BEEF, x)
 .endmacro
 
+foo bar baz
+maybe_label maybe_macro
+label_sans_colon definitely_macro 1
+
+outer 1
 outer 1, 2, 3
 outer
 
@@ -60,11 +65,26 @@ outer
           (hex_literal)
           (x))))
     (command))
+  (label_sans_colon
+    (identifier))
+  (macro_invocation
+    name: (identifier)
+    (identifier))
+  (ambiguous_symbol_pair
+    (identifier)
+    (identifier))
+  (label_sans_colon
+    (identifier))
+  (macro_invocation
+    name: (identifier)
+    (decimal_literal))
+  (macro_invocation
+    name: (identifier)
+    (decimal_literal))
   (macro_invocation
     name: (identifier)
     (decimal_literal)
     (decimal_literal)
     (decimal_literal))
   (ambiguous_symbol
-    (identifier))
-    )
+    (identifier)))

@@ -86,12 +86,74 @@ const rules_ = {
         _code_unit: $ => choice(
             $._statement,
         ),
-        _line: $ => seq(
-            optional($._label),
-            optional($._code_unit),
+        _line: $ => prec(2, seq(
+            pick(
+                [
+                    optional($._label),
+                    optional($._code_unit)
+                ],
+                [
+                    alias($._single_symbol, $.label_sans_colon),
+                    $._code_unit
+                ],
+                alias($._symbol, $.ambiguous_symbol),
+                $.ambiguous_symbol_pair,
+            ),
             $._EOL
-        ),
+        )),
         block: $ => repeat1($._line),
+    },
+    symbols: {
+        identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        _single_symbol: $ => choice(
+            $._reserved,
+            $.identifier,
+            prec(2, $.ident_call)
+        ),
+        _symbol: $ => choice(
+            $._single_symbol,
+            $.scoped_access,
+            $.global_scope_access,
+        ),
+        ambiguous_symbol_pair: $ => prec(2, seq(
+            $._single_symbol,
+            $._symbol
+        )),
+
+        scoped_access: $ => seq(
+            $._single_symbol,
+            rep1("::", $._single_symbol),
+        ),
+        global_scope_access: $ => seq(
+            "#::",
+            $._single_symbol,
+            rep("::", $._single_symbol)
+        ),
+
+        _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
+
+        star_PC: _ => "*",
+        dollar_PC: _ => "$",
+        PC: $ => choice(
+            $.star_PC,
+            $.dollar_PC
+        ),
+
+        _reserved: $ => choice(
+            $.a,
+            $.f,
+            $.sp,
+            $.x,
+            $.y,
+            $.z,
+        ),
+        a: _ => caseless("a"),
+        f: _ => caseless("f"),
+        sp: _ => caseless(["s", "sp"]),
+        x: _ => caseless("x"),
+        y: _ => caseless("y"),
+        z: _ => caseless("z"),
     },
     comments: {
         comment: _ => immediate(
@@ -113,7 +175,6 @@ const rules_ = {
             $.label_assignment,
             $.macro_invocation,
             $._expression_block,
-            alias($._symbol, $.ambiguous_symbol),
         ),
 
         _assignable_to: $ => choice(
@@ -680,54 +741,6 @@ const rules_ = {
             ["(", $._expression, ")", ",", $.y],
             ["[", $._expression, "]", ",", $.y],
         ),
-    },
-    symbols: {
-        identifier: _ => /(\.)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
-
-        _single_symbol: $ => choice(
-            $._reserved,
-            $.identifier,
-            prec(2, $.ident_call)
-        ),
-        _symbol: $ => choice(
-            $._single_symbol,
-            $.scoped_access,
-            $.global_scope_access,
-        ),
-
-        scoped_access: $ => seq(
-            $._single_symbol,
-            rep1("::", $._single_symbol),
-        ),
-        global_scope_access: $ => seq(
-            "#::",
-            $._single_symbol,
-            rep("::", $._single_symbol)
-        ),
-
-        _word: _ => /(\.|\$)?[a-zA-Z_][a-zA-Z0-9_@\$]*/,
-
-        star_PC: _ => "*",
-        dollar_PC: _ => "$",
-        PC: $ => choice(
-            $.star_PC,
-            $.dollar_PC
-        ),
-
-        _reserved: $ => choice(
-            $.a,
-            $.f,
-            $.sp,
-            $.x,
-            $.y,
-            $.z,
-        ),
-        a: _ => caseless("a"),
-        f: _ => caseless("f"),
-        sp: _ => caseless(["s", "sp"]),
-        x: _ => caseless("x"),
-        y: _ => caseless("y"),
-        z: _ => caseless("z"),
     },
 };
 
