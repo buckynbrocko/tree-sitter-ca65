@@ -14,13 +14,12 @@ Macros
   jmp ($BEEF, x)
 .endmacro
 
-foo bar baz
-maybe_label maybe_macro
-label_sans_colon definitely_macro 1
-
 outer 1
+outer ,
 outer 1, 2, 3
-outer
+outer , id
+
+qualified::macro::invocation
 
 --------------------------------------------------------------------------------
 
@@ -65,26 +64,29 @@ outer
           (hex_literal)
           (x))))
     (command))
-  (label_sans_colon
-    (identifier))
   (macro_invocation
     name: (identifier)
-    (identifier))
-  (ambiguous_symbol_pair
-    (identifier)
-    (identifier))
-  (label_sans_colon
-    (identifier))
+    (macro_arguments
+      (decimal_literal)))
   (macro_invocation
     name: (identifier)
-    (decimal_literal))
+    (macro_arguments
+      (comma)))
   (macro_invocation
     name: (identifier)
-    (decimal_literal))
+    (macro_arguments
+      (decimal_literal)
+      (comma)
+      (decimal_literal)
+      (comma)
+      (decimal_literal)))
   (macro_invocation
     name: (identifier)
-    (decimal_literal)
-    (decimal_literal)
-    (decimal_literal))
-  (ambiguous_symbol
-    (identifier)))
+    (macro_arguments
+      (comma)
+      (identifier)))
+  (macro_invocation
+    name: (qualified_symbol
+      (identifier)
+      (identifier)
+      (identifier))))

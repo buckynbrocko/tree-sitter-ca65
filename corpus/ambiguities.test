@@ -1,0 +1,96 @@
+================================================================================
+ambiguities
+================================================================================
+
+ambiguous
+ambiguous ambiguous
+
+label: macro
+label: macro 1
+
+label macro arg
+label macro 1
+
+macro 1
+ambiguous arg01, arg02
+
+scoped::macro
+scoped::macro 1
+scoped::macro arg
+scoped::macro arg, arg
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (contextual_symbol
+    (identifier))
+
+  (contextual_sequence
+    (identifier)
+    (identifier))
+
+
+  (label_declaration
+    name: (identifier))
+  (macro_invocation
+    name: (identifier))
+
+  (label_declaration
+    name: (identifier))
+  (macro_invocation
+    name: (identifier)
+    (macro_arguments
+        (decimal_literal)
+    )
+  )
+
+  (contextual_sequence
+    (identifier)
+    (identifier)
+    (identifier)
+    )
+
+  (contextual_sequence
+    (identifier)
+    (identifier)
+    (decimal_literal)
+    )
+
+
+  (macro_invocation
+    name: (identifier)
+    (macro_arguments
+        (decimal_literal)))
+  (contextual_sequence
+    (identifier)
+    (identifier)
+    (comma)
+    (identifier)
+  )
+
+
+  (macro_invocation
+    name: (qualified_symbol
+      (identifier)
+      (identifier)))
+  (macro_invocation
+    name: (qualified_symbol
+      (identifier)
+      (identifier))
+    (macro_arguments
+        (decimal_literal)))
+  (macro_invocation
+    name: (qualified_symbol
+      (identifier)
+      (identifier))
+    (macro_arguments
+        (identifier)))
+  (macro_invocation
+    name: (qualified_symbol
+      (identifier)
+      (identifier))
+    (macro_arguments
+        (identifier)
+        (comma)
+        (identifier)))
+  )

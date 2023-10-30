@@ -1,0 +1,35 @@
+generic:
+  add: Arg # add without carry
+  sub: Arg # subtract without borrow
+  bge: Arg # branch on greater-than or equal
+  blt: Arg # branch on less-than
+  bgt: Arg # branch on greater-than
+  ble: Arg # branch on less-than or equal
+  bnz: Arg # branch on not zero
+  bze: Arg # branch on zero
+longjump:
+  jeq: Target # longbranch jump if equal
+  jne: Target # longbranch jump if not equal
+  jmi: Target # longbranch jump if minus/negative
+  jpl: Target # longbranch jump if plus/positive
+  jcs: Target # longbranch jump if flag `c` is set
+  jcc: Target # longbranch jump if flag `c` is clear
+  jvs: Target # longbranch jump if flag `v` is set
+  jvc: Target # longbranch jump if flag `v` is clear
+apple2:
+  scrcode: takes a string as argument and places this string into memory translated into screen codes
+atari:
+  scrcode: takes a string as argument and places this string into memory translated into screen codes
+cbm:
+  scrcode: takes a string as argument and places this string into memory translated into screen codes
+cpu: # Constants
+  - CPU_6502
+  - CPU_65SC02
+  - CPU_65C02
+  - CPU_65816
+  - CPU_SWEET16
+  - CPU_HUC6280
+  - CPU_4510
+  - CPU_6502DTV
+module:
+  module_header: takes an identifier as argument and is used to define the header of a module both in the dynamic and static variant

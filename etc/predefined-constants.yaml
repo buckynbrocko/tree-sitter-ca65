@@ -1,0 +1,30 @@
+__APPLE2__: apple2 or apple2enh
+__APPLE2ENH__: apple2enh
+__ATARI2600__: atari2600
+__ATARI5200__: atari5200
+__ATARI7800__: atari7800
+__ATARI__: atari or atarixl
+__ATARIXL__: atarixl
+__ATMOS__: atmos
+__BBC__: bbc
+__C128__: c128
+__C16__: c16 or plus4
+__C64__: c64
+__CBM__: Commodore or Commodore-alike system
+__CBM510__: cbm510
+__CBM610__: cbm610
+__CX16__: cx16
+__GEOS__: GEOS system
+__GEOS_APPLE__: geos-apple
+__GEOS_CBM__: geos-cbm
+__LUNIX__: lunix
+__LYNX__: lynx
+__NES__: nes
+__OSIC1P__: osic1p
+__PET__: pet
+__PLUS4__: plus4
+__SIM6502__: sim6502
+__SIM65C02__: sim65c02
+__SUPERVISION__: supervision
+__SYM1__: sym1
+__VIC20__: vic20

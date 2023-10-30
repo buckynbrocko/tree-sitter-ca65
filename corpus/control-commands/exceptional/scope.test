@@ -34,7 +34,7 @@
         name: (pseudo_function)
         arguments: (expression_list
           (string_literal)
-          (scoped_access
+          (qualified_symbol
             (identifier)
             (identifier)
             (identifier))))))
@@ -45,7 +45,7 @@
         name: (pseudo_function)
         arguments: (expression_list
           (string_literal)
-          (scoped_access
+          (qualified_symbol
             (identifier)
             (ident_call
               name: (pseudo_function)

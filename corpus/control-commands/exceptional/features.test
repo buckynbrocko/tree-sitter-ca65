@@ -12,21 +12,21 @@ Features Control-Commands
 --------------------------------------------------------------------------------
 
 (source_file
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (plus))
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (minus))
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (plus))
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (minus))
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (plus))
-  (feature_toggle_command
+  (single_feature_command
     (command)
     quantifier: (minus)))

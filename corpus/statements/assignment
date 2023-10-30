@@ -24,20 +24,20 @@ var = $ + 2
     left: (identifier)
     right: (identifier))
   (assignment_statement
-    left: (scoped_access
+    left: (qualified_symbol
       (identifier)
       (identifier))
     right: (decimal_literal))
   (assignment_statement
-    left: (scoped_access
+    left: (qualified_symbol
       (identifier)
       (identifier))
     right: (identifier))
   (assignment_statement
-    left: (scoped_access
+    left: (qualified_symbol
       (identifier)
       (identifier))
-    right: (scoped_access
+    right: (qualified_symbol
       (identifier)
       (identifier)))
   (assignment_statement
@@ -55,7 +55,7 @@ var = $ + 2
   (assignment_statement
     left: (identifier)
     right: (binary_expression
-      left: (pseudo_variable
-        (dollar_PC))
+      left: 
+        (dollar_PC)
       operator: (plus)
       right: (decimal_literal))))

@@ -1,4 +1,4 @@
-.PHONY: init pre-commit publish doctor generate test test-update wasm dev-null foo bar
+.PHONY: init pre-commit publish doctor generate test test-update watch-tests wasm dev-null foo bar
 
 main: src/parser.c test
 
@@ -34,11 +34,18 @@ src/parser.c: grammar.js src/custom/*
 test: src/parser.c
 	npx tree-sitter test $(args)
 
+watch-tests:
+	scripts/watch-tests
+
 test-update: src/parser.c
 	npx tree-sitter test --update $(args)
 
 tree-sitter-ca65.wasm: src/parser.c
 	npx tree-sitter build-wasm
+
+.PHONY \
+playground: wasm
+	npx tree-sitter playground
 
 wasm: tree-sitter-ca65.wasm
 

@@ -13,13 +13,13 @@
 --------------------------------------------------------------------------------
 
 (source_file
-  (repeat_command
+  (repeat_block
     (command)
     iterations: (decimal_literal)
     (comment)
     body: (block)
     (command))
-  (repeat_command
+  (repeat_block
     (command)
     iterations: (decimal_literal)
     iterator: (identifier)

@@ -1,5 +1,5 @@
 ================================================================================
-Standard Labels
+standard labels
 ================================================================================
 
 Label:
@@ -10,6 +10,7 @@ YetAnotherLabel: rts ; and a comment
 NewStandardLabel:
 @CheapLabel: ; (again)
 @resetPalettesLoop:
+.ident (.sprintf ("L%04X", lcount)):
 
 --------------------------------------------------------------------------------
 
@@ -36,7 +37,15 @@ NewStandardLabel:
   (cheap_label_declaration
     name: (cheap_label
       (identifier)))
-      (comment)
-      (cheap_label_declaration
-        name: (cheap_label
-          (identifier))))
+  (comment)
+  (cheap_label_declaration
+    name: (cheap_label
+      (identifier)))
+  (label_declaration
+    name: (ident_call
+      name: (pseudo_function)
+      argument: (nominal_pseudo_function_call
+        name: (pseudo_function)
+        arguments: (expression_list
+          (string_literal)
+          (identifier))))))

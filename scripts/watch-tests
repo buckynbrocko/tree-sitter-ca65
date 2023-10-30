@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+fswatch --one-per-batch --latency 1 corpus grammar.js src/custom/components | while read -r;
+do
+    make test
+done

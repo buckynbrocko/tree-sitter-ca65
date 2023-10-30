@@ -14,6 +14,24 @@
     ]
   },
   {
+    "type": "_symbol",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "ident_call",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "qualified_symbol",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "binary_operator",
     "named": true,
     "subtypes": [
@@ -136,15 +154,11 @@
         "named": true
       },
       {
-        "type": "feature_command",
-        "named": true
-      },
-      {
-        "type": "feature_toggle_command",
-        "named": true
-      },
-      {
         "type": "file_opt_command",
+        "named": true
+      },
+      {
+        "type": "group_feature_command",
         "named": true
       },
       {
@@ -164,11 +178,19 @@
         "named": true
       },
       {
-        "type": "repeat_command",
+        "type": "repeat_block",
         "named": true
       },
       {
         "type": "scope_declaration",
+        "named": true
+      },
+      {
+        "type": "set_statement",
+        "named": true
+      },
+      {
+        "type": "single_feature_command",
         "named": true
       },
       {
@@ -244,7 +266,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -272,23 +298,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -297,14 +307,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -321,120 +323,6 @@
         },
         {
           "type": "unnamed_label_plus",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ambiguous_symbol",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "a",
-          "named": true
-        },
-        {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ambiguous_symbol_pair",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "a",
-          "named": true
-        },
-        {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -467,7 +355,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -495,23 +387,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -520,14 +396,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -544,18 +412,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -573,7 +429,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -601,23 +461,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -626,14 +470,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -650,18 +486,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -691,43 +515,7 @@
             "named": true
           },
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
+            "type": "_symbol",
             "named": true
           }
         ]
@@ -745,7 +533,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -773,23 +565,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -798,14 +574,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -822,18 +590,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -857,7 +613,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -885,23 +645,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -910,14 +654,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -934,18 +670,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -1069,7 +793,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -1097,23 +825,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -1122,14 +834,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -1146,18 +850,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -1181,7 +873,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -1209,23 +905,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -1234,14 +914,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -1258,18 +930,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           },
           {
@@ -1307,15 +967,11 @@
           "named": true
         },
         {
-          "type": "a",
+          "type": "PC",
           "named": true
         },
         {
-          "type": "ambiguous_symbol",
-          "named": true
-        },
-        {
-          "type": "ambiguous_symbol_pair",
+          "type": "_symbol",
           "named": true
         },
         {
@@ -1347,6 +1003,14 @@
           "named": true
         },
         {
+          "type": "contextual_sequence",
+          "named": true
+        },
+        {
+          "type": "contextual_symbol",
+          "named": true
+        },
+        {
           "type": "control_command",
           "named": true
         },
@@ -1355,23 +1019,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -1387,10 +1035,6 @@
           "named": true
         },
         {
-          "type": "label_sans_colon",
-          "named": true
-        },
-        {
           "type": "macro_invocation",
           "named": true
         },
@@ -1400,14 +1044,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -1433,18 +1069,6 @@
         {
           "type": "unnamed_label_plus",
           "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
         }
       ]
     }
@@ -1463,35 +1087,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
-          "named": true
-        },
-        {
-          "type": "f",
-          "named": true
-        },
-        {
           "type": "ident_call",
           "named": true
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -1514,6 +1114,11 @@
     }
   },
   {
+    "type": "comma",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "command",
     "named": true,
     "fields": {}
@@ -1527,43 +1132,7 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
+            "type": "_symbol",
             "named": true
           }
         ]
@@ -1581,7 +1150,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -1609,23 +1182,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -1634,14 +1191,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -1659,18 +1208,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       },
@@ -1687,7 +1224,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -1719,23 +1260,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -1744,14 +1269,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -1769,18 +1286,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       }
@@ -1797,39 +1302,103 @@
     }
   },
   {
+    "type": "contextual_sequence",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "blank_call",
+          "named": true
+        },
+        {
+          "type": "char_sans_terminator",
+          "named": true
+        },
+        {
+          "type": "cheap_label",
+          "named": true
+        },
+        {
+          "type": "comma",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hex_literal",
+          "named": true
+        },
+        {
+          "type": "nominal_pseudo_function_call",
+          "named": true
+        },
+        {
+          "type": "pseudo_variable",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "unnamed_label_minus",
+          "named": true
+        },
+        {
+          "type": "unnamed_label_plus",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "contextual_symbol",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ident_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "decimal_literal",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "disable_feature",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "feature_name",
-            "named": true
-          }
-        ]
-      },
-      "quantifier": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "minus",
-            "named": true
-          },
-          {
-            "type": "off",
-            "named": true
-          }
-        ]
-      }
-    }
   },
   {
     "type": "else",
@@ -1884,7 +1453,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -1912,23 +1485,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -1937,14 +1494,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -1962,18 +1511,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       }
@@ -1987,36 +1524,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "enable_feature",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "feature_name",
-            "named": true
-          }
-        ]
-      },
-      "quantifier": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "on",
-            "named": true
-          },
-          {
-            "type": "plus",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -2038,35 +1545,11 @@
         "required": false,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -2097,7 +1580,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -2125,23 +1612,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2150,14 +1621,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -2175,54 +1638,24 @@
         {
           "type": "unnamed_label_plus",
           "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "feature_command",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "disable_feature",
-          "named": true
-        },
-        {
-          "type": "enable_feature",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "feature_name",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "feature_toggle_command",
+    "type": "feature_toggle",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "contextual_keyword",
+            "named": true
+          }
+        ]
+      },
       "quantifier": {
         "multiple": false,
         "required": false,
@@ -2245,16 +1678,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2277,7 +1700,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -2309,23 +1736,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2334,14 +1745,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -2359,18 +1762,6 @@
         {
           "type": "unnamed_label_plus",
           "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
         }
       ]
     }
@@ -2381,7 +1772,7 @@
     "fields": {}
   },
   {
-    "type": "global_scope_access",
+    "type": "group_feature_command",
     "named": true,
     "fields": {},
     "children": {
@@ -2389,35 +1780,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "command",
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
+          "type": "feature_toggle",
           "named": true
         }
       ]
@@ -2445,7 +1812,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -2473,23 +1844,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -2498,14 +1853,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -2522,18 +1869,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -2577,7 +1912,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -2605,23 +1944,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -2630,14 +1953,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -2654,18 +1969,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -2709,7 +2012,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -2737,23 +2044,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2762,14 +2053,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -2786,18 +2069,6 @@
         },
         {
           "type": "unnamed_label_plus",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -2812,7 +2083,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -2840,23 +2115,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2865,14 +2124,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -2893,14 +2144,6 @@
         },
         {
           "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -2915,7 +2158,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -2943,23 +2190,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -2968,14 +2199,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -2995,15 +2218,7 @@
           "named": true
         },
         {
-          "type": "x",
-          "named": true
-        },
-        {
           "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -3018,7 +2233,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -3046,23 +2265,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -3071,14 +2274,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -3099,14 +2294,6 @@
         },
         {
           "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -3121,7 +2308,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
+          "named": true
+        },
+        {
+          "type": "_symbol",
           "named": true
         },
         {
@@ -3149,23 +2340,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -3174,14 +2349,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -3201,15 +2368,7 @@
           "named": true
         },
         {
-          "type": "x",
-          "named": true
-        },
-        {
           "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -3278,35 +2437,11 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -3324,7 +2459,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -3352,23 +2491,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -3377,14 +2500,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -3402,18 +2517,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       }
@@ -3428,35 +2531,11 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -3464,58 +2543,19 @@
     }
   },
   {
-    "type": "label_sans_colon",
+    "type": "macro_arguments",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "PC",
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "macro_argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "a",
+          "type": "_symbol",
           "named": true
         },
         {
@@ -3539,27 +2579,15 @@
           "named": true
         },
         {
+          "type": "comma",
+          "named": true
+        },
+        {
           "type": "decimal_literal",
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -3568,14 +2596,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -3592,18 +2612,6 @@
         },
         {
           "type": "unnamed_label_plus",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -3628,35 +2636,11 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -3692,142 +2676,18 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
+            "type": "_symbol",
             "named": true
           }
         ]
       }
     },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "a",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "binary_literal",
-          "named": true
-        },
-        {
-          "type": "blank_call",
-          "named": true
-        },
-        {
-          "type": "char_sans_terminator",
-          "named": true
-        },
-        {
-          "type": "cheap_label",
-          "named": true
-        },
-        {
-          "type": "decimal_literal",
-          "named": true
-        },
-        {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
-          "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "nominal_pseudo_function_call",
-          "named": true
-        },
-        {
-          "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "unnamed_label_minus",
-          "named": true
-        },
-        {
-          "type": "unnamed_label_plus",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
+          "type": "macro_arguments",
           "named": true
         }
       ]
@@ -3842,35 +2702,11 @@
       "required": true,
       "types": [
         {
-          "type": "a",
-          "named": true
-        },
-        {
-          "type": "f",
-          "named": true
-        },
-        {
           "type": "ident_call",
           "named": true
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -3952,35 +2788,11 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4005,20 +2817,33 @@
   {
     "type": "pseudo_variable",
     "named": true,
+    "fields": {}
+  },
+  {
+    "type": "qualified_symbol",
+    "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": false,
+      "multiple": true,
+      "required": true,
       "types": [
         {
-          "type": "PC",
+          "type": "global_scope",
+          "named": true
+        },
+        {
+          "type": "ident_call",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "repeat_command",
+    "type": "repeat_block",
     "named": true,
     "fields": {
       "body": {
@@ -4044,7 +2869,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -4072,23 +2901,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -4097,14 +2910,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -4122,18 +2927,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       },
@@ -4142,35 +2935,11 @@
         "required": false,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4206,35 +2975,11 @@
         "required": true,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4252,43 +2997,138 @@
     }
   },
   {
-    "type": "scoped_access",
+    "type": "set_statement",
     "named": true,
-    "fields": {},
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_symbol",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "blank_call",
+            "named": true
+          },
+          {
+            "type": "char_sans_terminator",
+            "named": true
+          },
+          {
+            "type": "cheap_label",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hex_literal",
+            "named": true
+          },
+          {
+            "type": "nominal_pseudo_function_call",
+            "named": true
+          },
+          {
+            "type": "pseudo_variable",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "unnamed_label_minus",
+            "named": true
+          },
+          {
+            "type": "unnamed_label_plus",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "a",
+          "type": "command",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "single_feature_command",
+    "named": true,
+    "fields": {
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "minus",
+            "named": true
+          },
+          {
+            "type": "off",
+            "named": true
+          },
+          {
+            "type": "on",
+            "named": true
+          },
+          {
+            "type": "plus",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "sp",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
+          "type": "command",
           "named": true
         }
       ]
@@ -4307,15 +3147,11 @@
           "named": true
         },
         {
-          "type": "a",
+          "type": "PC",
           "named": true
         },
         {
-          "type": "ambiguous_symbol",
-          "named": true
-        },
-        {
-          "type": "ambiguous_symbol_pair",
+          "type": "_symbol",
           "named": true
         },
         {
@@ -4347,6 +3183,14 @@
           "named": true
         },
         {
+          "type": "contextual_sequence",
+          "named": true
+        },
+        {
+          "type": "contextual_symbol",
+          "named": true
+        },
+        {
           "type": "control_command",
           "named": true
         },
@@ -4355,23 +3199,7 @@
           "named": true
         },
         {
-          "type": "f",
-          "named": true
-        },
-        {
-          "type": "global_scope_access",
-          "named": true
-        },
-        {
           "type": "hex_literal",
-          "named": true
-        },
-        {
-          "type": "ident_call",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -4387,10 +3215,6 @@
           "named": true
         },
         {
-          "type": "label_sans_colon",
-          "named": true
-        },
-        {
           "type": "macro_invocation",
           "named": true
         },
@@ -4400,14 +3224,6 @@
         },
         {
           "type": "pseudo_variable",
-          "named": true
-        },
-        {
-          "type": "scoped_access",
-          "named": true
-        },
-        {
-          "type": "sp",
           "named": true
         },
         {
@@ -4428,18 +3244,6 @@
         },
         {
           "type": "unnamed_label_plus",
-          "named": true
-        },
-        {
-          "type": "x",
-          "named": true
-        },
-        {
-          "type": "y",
-          "named": true
-        },
-        {
-          "type": "z",
           "named": true
         }
       ]
@@ -4489,35 +3293,11 @@
         "required": false,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4551,7 +3331,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -4579,23 +3363,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -4604,14 +3372,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -4628,18 +3388,6 @@
           },
           {
             "type": "unnamed_label_plus",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4719,35 +3467,11 @@
         "required": false,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4781,7 +3505,11 @@
             "named": false
           },
           {
-            "type": "a",
+            "type": "PC",
+            "named": true
+          },
+          {
+            "type": "_symbol",
             "named": true
           },
           {
@@ -4809,23 +3537,7 @@
             "named": true
           },
           {
-            "type": "f",
-            "named": true
-          },
-          {
-            "type": "global_scope_access",
-            "named": true
-          },
-          {
             "type": "hex_literal",
-            "named": true
-          },
-          {
-            "type": "ident_call",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -4834,14 +3546,6 @@
           },
           {
             "type": "pseudo_variable",
-            "named": true
-          },
-          {
-            "type": "scoped_access",
-            "named": true
-          },
-          {
-            "type": "sp",
             "named": true
           },
           {
@@ -4859,18 +3563,6 @@
           {
             "type": "unnamed_label_plus",
             "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
-            "named": true
           }
         ]
       },
@@ -4879,35 +3571,11 @@
         "required": false,
         "types": [
           {
-            "type": "a",
-            "named": true
-          },
-          {
-            "type": "f",
-            "named": true
-          },
-          {
             "type": "ident_call",
             "named": true
           },
           {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "sp",
-            "named": true
-          },
-          {
-            "type": "x",
-            "named": true
-          },
-          {
-            "type": "y",
-            "named": true
-          },
-          {
-            "type": "z",
             "named": true
           }
         ]
@@ -4931,10 +3599,6 @@
   },
   {
     "type": "#",
-    "named": false
-  },
-  {
-    "type": "#::",
     "named": false
   },
   {
@@ -5099,6 +3763,10 @@
   },
   {
     "type": "f",
+    "named": true
+  },
+  {
+    "type": "global_scope",
     "named": true
   },
   {

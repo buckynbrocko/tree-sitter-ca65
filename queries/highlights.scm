@@ -24,12 +24,9 @@
 
 ; (identifier) @tag
 
-(scoped_access
+(qualified_symbol
     (_)
-    ("::" (_) @attribute))
-(global_scope_access
-    (_) @attribute
-    ("::" (_) @attribute))
+    ("::" (identifier) @attribute))
 
 (immediate_mode
     "#" @operator)
@@ -37,7 +34,7 @@
 [
     (a)
     (f)
-    (sp)
+;    (sp)
     (x)
     (y)
     (z)
@@ -81,14 +78,11 @@
 (enum_declaration
     name: (identifier) @constant)
 
-(enable_feature
-    name: (_) @keyword.contextual
-    quantifier: (_) @operator)
-(disable_feature
+(feature_toggle
     name: (_) @keyword.contextual
     quantifier: (_) @operator)
 
-(feature_toggle_command
+(single_feature_command
     quantifier: (_) @operator)
 
 (file_opt_command

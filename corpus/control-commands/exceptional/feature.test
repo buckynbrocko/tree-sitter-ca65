@@ -12,43 +12,43 @@ Feature Control-Command
 --------------------------------------------------------------------------------
 
 (source_file
-  (feature_command
+  (group_feature_command
     (command)
-    (enable_feature
-      name: (feature_name)))
-  (feature_command
+    (feature_toggle
+      name: (contextual_keyword)))
+  (group_feature_command
     (command)
-    (enable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (plus)))
-  (feature_command
+  (group_feature_command
     (command)
-    (disable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (minus)))
-  (feature_command
+  (group_feature_command
     (command)
-    (enable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (on)))
-  (feature_command
+  (group_feature_command
     (command)
-    (disable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (off)))
-  (feature_command
+  (group_feature_command
     (command)
-    (enable_feature
-      name: (feature_name))
-    (disable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword))
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (minus))
-    (disable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (off))
-    (enable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (on))
-    (enable_feature
-      name: (feature_name)
+    (feature_toggle
+      name: (contextual_keyword)
       quantifier: (plus))))

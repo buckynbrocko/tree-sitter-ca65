@@ -16,5 +16,5 @@ adc \
     address: (immediate_mode
       (decimal_literal)))
   (comment)
-  (ambiguous_symbol
+  (contextual_symbol
     (identifier)))

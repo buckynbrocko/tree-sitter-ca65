@@ -1,0 +1,26 @@
+================================================================================
+.set command
+================================================================================
+
+one .set 1
+.lcount .set 0
+lcount .set lcount + 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (set_statement
+    left: (identifier)
+    (command)
+    right: (decimal_literal))
+  (set_statement
+    left: (identifier)
+    (command)
+    right: (decimal_literal))
+  (set_statement
+    left: (identifier)
+    (command)
+    right: (binary_expression
+      left: (identifier)
+      operator: (plus)
+      right: (decimal_literal))))
