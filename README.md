@@ -3,3 +3,4 @@ A [tree-sitter](https://tree-sitter.github.io/) grammar for the ca65 assembler o
 
 - [Project Roadmap](/meta/roadmap.md)
 - [Development](/meta/development.md)
+- [Project Layout](/meta/project-layout.md)
