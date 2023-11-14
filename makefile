@@ -7,10 +7,11 @@ init:
 	mkdir -p .ignore
 	touch -c .ignore/dev-null.asm
 
-pre-commit: src/parser.c test tree-sitter-ca65.wasm
+pre-commit: src/parser.c test: tree-sitter-ca65.wasm
 
 shared-library: src/parser.c
 	cd src && gcc -o ca65.so -shared parser.c -Os -fPIC -I .
+	cp -v src/ca65.so ~/.config/nvim/parser/ca65.co
 
 highlight-html: test
 	npx tree-sitter highlight misc/smb-movements.s --html > misc/smb-movements.html  
@@ -27,8 +28,9 @@ doctor:
 	scripts/doctor
 
 generate: src/parser.c
+	make shared-library
 
-src/parser.c: grammar.js src/custom/*
+src/parser.c: grammar.js etc/*.js
 	npx tree-sitter generate
 
 test: src/parser.c
