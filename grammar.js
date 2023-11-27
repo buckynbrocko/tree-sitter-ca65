@@ -14,23 +14,7 @@ const optional_field = utilities.optional_field;
 
 const grammar_ = () => grammar({
     name: "ca65",
-    conflicts: $ => [
-        // [$._EOL, $._union_struct_line],
-        [$._symbol, $._line, $.contextual_sequence],
-        [$._symbol, $.label_declaration],
-        // [$._symbol, $.contextual_sequence],
-        [$._expression, $.contextual_sequence],
-        [$._symbol, $.contextual_sequence],
-        [$.comma, $.contextual_sequence],
-        [$.macro_arguments, $.contextual_sequence],
-        // [$._expression, $._addressing_mode],
-        // [$.nominal_pseudo_function_call, $.ident_call, $.blank_call],
-        // [$.assignment_statement, $._expression],
-        // [$.unary_operator, $.pseudo_function],
-        // [$.unary_expression, $.binary_expression],
-        // [$.union_struct_member, $.macro_invocation],
-        // [$.pseudo_function, $.identifier],
-    ],
+    conflicts: $ => [],
     externals: _ => [],
     extras: $ => [
         $.line_continue,
@@ -61,17 +45,10 @@ const grammar_ = () => grammar({
         ],
         [
             "contextual_sequence",
-            "_symbol",
-        ],
-        [
             "contextual_symbol",
             "_symbol",
             "_single_symbol",
         ],
-        [
-            "_single_symbol",
-
-        ]
     ],
     supertypes: $ => [
         $.control_command,

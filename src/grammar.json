@@ -4778,33 +4778,7 @@
       "name": "_spacing"
     }
   ],
-  "conflicts": [
-    [
-      "_symbol",
-      "_line",
-      "contextual_sequence"
-    ],
-    [
-      "_symbol",
-      "label_declaration"
-    ],
-    [
-      "_expression",
-      "contextual_sequence"
-    ],
-    [
-      "_symbol",
-      "contextual_sequence"
-    ],
-    [
-      "comma",
-      "contextual_sequence"
-    ],
-    [
-      "macro_arguments",
-      "contextual_sequence"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [
     [
       {
@@ -4863,24 +4837,12 @@
       },
       {
         "type": "STRING",
-        "value": "_symbol"
-      }
-    ],
-    [
-      {
-        "type": "STRING",
         "value": "contextual_symbol"
       },
       {
         "type": "STRING",
         "value": "_symbol"
       },
-      {
-        "type": "STRING",
-        "value": "_single_symbol"
-      }
-    ],
-    [
       {
         "type": "STRING",
         "value": "_single_symbol"

@@ -7,7 +7,7 @@ init:
 	mkdir -p .ignore
 	touch -c .ignore/dev-null.asm
 
-pre-commit: src/parser.c test: tree-sitter-ca65.wasm
+pre-commit: src/parser.c test tree-sitter-ca65.wasm
 
 shared-library: src/parser.c
 	cd src && gcc -o ca65.so -shared parser.c -Os -fPIC -I .
