@@ -40,12 +40,9 @@ const grammar_ = () => grammar({
             "statement"
         ],
         [
-            "_line",
-            "_symbol",
-        ],
-        [
             "contextual_sequence",
             "contextual_symbol",
+            "_line",
             "_symbol",
             "_single_symbol",
         ],

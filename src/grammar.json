@@ -4823,21 +4823,15 @@
     [
       {
         "type": "STRING",
-        "value": "_line"
-      },
-      {
-        "type": "STRING",
-        "value": "_symbol"
-      }
-    ],
-    [
-      {
-        "type": "STRING",
         "value": "contextual_sequence"
       },
       {
         "type": "STRING",
         "value": "contextual_symbol"
+      },
+      {
+        "type": "STRING",
+        "value": "_line"
       },
       {
         "type": "STRING",
